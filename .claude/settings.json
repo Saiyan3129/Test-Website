@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(node screenshot.mjs http://localhost:3000 v2)",
+      "Bash(node screenshot.mjs http://localhost:3000 v3)",
+      "Bash(node screenshot.mjs http://localhost:3000 v4)",
+      "Bash(node slice.mjs)",
+      "Bash(curl -sf http://localhost:3000 -o /dev/null)",
+      "Bash(node screenshot.mjs http://localhost:3000 round1)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-19-round1.png\")",
+      "Bash(node screenshot.mjs http://localhost:3000 round2)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-20-round2.png\")",
+      "Bash(node screenshot.mjs http://localhost:3000 round3)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-21-round3.png\")",
+      "Bash(node screenshot.mjs http://localhost:3000 round4)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-22-round4.png\")",
+      "Bash(node screenshot.mjs http://localhost:3000 round5)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-23-round5.png\")",
+      "Bash(node swap-images.mjs)",
+      "Bash(node screenshot.mjs http://localhost:3000 tester-v1)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-24-tester-v1.png\")",
+      "Bash(node screenshot.mjs http://localhost:3000 tester-v2)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-25-tester-v2.png\")",
+      "Bash(node screenshot.mjs http://localhost:3000 tester-v3)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-26-tester-v3.png\")",
+      "Bash(node fetch-shoes.mjs)",
+      "Bash(node screenshot.mjs http://localhost:3000 tester-final)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-27-tester-final.png\")",
+      "Bash(node screenshot-themes.mjs)",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-29-dark.png\")",
+      "Bash(node slice.mjs \"./temporary screenshots/screenshot-28-light.png\")",
+      "PowerShell(git init -b main)",
+      "PowerShell(git config user.name \"GMD\")",
+      "PowerShell(git config user.email \"dumx2gerard31@gmail.com\")",
+      "PowerShell(git add .)"
+    ]
+  }
+}

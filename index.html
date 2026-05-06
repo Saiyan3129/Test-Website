@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tester.io — Handcrafted Loafers & Sneakers</title>
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&display=swap" rel="stylesheet" />
+  <script>
+    // Apply theme BEFORE first paint to avoid flash of incorrect theme
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'system-ui', 'sans-serif'],
+            script: ['Allura', 'cursive'],
+          },
+          colors: {
+            ink: '#2c2b29',
+            paper: '#ffffff',
+            stone: '#f4f1ec',
+            border: '#e8e6e1',
+            muted: '#8b8884',
+            gold: {
+              DEFAULT: '#C6A559',
+              light: '#E6B979',
+              deep: '#9c8240',
+            },
+            night: '#1a1a1a',
+            graphite: '#252422',
+          },
+          letterSpacing: {
+            'mega': '0.32em',
+            'wider2': '0.18em',
+          },
+          transitionTimingFunction: {
+            spring: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { font-size: 14px; }
+    body {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      color: #2c2b29;
+      background: #fff;
+      font-weight: 500;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Tester.io gold gradient — used for primary CTAs and the brand wordmark */
+    .text-gold-grad {
+      background: linear-gradient(135deg, #E6B979 0%, #C6A559 50%, #9c8240 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .bg-gold-grad {
+      background: linear-gradient(135deg, #E6B979 0%, #C6A559 100%);
+    }
+    .bg-gold-grad-r {
+      background: linear-gradient(135deg, #C6A559 0%, #E6B979 100%);
+    }
+    .ring-gold { box-shadow: 0 0 0 1px rgba(198,165,89,0.5), 0 6px 18px -6px rgba(198,165,89,0.35); }
+    *, *::before, *::after { box-sizing: border-box; }
+    .ezra-script {
+      font-family: 'Allura', cursive;
+      background: linear-gradient(180deg, #F4DBA4 0%, #E6B979 35%, #C6A559 60%, #9c8240 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.05);
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55));
+      letter-spacing: -0.01em;
+    }
+    .wood-bg {
+      background-color: #2a1a10;
+      background-image:
+        repeating-linear-gradient(90deg,
+          rgba(255,255,255,0.012) 0px,
+          rgba(255,255,255,0.012) 1px,
+          rgba(0,0,0,0.06) 1px,
+          rgba(0,0,0,0.06) 3px),
+        repeating-linear-gradient(0deg,
+          rgba(0,0,0,0.0) 0px,
+          rgba(0,0,0,0.0) 220px,
+          rgba(0,0,0,0.35) 220px,
+          rgba(0,0,0,0.35) 224px),
+        radial-gradient(120% 80% at 50% 20%, #4b2c1a 0%, #2a160c 60%, #160a05 100%);
+      background-blend-mode: normal, multiply, normal;
+    }
+    .ny-art-bg {
+      background-color: #c8b8a4;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,80,60,0.18), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(60,80,160,0.15), transparent 40%),
+        linear-gradient(135deg, #d6c5ad 0%, #b69d7e 100%);
+    }
+    .street-bg-l {
+      background-color: #6b6256;
+      background-image:
+        radial-gradient(70% 60% at 30% 30%, #8a7a64 0%, #5d4f3f 70%),
+        linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
+    }
+    .street-bg-r {
+      background-color: #5e8983;
+      background-image:
+        radial-gradient(70% 60% at 50% 40%, #9bbab2 0%, #4a6b65 80%),
+        linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.35) 100%);
+    }
+    .sofa-bg {
+      background-color: #d39570;
+      background-image:
+        radial-gradient(60% 80% at 50% 50%, #e6a679 0%, #b66c43 70%, #6f3e22 100%);
+    }
+    .hero-l {
+      background-color: #2b201b;
+      background-image:
+        radial-gradient(60% 80% at 35% 45%, #6b5246 0%, #2c1f17 70%, #160c08 100%);
+    }
+    .hero-r {
+      background-color: #d6c4ad;
+      background-image:
+        radial-gradient(60% 70% at 60% 50%, #efe3d0 0%, #b8a48a 60%, #80715b 100%);
+    }
+    .accessories-bg {
+      background-color: #cdb89d;
+      background-image:
+        radial-gradient(50% 60% at 60% 50%, #e3d2bc 0%, #a18a6f 80%);
+    }
+    .colab-bg {
+      background-color: #b89c7c;
+      background-image:
+        radial-gradient(60% 70% at 40% 50%, #c8b193 0%, #8a6c4e 90%);
+    }
+    .product-bg { background: #f4f1ec; }
+    /* Product image: subtle gold ring on hover */
+    .product-card .aspect-product { transition: box-shadow 320ms cubic-bezier(0.22,1,0.36,1); }
+    .product-card:hover .aspect-product {
+      box-shadow: 0 18px 38px -16px rgba(198,165,89,0.35), 0 2px 6px -3px rgba(44,43,41,0.06);
+    }
+    .shoe-black { --shoe: #1a1715; }
+    .shoe-cream { --shoe: #e8dec5; }
+    .shoe-tan   { --shoe: #b88a52; }
+    .shoe-brown { --shoe: #4a2f1f; }
+    .shoe-darkbrown { --shoe: #2c1c10; }
+    .shoe-navy  { --shoe: #1a2240; }
+    .shoe-white { --shoe: #efe9d9; }
+    .shoe-grey  { --shoe: #6c635a; }
+    .shoe-red   { --shoe: #983538; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.85rem 1.6rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: 1px solid currentColor;
+      transition: transform 280ms cubic-bezier(0.22,1,0.36,1),
+                  background-color 280ms cubic-bezier(0.22,1,0.36,1),
+                  color 280ms cubic-bezier(0.22,1,0.36,1);
+    }
+    /* Primary — Tester.io gold gradient (per brand guidelines: GET STARTED) */
+    .btn-dark {
+      background: linear-gradient(135deg, #E6B979 0%, #C6A559 100%);
+      color: #1a1a1a;
+      border-color: transparent;
+      font-weight: 700;
+      box-shadow: 0 8px 22px -10px rgba(198,165,89,0.55), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .btn-dark:hover {
+      background: linear-gradient(135deg, #C6A559 0%, #E6B979 100%);
+      color: #1a1a1a;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px -10px rgba(198,165,89,0.6), inset 0 1px 0 rgba(255,255,255,0.45);
+    }
+    .btn-dark:active { transform: translateY(0); }
+    .btn-dark:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+    /* Secondary — outlined LEARN MORE-style */
+    .btn-light { background: transparent; color: #2c2b29; border-color: #2c2b29; font-weight: 600; }
+    .btn-light:hover { background: #2c2b29; color: #E6B979; transform: translateY(-1px); }
+    .btn-light:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+    .btn-ghost { background: transparent; color: #fff; border-color: rgba(230,185,121,0.7); font-weight: 600; }
+    .btn-ghost:hover { background: rgba(230,185,121,0.12); color: #E6B979; transform: translateY(-1px); }
+    .btn-ghost:focus-visible { outline: 2px solid #E6B979; outline-offset: 3px; }
+    .nav-link {
+      font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+      transition: opacity 200ms ease, transform 200ms cubic-bezier(0.22,1,0.36,1);
+      position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -6px;
+      height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left;
+      transition: transform 280ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+    .product-card { transition: transform 320ms cubic-bezier(0.22,1,0.36,1); }
+    .product-card:hover { transform: translateY(-2px); }
+    .product-card .img-wrap { transition: transform 600ms cubic-bezier(0.22,1,0.36,1); }
+    .product-card:hover .img-wrap { transform: scale(1.02); }
+
+    .marquee-thin {
+      font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 500;
+    }
+    .grain::after{
+      content:''; position:absolute; inset:0; pointer-events:none; opacity:.18; mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .img-overlay::before{
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55) 100%);
+      pointer-events:none;
+    }
+    .img-mix::after{
+      content:''; position:absolute; inset:0; mix-blend-mode: multiply; pointer-events:none;
+      background: rgba(44,43,41,0.04);
+    }
+    .cookie {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(4px);
+    }
+    .aspect-product { aspect-ratio: 1 / 1; }
+    .aspect-tall { aspect-ratio: 4 / 5; }
+    .aspect-wide { aspect-ratio: 16 / 9; }
+    .aspect-banner { aspect-ratio: 21 / 9; }
+    .aspect-feature { aspect-ratio: 3 / 2; }
+    .divider-y { border-top: 1px solid #e8e6e1; }
+    .ticker {
+      animation: ticker 40s linear infinite;
+      will-change: transform;
+    }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .shadow-elev1 { box-shadow: 0 6px 20px -10px rgba(44,43,41,0.18), 0 2px 6px -3px rgba(44,43,41,0.06); }
+    .shadow-elev2 { box-shadow: 0 18px 40px -22px rgba(44,43,41,0.28), 0 4px 12px -6px rgba(44,43,41,0.08); }
+
+    /* ================== Theme toggle button ================== */
+    .theme-toggle {
+      position: relative;
+      display: inline-flex;
+      width: 2rem; height: 2rem;
+      align-items: center; justify-content: center;
+      border-radius: 9999px;
+      color: currentColor;
+      overflow: hidden;
+      transition: opacity 200ms ease, background-color 280ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .theme-toggle:hover { opacity: 0.8; background: rgba(198,165,89,0.08); }
+    .theme-toggle:focus-visible { outline: 2px solid #C6A559; outline-offset: 3px; }
+    .theme-toggle svg { position: absolute; width: 1.25rem; height: 1.25rem; }
+    .theme-toggle .icon-sun, .theme-toggle .icon-moon {
+      transition: transform 300ms cubic-bezier(0.34,1.56,0.64,1),
+                  opacity 300ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    /* Light mode shows sun, hides moon */
+    html:not(.dark) .icon-sun { transform: scale(1) translateY(0); opacity: 1; }
+    html:not(.dark) .icon-moon { transform: scale(0.5) translateY(20px); opacity: 0; }
+    /* Dark mode shows moon, hides sun */
+    html.dark .icon-sun { transform: scale(0.5) translateY(20px); opacity: 0; }
+    html.dark .icon-moon { transform: scale(1) translateY(0); opacity: 1; }
+
+    /* ================== Dark mode overrides ================== */
+    html.dark body { background: #0f0f0f; color: #e8e6e1; }
+    html.dark header { background: rgba(15,15,15,0.92) !important; border-color: #252422 !important; }
+    html.dark .nav-link, html.dark .text-ink { color: #e8e6e1; }
+    html.dark .text-ink\/80 { color: rgba(232,230,225,0.85); }
+    html.dark .text-ink\/70 { color: rgba(232,230,225,0.7); }
+    html.dark .border-border, html.dark .border-ink { border-color: #2a2a2a !important; }
+    html.dark .text-muted { color: #9b9892; }
+
+    /* Hero overlay card */
+    html.dark .hero-overlay {
+      background: rgba(20,20,20,0.82) !important;
+      color: #e8e6e1;
+      border: 1px solid rgba(198,165,89,0.18);
+    }
+    html.dark .hero-overlay h1 { color: #e8e6e1; }
+    html.dark .hero-overlay p { color: rgba(232,230,225,0.7); }
+
+    /* Cookie banner */
+    html.dark .cookie {
+      background: rgba(20,20,20,0.96);
+      border-color: #2a2a2a !important;
+    }
+    html.dark .cookie p { color: rgba(232,230,225,0.85); }
+
+    /* Product cards: switch cream surface to graphite */
+    html.dark .product-bg { background: #1f1d1b; }
+    html.dark .product-card .aspect-product { box-shadow: inset 0 0 0 1px #2a2a2a; }
+    html.dark .product-card:hover .aspect-product {
+      box-shadow: inset 0 0 0 1px rgba(198,165,89,0.35), 0 18px 38px -16px rgba(198,165,89,0.4);
+    }
+
+    /* Secondary outlined buttons read better against dark backgrounds */
+    html.dark .btn-light { color: #e8e6e1; border-color: #e8e6e1; background: transparent; }
+    html.dark .btn-light:hover { background: #e8e6e1; color: #0f0f0f; }
+
+    /* Footer */
+    html.dark footer {
+      background: #0f0f0f;
+      border-color: #252422 !important;
+    }
+    html.dark footer h4 { color: #e8e6e1; }
+    html.dark footer ul li a { color: rgba(232,230,225,0.78); }
+    html.dark footer ul li a:hover { color: #E6B979; }
+    html.dark footer .divider-y { border-color: #252422; }
+    /* Newsletter input */
+    html.dark footer form { border-color: rgba(230,185,121,0.55); }
+    html.dark footer form input[type="email"] { color: #e8e6e1; }
+    html.dark footer form input[type="email"]::placeholder { color: rgba(232,230,225,0.45); }
+    /* Currency select */
+    html.dark footer select { color: #e8e6e1; border-color: #2a2a2a; background: transparent; }
+    html.dark footer select option { color: #2c2b29; }
+    /* Payment marks */
+    html.dark footer span.border { border-color: #2a2a2a !important; color: rgba(232,230,225,0.7); }
+
+    /* Soften the cream product backgrounds inside the dark feature sections too */
+    html.dark .ny-art-bg { filter: brightness(0.85); }
+    html.dark .accessories-bg { filter: brightness(0.85); }
+    html.dark .colab-bg { filter: brightness(0.85); }
+    html.dark .sofa-bg { filter: brightness(0.85); }
+    html.dark .hero-r { filter: brightness(0.7); }
+
+    /* Smooth transitions for the swap */
+    body, header, .product-bg, footer, .cookie, .hero-overlay, .btn-light {
+      transition: background-color 280ms cubic-bezier(0.22,1,0.36,1),
+                  color 280ms cubic-bezier(0.22,1,0.36,1),
+                  border-color 280ms cubic-bezier(0.22,1,0.36,1);
+    }
+  </style>
+</head>
+<body class="text-ink">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border">
+    <nav class="grid grid-cols-3 items-center px-6 lg:px-10 h-[59px]">
+      <ul class="flex items-center gap-7">
+        <li><a class="nav-link" href="#">New</a></li>
+        <li><a class="nav-link" href="#">Men</a></li>
+        <li><a class="nav-link" href="#">Women</a></li>
+        <li><a class="nav-link" href="#">Custom</a></li>
+        <li><a class="nav-link hidden lg:inline-block" href="#">Loyalty</a></li>
+      </ul>
+      <a href="#" class="justify-self-center flex items-center gap-2 group" aria-label="Tester.io home">
+        <img src="brand_assets/Tester%20Logo.png" alt="" class="h-8 w-auto drop-shadow-[0_4px_10px_rgba(198,165,89,0.35)] transition-transform duration-300 ease-spring group-hover:-translate-y-0.5" />
+        <span class="text-[1.15rem] font-bold tracking-tight text-gold-grad">Tester<span class="font-medium">.io</span></span>
+      </a>
+      <ul class="flex items-center gap-7 justify-self-end">
+        <li><a class="nav-link" href="#">Account</a></li>
+        <li><a class="nav-link" href="#">Search</a></li>
+        <li><a class="nav-link" href="#">Cart (0)</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+            <!-- Sun -->
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <!-- Moon -->
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO: Plus Court Sneaker (split) -->
+  <section class="relative">
+    <div class="grid grid-cols-1 md:grid-cols-2 min-h-[78vh] md:min-h-[82vh]">
+      <div class="relative hero-l overflow-hidden grain">
+        <img src="images/shoes/hero-l.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-overlay" />
+      </div>
+      <div class="relative hero-r overflow-hidden grain">
+        <img src="images/shoes/hero-r.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-multiply" />
+      </div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <div class="hero-overlay bg-white/85 backdrop-blur-sm px-10 py-7 text-center pointer-events-auto shadow-elev2">
+          <p class="text-[0.72rem] tracking-[0.32em] uppercase text-muted mb-3">Introducing</p>
+          <h1 class="text-2xl md:text-[1.8rem] font-medium tracking-[-0.01em] mb-5">Plus Court Sneaker</h1>
+          <a href="#" class="btn btn-dark">Now Live</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cookie banner -->
+    <div class="cookie absolute bottom-0 left-0 right-0 border-t border-border">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-6 lg:px-10 py-4">
+        <p class="text-[0.78rem] leading-relaxed text-ink/80 max-w-3xl">
+          Our website uses First and Third Party cookies to ensure you get the best experience on our website and provide personalised advertisements/content. Consent to all Cookies using the 'Accept' button or the 'Preferences' button for more information.
+        </p>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="#" class="btn btn-light !py-2.5 !px-4 !text-[0.7rem]">Preferences</a>
+          <a href="#" class="btn btn-dark !py-2.5 !px-4 !text-[0.7rem]">Accept</a>
+          <a href="#" class="btn btn-light !py-2.5 !px-4 !text-[0.7rem]">Decline</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID: Plus Court Sneakers -->
+  <section class="px-6 lg:px-10 pt-16 pb-10">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #e8dec5">
+            <div class="img-wrap absolute inset-0 flex items-center justify-center">
+              <img src="images/shoes/sneaker-02.jpg" alt="Plus Court Cream Sneaker" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court Cream Sneaker — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
+            <div class="img-wrap absolute inset-0">
+              <img src="images/shoes/sneaker-03.jpg" alt="Plus Court Black Sneaker" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court Black Sneaker — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #dcd5c2">
+            <div class="img-wrap absolute inset-0">
+              <img src="images/shoes/sneaker-04.jpg" alt="Plus Court Vintage White Sneaker" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court Vintage White Sneaker — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #efe9d9">
+            <div class="img-wrap absolute inset-0">
+              <img src="images/shoes/sneaker-06.jpg" alt="Plus Court White Sneaker — Women's" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court White Sneaker — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,200</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #efe9d9">
+            <div class="img-wrap absolute inset-0">
+              <img src="images/shoes/sneaker-07.jpg" alt="Plus Court White Diamond Sneaker" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court White Diamond Sneaker — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- THE EZRA LOAFER feature -->
+  <section class="relative wood-bg overflow-hidden grain">
+    <div class="relative aspect-banner min-h-[440px] md:min-h-[560px] flex items-center">
+      <div class="absolute inset-0 flex items-center justify-end pr-[6%]">
+        <div class="flex gap-10 items-end">
+          <img src="images/shoes/shoe-01.jpg" alt="" class="w-[34vw] max-w-[460px] drop-shadow-[0_30px_30px_rgba(0,0,0,0.55)]" />
+          <img src="images/shoes/shoe-02.jpg" alt="" class="w-[34vw] max-w-[460px] drop-shadow-[0_30px_30px_rgba(0,0,0,0.55)]" />
+        </div>
+      </div>
+      <div class="relative z-10 pl-[6%] pr-6 pt-6">
+        <h2 class="ezra-script text-[5rem] md:text-[7rem] leading-[0.9] mb-2">The&nbsp;Ezra</h2>
+        <h2 class="ezra-script text-[5rem] md:text-[7rem] leading-[0.9]">Loafer</h2>
+      </div>
+      <div class="absolute bottom-8 left-[6%] text-white">
+        <p class="marquee-thin mb-3 text-white/90">Now Back In Stock</p>
+        <a href="#" class="btn btn-light">Shop Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID: Ezra Loafers -->
+  <section class="px-6 lg:px-10 pt-12 pb-10">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
+            <img src="images/shoes/shoe-03.jpg" alt="Ezra Black Tumbled" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Black Tumbled Rachel Loafer — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #b88a52">
+            <img src="images/shoes/shoe-04.jpg" alt="Ezra Tan Suede" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede Rachel Loafer — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4a2f1f">
+            <img src="images/shoes/shoe-05.jpg" alt="Ezra Brown Pebble" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble Rachel Loafer — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #3d2418">
+            <img src="images/shoes/shoe-06.jpg" alt="Ezra Brown Pebble Womens" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble Rachel Loafer — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #a87c44">
+            <img src="images/shoes/shoe-07.jpg" alt="Ezra Tan Suede Womens" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede Rachel Loafer — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- LDN II NYC FEATURE -->
+  <section class="relative ny-art-bg overflow-hidden">
+    <div class="relative aspect-banner min-h-[460px] md:min-h-[600px]">
+      <img src="images/shoes/lifestyle-01.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90" />
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%)"></div>
+      <div class="absolute right-[6%] bottom-10 text-white text-right">
+        <p class="ezra-script text-5xl md:text-6xl leading-tight">LDN II NYC</p>
+        <p class="marquee-thin mt-1 mb-4">Collection</p>
+        <a href="#" class="btn btn-light">Shop Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID: NY Loafers -->
+  <section class="px-6 lg:px-10 pt-12 pb-10">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
+            <img src="images/shoes/shoe-08.jpg" alt="" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Wilde NY Black + White Penny Loafer — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱13,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
+            <img src="images/shoes/boot-02.jpg" alt="" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Wilde NY Black + White Penny Loafer — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱13,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a2240">
+            <img src="images/shoes/boot-03.jpg" alt="" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Winston NY Navy Suede Mule — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a2240">
+            <img src="images/shoes/sneaker-01.jpg" alt="" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Winston NY Navy Suede Mule — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #2a2624">
+            <img src="images/shoes/shoe-04.jpg" alt="" class="w-full h-full object-cover" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Wilde Black + Cream Box Stitch Penny — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱13,500</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- TWO MODEL SPLIT -->
+  <section>
+    <div class="grid grid-cols-2">
+      <div class="relative street-bg-l grain min-h-[540px] md:min-h-[640px] overflow-hidden">
+        <img src="images/shoes/lifestyle-02.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%)"></div>
+      </div>
+      <div class="relative street-bg-r grain min-h-[540px] md:min-h-[640px] overflow-hidden">
+        <img src="images/shoes/lifestyle-03.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%)"></div>
+        <div class="absolute right-8 bottom-8 text-white text-right">
+          <p class="marquee-thin">Moments</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS — six motif loafers row on dark wood -->
+  <section class="relative wood-bg grain overflow-hidden">
+    <div class="relative aspect-banner min-h-[420px] md:min-h-[520px]">
+      <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 grid grid-cols-6 gap-3 px-[5%]">
+        <img src="images/shoes/shoe-01.jpg" class="w-full" alt="" />
+        <img src="images/shoes/shoe-02.jpg" class="w-full" alt="" />
+        <img src="images/shoes/shoe-03.jpg" class="w-full" alt="" />
+        <img src="images/shoes/shoe-04.jpg" class="w-full" alt="" />
+        <img src="images/shoes/shoe-05.jpg" class="w-full" alt="" />
+        <img src="images/shoes/shoe-06.jpg" class="w-full" alt="" />
+      </div>
+      <div class="absolute right-8 bottom-8">
+        <a href="#" class="btn btn-light">Shop Best-Sellers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID: Best Seller Loafers -->
+  <section class="px-6 lg:px-10 pt-12 pb-10">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
+            <img src="images/shoes/shoe-07.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Hadley Black Box Stitch Loafer</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #5a3b25">
+            <img src="images/shoes/shoe-08.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Wilde Brown Tumbled Penny Loafer</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #2a2624">
+            <img src="images/shoes/boot-02.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Bloomsbury Lips Embroidered Loafer</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #dcd2bc">
+            <img src="images/shoes/boot-03.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Bloomsbury Cream Lips Loafer</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
+            <img src="images/shoes/shoe-01.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Wilde Black Tumbled Penny Loafer</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- TWO IMAGE: CO-LABS / ACCESSORIES -->
+  <section>
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="relative colab-bg grain min-h-[520px] md:min-h-[620px] overflow-hidden">
+        <img src="images/shoes/lifestyle-05.jpg" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-95" alt="" />
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.4) 100%)"></div>
+        <div class="absolute left-8 bottom-8">
+          <a href="#" class="btn btn-light">Shop Co-Labs</a>
+        </div>
+      </div>
+      <div class="relative accessories-bg grain min-h-[520px] md:min-h-[620px] overflow-hidden">
+        <img src="images/shoes/lifestyle-06.jpg" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-95" alt="" />
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.4) 100%)"></div>
+        <div class="absolute right-8 bottom-8">
+          <a href="#" class="btn btn-light">Shop Accessories</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTER × ATELIER COLLAB -->
+  <section class="relative sofa-bg grain overflow-hidden">
+    <div class="relative min-h-[520px] md:min-h-[640px]">
+      <img src="images/shoes/shoe-02.jpg" class="absolute inset-0 w-full h-full object-cover" alt="" />
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 30%, rgba(0,0,0,0.65) 100%)"></div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white px-6 text-center">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="w-2 h-2 rounded-full bg-gold inline-block"></span>
+          <span class="marquee-thin text-gold-light">Collaboration</span>
+          <span class="w-2 h-2 rounded-full bg-gold inline-block"></span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">ATELIER STUDIO</h2>
+        <p class="mt-3 text-[0.95rem] tracking-[0.32em] uppercase">Tester<span class="font-light">.io</span></p>
+        <a href="#" class="btn btn-dark mt-7">Now Live</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID: Final mix -->
+  <section class="px-6 lg:px-10 pt-12 pb-16">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4a2f1f">
+            <img src="images/shoes/shoe-03.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Rachel Loafer — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #151312">
+            <img src="images/shoes/sneaker-02.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Atelier Black Rachel Loafer — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4d2c1c">
+            <img src="images/shoes/sneaker-04.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Sneaker — Men's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4d2c1c">
+            <img src="images/shoes/tee-01.jpg" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Sneaker — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+          </div>
+        </a>
+      </article>
+      <article class="product-card">
+        <a href="#" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #efe9d9">
+            <img src="https://loremflickr.com/700/700/tshirt,cream,fashion?lock=105" referrerpolicy="no-referrer" class="w-full h-full object-cover" alt="" />
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Atelier Essex Jersey T-Shirt</h3>
+            <p class="text-[0.84rem] text-ink/80 mt-1">₱5,500</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-border pt-12 pb-8 px-6 lg:px-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div>
+        <h4 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-5">Social</h4>
+        <ul class="flex items-center gap-4 text-ink/80">
+          <li><a href="#" aria-label="Facebook" class="hover:text-ink transition-colors duration-200">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.14 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.8 8.44-4.94 8.44-9.94z"/></svg>
+          </a></li>
+          <li><a href="#" aria-label="Instagram" class="hover:text-ink transition-colors duration-200">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.96c-3.14 0-3.51.01-4.75.07-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.83-.39.39-.63.76-.83 1.27-.15.39-.33.97-.38 2.04C2.13 9.49 2.12 9.86 2.12 13s.01 3.51.07 4.75c.05 1.07.23 1.65.38 2.04.2.51.44.88.83 1.27.39.39.76.63 1.27.83.39.15.97.33 2.04.38 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c1.07-.05 1.65-.23 2.04-.38.51-.2.88-.44 1.27-.83.39-.39.63-.76.83-1.27.15-.39.33-.97.38-2.04.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.05-1.07-.23-1.65-.38-2.04a3.42 3.42 0 0 0-.83-1.27 3.42 3.42 0 0 0-1.27-.83c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.61-.07-4.75-.07zm0 3.34a4.54 4.54 0 1 1 0 9.08 4.54 4.54 0 0 1 0-9.08zm0 7.5a2.96 2.96 0 1 0 0-5.92 2.96 2.96 0 0 0 0 5.92zm5.78-7.7a1.06 1.06 0 1 1-2.12 0 1.06 1.06 0 0 1 2.12 0z"/></svg>
+          </a></li>
+          <li><a href="#" aria-label="TikTok" class="hover:text-ink transition-colors duration-200">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.59-1.16-2.59-2.59a2.59 2.59 0 0 1 3.59-2.39V9.78a6.06 6.06 0 0 0-1-.08 6 6 0 1 0 6 6V8.83a8.16 8.16 0 0 0 4.77 1.52V7.26a4.85 4.85 0 0 1-2.03-1.44z"/></svg>
+          </a></li>
+          <li><a href="#" aria-label="YouTube" class="hover:text-ink transition-colors duration-200">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.13C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.47A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.13C4.4 20.4 12 20.4 12 20.4s7.6 0 9.4-.47a3 3 0 0 0 2.1-2.13A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+          </a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-5">Help</h4>
+        <ul class="space-y-2 text-[0.85rem] text-ink/80">
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Shipping</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Returns</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">FAQs</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Sizing Guide</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Product Care</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-5">Brand</h4>
+        <ul class="space-y-2 text-[0.85rem] text-ink/80">
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Our Story</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">The Factory</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Tester World</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Showrooms</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">Visit Our Stores</a></li>
+          <li><a class="hover:text-ink transition-colors duration-200" href="#">FA.Q. — Programmes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-5">Mail</h4>
+        <p class="text-[0.85rem] text-ink/80 leading-relaxed mb-4">Sign up for 10% off your first order plus the latest Tester.io news, events and exclusive early access to product drops. Conditions apply.</p>
+        <form class="flex items-stretch border border-ink">
+          <input type="email" placeholder="Enter Your Email Address" class="flex-1 px-3 py-3 text-[0.82rem] bg-transparent outline-none placeholder:text-ink/50" />
+          <button type="submit" class="px-5 bg-ink text-white text-[0.72rem] tracking-[0.2em] uppercase transition-colors duration-200 hover:bg-ink/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="divider-y mt-12 pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <p class="text-[0.78rem] text-ink/70">© 2026 — Tester.io &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; Terms &amp; Conditions</p>
+      <div class="flex items-center gap-3">
+        <select class="text-[0.78rem] bg-transparent border border-border px-3 py-2 outline-none">
+          <option>Philippines (PHP ₱)</option>
+          <option>United Kingdom (GBP £)</option>
+          <option>United States (USD $)</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-3 text-ink/70">
+        <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">PayPal</span>
+        <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">MC</span>
+        <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">VISA</span>
+        <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">AMEX</span>
+        <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">JCB</span>
+        <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">DISC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle: persists choice and respects system preference on first visit.
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var isDark = document.documentElement.classList.contains('dark');
+        var next = isDark ? 'light' : 'dark';
+        document.documentElement.classList.toggle('dark', next === 'dark');
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        btn.setAttribute('aria-pressed', String(next === 'dark'));
+      });
+      // Initial aria state
+      btn.setAttribute('aria-pressed', String(document.documentElement.classList.contains('dark')));
+    })();
+  </script>
+</body>
+</html>

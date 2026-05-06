@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Working / debug screenshots
+temporary screenshots/
+slices/
+Screen Shot 2026-05-06 at 23.39.48-fullpage.png
+
+# Local Claude settings
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
