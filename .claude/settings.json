@@ -33,7 +33,9 @@
       "PowerShell(git init -b main)",
       "PowerShell(git config user.name \"GMD\")",
       "PowerShell(git config user.email \"dumx2gerard31@gmail.com\")",
-      "PowerShell(git add .)"
+      "PowerShell(git add .)",
+      "PowerShell(git remote add origin https://github.com/Saiyan3129/Test-Website.git)",
+      "PowerShell(git push -u origin main)"
     ]
   }
 }

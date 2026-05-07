@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
   <script>
     // Apply theme BEFORE first paint to avoid flash of incorrect theme
     (function () {
@@ -28,6 +28,7 @@
           fontFamily: {
             sans: ['Montserrat', 'system-ui', 'sans-serif'],
             script: ['Allura', 'cursive'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
           },
           colors: {
             ink: '#2c2b29',
@@ -252,6 +253,328 @@
     .shadow-elev1 { box-shadow: 0 6px 20px -10px rgba(44,43,41,0.18), 0 2px 6px -3px rgba(44,43,41,0.06); }
     .shadow-elev2 { box-shadow: 0 18px 40px -22px rgba(44,43,41,0.28), 0 4px 12px -6px rgba(44,43,41,0.08); }
 
+    /* ==================== Editorial section header ==================== */
+    .editorial-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .editorial-eyebrow .vol {
+      color: #C6A559;
+      font-weight: 700;
+    }
+    .editorial-eyebrow .rule {
+      width: 36px; height: 1px;
+      background: linear-gradient(90deg, #C6A559, transparent);
+    }
+    .editorial-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+    }
+    .editorial-title em {
+      font-style: italic;
+      color: #C6A559;
+      font-weight: 300;
+    }
+
+    /* On-photo eyebrow chip — readable on any background */
+    .eyebrow-on-photo {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase;
+      font-weight: 600;
+      color: #f4ecd8;
+      padding: 0.45rem 0.8rem;
+      background: rgba(15,12,10,0.55);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(198,165,89,0.32);
+    }
+    .eyebrow-on-photo .vol-num {
+      color: #E6B979;
+      font-weight: 700;
+    }
+    .eyebrow-on-photo .pip-d {
+      width: 4px; height: 4px; border-radius: 9999px;
+      background: #C6A559;
+      display: inline-block;
+    }
+
+    /* ==================== Brand marquee ticker ==================== */
+    .brand-marquee {
+      background: linear-gradient(90deg, #1a1a1a 0%, #252422 50%, #1a1a1a 100%);
+      color: #E6B979;
+      border-top: 1px solid rgba(198,165,89,0.15);
+      border-bottom: 1px solid rgba(198,165,89,0.15);
+    }
+    .brand-marquee .track {
+      display: flex;
+      gap: 2rem;
+      white-space: nowrap;
+      align-items: center;
+      animation: marqueeRun 40s linear infinite;
+      will-change: transform;
+    }
+    @media (min-width: 768px) {
+      .brand-marquee .track { gap: 4rem; }
+    }
+    .brand-marquee span.dot {
+      width: 4px; height: 4px; border-radius: 9999px;
+      background: #C6A559;
+      display: inline-block;
+      margin: auto 0;
+    }
+    @keyframes marqueeRun { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ==================== Product card upgrades ==================== */
+    .product-tag {
+      position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 700; padding: 0.3rem 0.55rem;
+      background: rgba(15,15,15,0.85); color: #E6B979;
+      border: 1px solid rgba(198,165,89,0.45);
+      backdrop-filter: blur(4px);
+    }
+    .product-tag.tag-new {
+      background: linear-gradient(135deg, #E6B979 0%, #C6A559 100%);
+      color: #1a1a1a;
+      border-color: transparent;
+    }
+    .swatch-row {
+      display: flex; gap: 5px; justify-content: center;
+      margin-top: 0.5rem;
+      opacity: 0.85;
+    }
+    .swatch-row span {
+      width: 11px; height: 11px;
+      border-radius: 9999px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+      transition: transform 220ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .product-card:hover .swatch-row span:hover { transform: scale(1.25); }
+    html.dark .swatch-row span { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18); }
+
+    .quick-look {
+      position: absolute;
+      left: 50%; bottom: 12px;
+      transform: translate(-50%, 14px);
+      opacity: 0;
+      pointer-events: none;
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      background: rgba(15,15,15,0.92);
+      color: #E6B979;
+      border: 1px solid rgba(198,165,89,0.5);
+      backdrop-filter: blur(6px);
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1),
+                  opacity 320ms cubic-bezier(0.22,1,0.36,1);
+      white-space: nowrap;
+    }
+    .product-card:hover .quick-look {
+      opacity: 1;
+      transform: translate(-50%, 0);
+      pointer-events: auto;
+    }
+
+    /* ==================== Heritage / craft numbers ==================== */
+    .craft-strip {
+      background: #fbf9f4;
+      border-top: 1px solid #e8e6e1;
+      border-bottom: 1px solid #e8e6e1;
+      position: relative;
+    }
+    html.dark .craft-strip {
+      background: #141414;
+      border-color: #252422;
+    }
+    .craft-stat .num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: linear-gradient(180deg, #E6B979 0%, #C6A559 60%, #9c8240 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .craft-stat .label {
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #6c635a;
+      margin-top: 0.65rem;
+    }
+    html.dark .craft-stat .label { color: #9b9892; }
+
+    /* ==================== Reveal on scroll ==================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms cubic-bezier(0.22,1,0.36,1),
+                  transform 700ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal.delay-1 { transition-delay: 80ms; }
+    .reveal.delay-2 { transition-delay: 160ms; }
+    .reveal.delay-3 { transition-delay: 240ms; }
+
+    /* ==================== Hero overlay editorial ==================== */
+    .hero-edit {
+      position: relative;
+      padding: 1.4rem 1.5rem;
+      background: rgba(15,12,10,0.62);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(198,165,89,0.28);
+      box-shadow:
+        0 30px 80px -30px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
+      color: #f4ecd8;
+      max-width: 460px;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .hero-edit { padding: 1.85rem 2.3rem; }
+    }
+    .hero-edit::before {
+      content: '';
+      position: absolute; inset: 8px;
+      border: 1px solid rgba(198,165,89,0.18);
+      pointer-events: none;
+    }
+    .hero-edit .corner {
+      position: absolute; width: 14px; height: 14px;
+      border-color: #C6A559;
+    }
+    .hero-edit .c-tl { top: -1px; left: -1px; border-top: 1px solid; border-left: 1px solid; }
+    .hero-edit .c-tr { top: -1px; right: -1px; border-top: 1px solid; border-right: 1px solid; }
+    .hero-edit .c-bl { bottom: -1px; left: -1px; border-bottom: 1px solid; border-left: 1px solid; }
+    .hero-edit .c-br { bottom: -1px; right: -1px; border-bottom: 1px solid; border-right: 1px solid; }
+    .hero-edit h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      color: #f4ecd8;
+    }
+    .hero-edit h1 em {
+      font-style: italic;
+      background: linear-gradient(180deg, #F4DBA4 0%, #C6A559 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      font-weight: 300;
+    }
+    .hero-edit .meta {
+      display: flex; align-items: center; gap: 0.85rem;
+      font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: rgba(244,236,216,0.75);
+      margin-bottom: 1rem;
+    }
+    .hero-edit .meta .pip {
+      width: 5px; height: 5px; border-radius: 9999px;
+      background: #C6A559;
+      box-shadow: 0 0 0 3px rgba(198,165,89,0.18);
+    }
+    .hero-edit .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 1.15rem; padding-top: 1.1rem;
+      border-top: 1px solid rgba(198,165,89,0.22);
+    }
+    .hero-edit .stats > div + div {
+      border-left: 1px solid rgba(198,165,89,0.14);
+      padding-left: 0.85rem;
+    }
+    .hero-edit .stats > div { padding-right: 0.85rem; }
+    .hero-edit .stats .k {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.4rem; line-height: 1;
+      color: #E6B979;
+      font-weight: 400;
+    }
+    .hero-edit .stats .v {
+      font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(244,236,216,0.6);
+      margin-top: 0.35rem;
+    }
+
+    /* ==================== Section header standalone ==================== */
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .section-head .left { max-width: 600px; }
+    .section-head .right { max-width: 100%; text-align: left; }
+    .section-head .right p {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: #6c635a;
+    }
+    html.dark .section-head .right p { color: #9b9892; }
+    @media (min-width: 768px) {
+      .section-head {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 2.4rem;
+      }
+      .section-head .right { text-align: right; max-width: 360px; }
+      .section-head .right p { font-size: 0.78rem; }
+    }
+
+    /* ==================== Footer brand wordmark ==================== */
+    .footer-mark {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(4rem, 12vw, 11rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+    }
+    .footer-mark em {
+      font-style: italic;
+      background: linear-gradient(180deg, #F4DBA4 0%, #C6A559 60%, #9c8240 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+
+    /* ==================== Best sellers heading section ==================== */
+    .best-heading {
+      position: absolute; top: 8%; left: 5%;
+      color: #f4ecd8;
+    }
+    .best-heading .num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(3rem, 6vw, 5rem);
+      background: linear-gradient(180deg, #F4DBA4 0%, #E6B979 50%, #C6A559 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      line-height: 1;
+    }
+    .best-heading h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      letter-spacing: -0.01em;
+      margin-top: 0.3rem;
+      color: #f4ecd8;
+    }
+
+    /* ==================== Smooth scrollbar treatment ==================== */
+    html { scroll-behavior: smooth; }
+
     /* ================== Theme toggle button ================== */
     .theme-toggle {
       position: relative;
@@ -339,6 +662,13 @@
     html.dark .sofa-bg { filter: brightness(0.85); }
     html.dark .hero-r { filter: brightness(0.7); }
 
+    /* Dark mode: section header copy + footer wordmark color */
+    html.dark .section-head .right p { color: rgba(232,230,225,0.65); }
+    html.dark .editorial-title { color: #f4ecd8; }
+    html.dark .footer-mark { color: #f4ecd8; }
+    html.dark .craft-strip { background: #141414; }
+    html.dark .brand-marquee { background: linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%); }
+
     /* Smooth transitions for the swap */
     body, header, .product-bg, footer, .cookie, .hero-overlay, .btn-light {
       transition: background-color 280ms cubic-bezier(0.22,1,0.36,1),
@@ -351,37 +681,41 @@
 
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border">
-    <nav class="grid grid-cols-3 items-center px-6 lg:px-10 h-[59px]">
-      <ul class="flex items-center gap-7">
+    <nav class="flex md:grid md:grid-cols-3 items-center px-4 sm:px-6 lg:px-10 h-[59px] gap-3">
+      <!-- Mobile: hamburger -->
+      <button id="nav-open" class="md:hidden inline-flex items-center justify-center w-10 h-10 -ml-2 text-current" aria-label="Open menu" type="button">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <!-- Desktop primary nav -->
+      <ul class="hidden md:flex items-center gap-5 lg:gap-7">
         <li><a class="nav-link" href="#">New</a></li>
         <li><a class="nav-link" href="#">Men</a></li>
         <li><a class="nav-link" href="#">Women</a></li>
         <li><a class="nav-link" href="#">Custom</a></li>
         <li><a class="nav-link hidden lg:inline-block" href="#">Loyalty</a></li>
       </ul>
-      <a href="#" class="justify-self-center flex items-center gap-2 group" aria-label="Tester.io home">
-        <img src="brand_assets/Tester%20Logo.png" alt="" class="h-8 w-auto drop-shadow-[0_4px_10px_rgba(198,165,89,0.35)] transition-transform duration-300 ease-spring group-hover:-translate-y-0.5" />
-        <span class="text-[1.15rem] font-bold tracking-tight text-gold-grad">Tester<span class="font-medium">.io</span></span>
+      <a href="#" class="flex-1 md:flex-none md:justify-self-center flex items-center justify-center gap-2 group" aria-label="Tester.io home">
+        <img src="brand_assets/Tester%20Logo.png" alt="" class="h-7 sm:h-8 w-auto drop-shadow-[0_4px_10px_rgba(198,165,89,0.35)] transition-transform duration-300 ease-spring group-hover:-translate-y-0.5" />
+        <span class="text-[1.05rem] sm:text-[1.15rem] font-bold tracking-tight text-gold-grad">Tester<span class="font-medium">.io</span></span>
       </a>
-      <ul class="flex items-center gap-7 justify-self-end">
-        <li><a class="nav-link" href="#">Account</a></li>
-        <li><a class="nav-link" href="#">Search</a></li>
-        <li><a class="nav-link" href="#">Cart (0)</a></li>
+      <ul class="flex items-center gap-1 md:gap-5 lg:gap-7 md:justify-self-end">
+        <li class="hidden md:inline-block"><a class="nav-link" href="#">Account</a></li>
+        <li class="hidden md:inline-block"><a class="nav-link" href="#">Search</a></li>
+        <!-- Mobile-only icon: search -->
+        <li class="md:hidden"><button class="inline-flex items-center justify-center w-9 h-9" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button></li>
+        <li><a class="nav-link hidden md:inline-block" href="#">Cart (0)</a>
+          <a class="md:hidden inline-flex items-center justify-center w-9 h-9" aria-label="Cart" href="#">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l3 12h11l2-8H6"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+          </a>
+        </li>
         <li>
           <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
-            <!-- Sun -->
             <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2"></path>
-              <path d="M12 20v2"></path>
-              <path d="m4.93 4.93 1.41 1.41"></path>
-              <path d="m17.66 17.66 1.41 1.41"></path>
-              <path d="M2 12h2"></path>
-              <path d="M20 12h2"></path>
-              <path d="m6.34 17.66-1.41 1.41"></path>
-              <path d="m19.07 4.93-1.41 1.41"></path>
+              <path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
             </svg>
-            <!-- Moon -->
             <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
@@ -390,6 +724,56 @@
       </ul>
     </nav>
   </header>
+
+  <!-- Mobile drawer menu -->
+  <div id="nav-drawer" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-black/55 backdrop-blur-sm" data-nav-close></div>
+    <aside class="absolute top-0 left-0 bottom-0 w-[82%] max-w-[340px] bg-white dark:bg-[#0f0f0f] border-r border-border dark:border-[#252422] shadow-elev2 flex flex-col">
+      <div class="flex items-center justify-between px-5 h-[59px] border-b border-border dark:border-[#252422]">
+        <span class="text-[1.05rem] font-bold tracking-tight text-gold-grad">Tester<span class="font-medium">.io</span></span>
+        <button id="nav-close" class="inline-flex items-center justify-center w-9 h-9 -mr-1" aria-label="Close menu" data-nav-close type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+      </div>
+      <nav class="flex-1 px-5 py-7 overflow-y-auto">
+        <ul class="space-y-5">
+          <li><a class="nav-link block !text-[0.84rem]" href="#">New</a></li>
+          <li><a class="nav-link block !text-[0.84rem]" href="#">Men</a></li>
+          <li><a class="nav-link block !text-[0.84rem]" href="#">Women</a></li>
+          <li><a class="nav-link block !text-[0.84rem]" href="#">Custom</a></li>
+          <li><a class="nav-link block !text-[0.84rem]" href="#">Loyalty</a></li>
+        </ul>
+        <div class="mt-10 pt-7 border-t border-border dark:border-[#252422]">
+          <ul class="space-y-4">
+            <li><a class="nav-link block !text-[0.74rem]" href="#">Account</a></li>
+            <li><a class="nav-link block !text-[0.74rem]" href="#">Search</a></li>
+            <li><a class="nav-link block !text-[0.74rem]" href="#">Cart (0)</a></li>
+            <li><a class="nav-link block !text-[0.74rem]" href="#">Showrooms</a></li>
+            <li><a class="nav-link block !text-[0.74rem]" href="#">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="px-5 py-5 border-t border-border dark:border-[#252422] text-[0.7rem] tracking-[0.18em] uppercase text-ink/60 dark:text-[rgba(232,230,225,0.5)]">
+        Hand-Lasted in Northampton
+      </div>
+    </aside>
+  </div>
+
+  <!-- Brand marquee — luxury declarations -->
+  <div class="brand-marquee overflow-hidden py-2.5">
+    <div class="track marquee-thin">
+      <span>Hand-Lasted in Northampton</span><span class="dot"></span>
+      <span>Complimentary Shipping over ₱20,000</span><span class="dot"></span>
+      <span>The Atelier Loyalty Programme</span><span class="dot"></span>
+      <span>Made-to-Order Available</span><span class="dot"></span>
+      <span>Established 2014</span><span class="dot"></span>
+      <span>Hand-Lasted in Northampton</span><span class="dot"></span>
+      <span>Complimentary Shipping over ₱20,000</span><span class="dot"></span>
+      <span>The Atelier Loyalty Programme</span><span class="dot"></span>
+      <span>Made-to-Order Available</span><span class="dot"></span>
+      <span>Established 2014</span><span class="dot"></span>
+    </div>
+  </div>
 
   <!-- HERO: Plus Court Sneaker (split) -->
   <section class="relative">
@@ -400,176 +784,342 @@
       <div class="relative hero-r overflow-hidden grain">
         <img src="images/shoes/hero-r.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-multiply" />
       </div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <div class="hero-overlay bg-white/85 backdrop-blur-sm px-10 py-7 text-center pointer-events-auto shadow-elev2">
-          <p class="text-[0.72rem] tracking-[0.32em] uppercase text-muted mb-3">Introducing</p>
-          <h1 class="text-2xl md:text-[1.8rem] font-medium tracking-[-0.01em] mb-5">Plus Court Sneaker</h1>
-          <a href="#" class="btn btn-dark">Now Live</a>
+      <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6">
+        <div class="hero-edit pointer-events-auto reveal in">
+          <span class="corner c-tl"></span>
+          <span class="corner c-tr"></span>
+          <span class="corner c-bl"></span>
+          <span class="corner c-br"></span>
+          <p class="meta">
+            <span>Vol. 01</span>
+            <span class="pip"></span>
+            <span>Spring Edition</span>
+          </p>
+          <h1>The <em>Plus&nbsp;Court</em><br/>Sneaker</h1>
+          <p class="mt-4 text-[0.82rem] leading-relaxed text-[rgba(244,236,216,0.78)] max-w-[36ch]">
+            A reduced silhouette in glove-soft Italian calfskin. Cup-sole construction, hand-finished in our Northampton workshop.
+          </p>
+          <div class="stats">
+            <div>
+              <div class="k">05</div>
+              <div class="v">Colourways</div>
+            </div>
+            <div>
+              <div class="k">42h</div>
+              <div class="v">Per Pair</div>
+            </div>
+            <div>
+              <div class="k">I—XII</div>
+              <div class="v">Sizes</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <a href="#" class="btn btn-dark !py-3 !px-5 !text-[0.7rem]">Discover</a>
+            <a href="#" class="text-[0.68rem] tracking-[0.28em] uppercase text-[#E6B979] hover:text-[#F4DBA4] transition-colors duration-200 font-medium border-b border-[rgba(198,165,89,0.4)] pb-1">View the Film →</a>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Cookie banner -->
-    <div class="cookie absolute bottom-0 left-0 right-0 border-t border-border">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-6 lg:px-10 py-4">
-        <p class="text-[0.78rem] leading-relaxed text-ink/80 max-w-3xl">
-          Our website uses First and Third Party cookies to ensure you get the best experience on our website and provide personalised advertisements/content. Consent to all Cookies using the 'Accept' button or the 'Preferences' button for more information.
-        </p>
-        <div class="flex items-center gap-2 shrink-0">
-          <a href="#" class="btn btn-light !py-2.5 !px-4 !text-[0.7rem]">Preferences</a>
-          <a href="#" class="btn btn-dark !py-2.5 !px-4 !text-[0.7rem]">Accept</a>
-          <a href="#" class="btn btn-light !py-2.5 !px-4 !text-[0.7rem]">Decline</a>
-        </div>
-      </div>
-    </div>
   </section>
 
+  <!-- Cookie banner — minimal floating toast -->
+  <div class="cookie fixed bottom-4 right-4 left-4 md:left-auto md:max-w-[320px] z-50 border border-border shadow-elev2">
+    <div class="px-4 py-3">
+      <p class="text-[0.74rem] leading-[1.55] text-ink/85 mb-2.5">
+        We use cookies to personalise your experience.
+      </p>
+      <div class="flex items-center gap-1.5">
+        <a href="#" class="btn btn-dark !py-1.5 !px-2.5 !text-[0.62rem]">Accept</a>
+        <a href="#" class="btn btn-light !py-1.5 !px-2.5 !text-[0.62rem]">Settings</a>
+        <a href="#" class="ml-auto text-[0.62rem] tracking-[0.18em] uppercase font-medium text-ink/60 hover:text-ink transition-colors duration-200" aria-label="Dismiss">Decline</a>
+      </div>
+    </div>
+  </div>
+
   <!-- PRODUCT GRID: Plus Court Sneakers -->
-  <section class="px-6 lg:px-10 pt-16 pb-10">
+  <section class="px-6 lg:px-10 pt-20 pb-12">
+    <div class="section-head reveal">
+      <div class="left">
+        <p class="editorial-eyebrow"><span class="vol">Vol. 01</span><span class="rule"></span><span>The Sneaker</span></p>
+        <h2 class="editorial-title text-5xl md:text-6xl mt-4">Plus Court — <em>five</em><br/>quiet variations.</h2>
+      </div>
+      <div class="right">
+        <p>Drawn from the geometry of the mid-century tennis shoe, refined for a softer hand. Choose from five colourways across men's and women's lasts.</p>
+        <a href="#" class="inline-block mt-4 text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">View the collection →</a>
+      </div>
+    </div>
     <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
-      <article class="product-card">
+      <article class="product-card reveal">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #e8dec5">
+            <span class="product-tag tag-new">New</span>
             <div class="img-wrap absolute inset-0 flex items-center justify-center">
               <img src="images/shoes/sneaker-02.jpg" alt="Plus Court Cream Sneaker" class="w-full h-full object-cover" />
             </div>
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
             <h3 class="text-[0.84rem] font-medium">Plus Court Cream Sneaker — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+            <div class="swatch-row">
+              <span style="background:#e8dec5"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#dcd5c2"></span>
+              <span style="background:#1a2240"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-1">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
             <div class="img-wrap absolute inset-0">
               <img src="images/shoes/sneaker-03.jpg" alt="Plus Court Black Sneaker" class="w-full h-full object-cover" />
             </div>
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
             <h3 class="text-[0.84rem] font-medium">Plus Court Black Sneaker — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a1715"></span>
+              <span style="background:#e8dec5"></span>
+              <span style="background:#dcd5c2"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-2">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #dcd5c2">
             <div class="img-wrap absolute inset-0">
               <img src="images/shoes/sneaker-04.jpg" alt="Plus Court Vintage White Sneaker" class="w-full h-full object-cover" />
             </div>
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Plus Court Vintage White Sneaker — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Plus Court Vintage White — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+            <div class="swatch-row">
+              <span style="background:#dcd5c2"></span>
+              <span style="background:#e8dec5"></span>
+              <span style="background:#1a1715"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #efe9d9">
+            <span class="product-tag">Bestseller</span>
             <div class="img-wrap absolute inset-0">
               <img src="images/shoes/sneaker-06.jpg" alt="Plus Court White Sneaker — Women's" class="w-full h-full object-cover" />
             </div>
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
             <h3 class="text-[0.84rem] font-medium">Plus Court White Sneaker — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,200</p>
+            <div class="swatch-row">
+              <span style="background:#efe9d9"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#b88a52"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #efe9d9">
+            <span class="product-tag tag-new">New</span>
             <div class="img-wrap absolute inset-0">
               <img src="images/shoes/sneaker-07.jpg" alt="Plus Court White Diamond Sneaker" class="w-full h-full object-cover" />
             </div>
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Plus Court White Diamond Sneaker — Women's</h3>
+            <h3 class="text-[0.84rem] font-medium">Plus Court Diamond — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+            <div class="swatch-row">
+              <span style="background:#efe9d9"></span>
+              <span style="background:#dcd5c2"></span>
+              <span style="background:#1a2240"></span>
+            </div>
           </div>
         </a>
       </article>
+    </div>
+  </section>
+
+  <!-- HERITAGE / CRAFT NUMBERS STRIP -->
+  <section class="craft-strip">
+    <div class="px-6 lg:px-10 py-12 md:py-20">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-end reveal">
+        <div class="md:col-span-4">
+          <p class="editorial-eyebrow"><span class="vol">House Code</span><span class="rule"></span></p>
+          <h3 class="editorial-title text-[1.85rem] md:text-[2.4rem] mt-4">A craft that <em>resists</em> haste.</h3>
+        </div>
+        <div class="md:col-span-8 grid grid-cols-3 gap-3 md:gap-6">
+          <div class="craft-stat text-center md:text-left">
+            <div class="num">256</div>
+            <div class="label">Steps</div>
+          </div>
+          <div class="craft-stat text-center md:text-left">
+            <div class="num">42<span class="text-[#9c8240]/70">h</span></div>
+            <div class="label">Hand-Time</div>
+          </div>
+          <div class="craft-stat text-center md:text-left">
+            <div class="num">06</div>
+            <div class="label">Weeks</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- THE EZRA LOAFER feature -->
   <section class="relative wood-bg overflow-hidden grain">
-    <div class="relative aspect-banner min-h-[440px] md:min-h-[560px] flex items-center">
-      <div class="absolute inset-0 flex items-center justify-end pr-[6%]">
-        <div class="flex gap-10 items-end">
-          <img src="images/shoes/shoe-01.jpg" alt="" class="w-[34vw] max-w-[460px] drop-shadow-[0_30px_30px_rgba(0,0,0,0.55)]" />
-          <img src="images/shoes/shoe-02.jpg" alt="" class="w-[34vw] max-w-[460px] drop-shadow-[0_30px_30px_rgba(0,0,0,0.55)]" />
+    <!-- Mobile stacked layout -->
+    <div class="md:hidden px-6 py-12 text-white">
+      <span class="eyebrow-on-photo mb-5 inline-flex">
+        <span class="vol-num">Vol. 02</span>
+        <span class="pip-d"></span>
+        <span>House Loafer</span>
+      </span>
+      <h2 class="ezra-script text-[3.6rem] sm:text-[4.6rem] leading-[0.9] mb-2 mt-1">The&nbsp;Ezra</h2>
+      <h2 class="ezra-script text-[3.6rem] sm:text-[4.6rem] leading-[0.9]">Loafer</h2>
+      <p class="text-white/80 leading-[1.7] mt-6 font-light italic" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem">"Cut from a single template since 2014 — the loafer that made the house."</p>
+      <div class="grid grid-cols-2 gap-4 mt-8">
+        <img src="images/shoes/shoe-01.jpg" alt="" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.55)]" />
+        <img src="images/shoes/shoe-02.jpg" alt="" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.55)]" />
+      </div>
+      <div class="mt-10 flex flex-col items-start gap-4">
+        <p class="marquee-thin text-[#E6B979]/95 flex items-center gap-2">
+          <span class="inline-block w-2 h-2 bg-[#C6A559] rounded-full"></span>
+          <span>Now Back In Stock</span>
+        </p>
+        <a href="#" class="btn btn-light">Shop the Edit</a>
+      </div>
+    </div>
+    <!-- Desktop overlapping editorial layout -->
+    <div class="hidden md:block">
+      <div class="relative aspect-banner min-h-[480px] md:min-h-[620px] flex items-center">
+        <div class="absolute inset-0 flex items-center justify-end pr-[6%]">
+          <div class="flex gap-10 items-end">
+            <img src="images/shoes/shoe-01.jpg" alt="" class="w-[34vw] max-w-[460px] drop-shadow-[0_30px_30px_rgba(0,0,0,0.55)]" />
+            <img src="images/shoes/shoe-02.jpg" alt="" class="w-[34vw] max-w-[460px] drop-shadow-[0_30px_30px_rgba(0,0,0,0.55)]" />
+          </div>
         </div>
-      </div>
-      <div class="relative z-10 pl-[6%] pr-6 pt-6">
-        <h2 class="ezra-script text-[5rem] md:text-[7rem] leading-[0.9] mb-2">The&nbsp;Ezra</h2>
-        <h2 class="ezra-script text-[5rem] md:text-[7rem] leading-[0.9]">Loafer</h2>
-      </div>
-      <div class="absolute bottom-8 left-[6%] text-white">
-        <p class="marquee-thin mb-3 text-white/90">Now Back In Stock</p>
-        <a href="#" class="btn btn-light">Shop Now</a>
+        <div class="relative z-10 pl-[6%] pr-6 pt-6 max-w-[60%]">
+          <span class="eyebrow-on-photo mb-5 inline-flex">
+            <span class="vol-num">Vol. 02</span>
+            <span class="pip-d"></span>
+            <span>House Loafer</span>
+          </span>
+          <h2 class="ezra-script text-[5rem] md:text-[7rem] leading-[0.85] mb-1">The&nbsp;Ezra</h2>
+          <h2 class="ezra-script text-[5rem] md:text-[7rem] leading-[0.85]">Loafer</h2>
+          <p class="text-white/75 text-[0.86rem] leading-[1.7] max-w-[42ch] mt-6 font-light italic" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem">"Cut from a single template since 2014 — the loafer that made the house."</p>
+        </div>
+        <div class="absolute bottom-8 left-[6%] text-white">
+          <p class="marquee-thin mb-3 text-[#E6B979]/95 flex items-center gap-2">
+            <span class="inline-block w-2 h-2 bg-[#C6A559] rounded-full"></span>
+            <span>Now Back In Stock</span>
+          </p>
+          <a href="#" class="btn btn-light">Shop the Edit</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- PRODUCT GRID: Ezra Loafers -->
-  <section class="px-6 lg:px-10 pt-12 pb-10">
+  <section class="px-6 lg:px-10 pt-16 pb-10">
     <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
-      <article class="product-card">
+      <article class="product-card reveal">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
-            <img src="images/shoes/shoe-03.jpg" alt="Ezra Black Tumbled" class="w-full h-full object-cover" />
+            <span class="product-tag">Iconic</span>
+            <img src="images/shoes/shoe-03.jpg" alt="Ezra Black Tumbled" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Ezra Black Tumbled Rachel Loafer — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Ezra Black Tumbled — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a1715"></span>
+              <span style="background:#b88a52"></span>
+              <span style="background:#4a2f1f"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-1">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #b88a52">
-            <img src="images/shoes/shoe-04.jpg" alt="Ezra Tan Suede" class="w-full h-full object-cover" />
+            <img src="images/shoes/shoe-04.jpg" alt="Ezra Tan Suede" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede Rachel Loafer — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#b88a52"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#4a2f1f"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-2">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4a2f1f">
-            <img src="images/shoes/shoe-05.jpg" alt="Ezra Brown Pebble" class="w-full h-full object-cover" />
+            <span class="product-tag">Bestseller</span>
+            <img src="images/shoes/shoe-05.jpg" alt="Ezra Brown Pebble" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble Rachel Loafer — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#4a2f1f"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#b88a52"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #3d2418">
-            <img src="images/shoes/shoe-06.jpg" alt="Ezra Brown Pebble Womens" class="w-full h-full object-cover" />
+            <img src="images/shoes/shoe-06.jpg" alt="Ezra Brown Pebble Womens" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble Rachel Loafer — Women's</h3>
+            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#3d2418"></span>
+              <span style="background:#a87c44"></span>
+              <span style="background:#1a1715"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #a87c44">
-            <img src="images/shoes/shoe-07.jpg" alt="Ezra Tan Suede Womens" class="w-full h-full object-cover" />
+            <span class="product-tag tag-new">New</span>
+            <img src="images/shoes/shoe-07.jpg" alt="Ezra Tan Suede Womens" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede Rachel Loafer — Women's</h3>
+            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#a87c44"></span>
+              <span style="background:#3d2418"></span>
+              <span style="background:#1a1715"></span>
+            </div>
           </div>
         </a>
       </article>
@@ -578,72 +1128,112 @@
 
   <!-- LDN II NYC FEATURE -->
   <section class="relative ny-art-bg overflow-hidden">
-    <div class="relative aspect-banner min-h-[460px] md:min-h-[600px]">
+    <div class="relative min-h-[520px] md:min-h-[640px] md:aspect-banner">
       <img src="images/shoes/lifestyle-01.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90" />
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%)"></div>
-      <div class="absolute right-[6%] bottom-10 text-white text-right">
-        <p class="ezra-script text-5xl md:text-6xl leading-tight">LDN II NYC</p>
-        <p class="marquee-thin mt-1 mb-4">Collection</p>
-        <a href="#" class="btn btn-light">Shop Now</a>
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 35%, rgba(0,0,0,0.7) 100%)"></div>
+      <div class="absolute left-4 sm:left-6 md:left-[6%] top-6 md:top-10">
+        <span class="eyebrow-on-photo">
+          <span class="vol-num">Vol. 03</span>
+          <span class="pip-d"></span>
+          <span>Capsule</span>
+        </span>
+      </div>
+      <div class="absolute left-4 right-4 sm:left-6 sm:right-6 md:left-auto md:right-[6%] bottom-8 md:bottom-10 text-white md:text-right md:max-w-[480px]">
+        <p class="ezra-script text-[3.4rem] sm:text-6xl md:text-7xl leading-[0.95]">LDN <span style="font-style:italic">II</span> NYC</p>
+        <p class="marquee-thin mt-2 mb-3 text-white/80">A trans-Atlantic conversation</p>
+        <p class="leading-[1.7] text-white/85 italic mb-5 max-w-[42ch] md:ml-auto" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem">From Seven Dials to SoHo — twelve pieces drawn between two cities.</p>
+        <a href="#" class="btn btn-light">Shop the Capsule</a>
       </div>
     </div>
   </section>
 
   <!-- PRODUCT GRID: NY Loafers -->
-  <section class="px-6 lg:px-10 pt-12 pb-10">
+  <section class="px-6 lg:px-10 pt-16 pb-10">
     <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
-      <article class="product-card">
+      <article class="product-card reveal">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
-            <img src="images/shoes/shoe-08.jpg" alt="" class="w-full h-full object-cover" />
+            <span class="product-tag tag-new">New</span>
+            <img src="images/shoes/shoe-08.jpg" alt="" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Wilde NY Black + White Penny Loafer — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Wilde NY Penny Loafer — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱13,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a1715"></span>
+              <span style="background:#efe9d9"></span>
+              <span style="background:#5a3b25"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-1">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
-            <img src="images/shoes/boot-02.jpg" alt="" class="w-full h-full object-cover" />
+            <img src="images/shoes/boot-02.jpg" alt="" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Wilde NY Black + White Penny Loafer — Women's</h3>
+            <h3 class="text-[0.84rem] font-medium">Wilde NY Penny Loafer — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱13,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a1715"></span>
+              <span style="background:#efe9d9"></span>
+              <span style="background:#5a3b25"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-2">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a2240">
-            <img src="images/shoes/boot-03.jpg" alt="" class="w-full h-full object-cover" />
+            <span class="product-tag">Limited</span>
+            <img src="images/shoes/boot-03.jpg" alt="" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
             <h3 class="text-[0.84rem] font-medium">Winston NY Navy Suede Mule — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a2240"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#4a2f1f"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a2240">
-            <img src="images/shoes/sneaker-01.jpg" alt="" class="w-full h-full object-cover" />
+            <img src="images/shoes/sneaker-01.jpg" alt="" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
             <h3 class="text-[0.84rem] font-medium">Winston NY Navy Suede Mule — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱15,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a2240"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#4a2f1f"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #2a2624">
-            <img src="images/shoes/shoe-04.jpg" alt="" class="w-full h-full object-cover" />
+            <img src="images/shoes/shoe-04.jpg" alt="" class="w-full h-full object-cover img-wrap" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Wilde Black + Cream Box Stitch Penny — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Wilde Box Stitch Penny — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱13,500</p>
+            <div class="swatch-row">
+              <span style="background:#2a2624"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#efe9d9"></span>
+            </div>
           </div>
         </a>
       </article>
@@ -652,93 +1242,163 @@
 
   <!-- TWO MODEL SPLIT -->
   <section>
-    <div class="grid grid-cols-2">
-      <div class="relative street-bg-l grain min-h-[540px] md:min-h-[640px] overflow-hidden">
+    <div class="grid grid-cols-1 sm:grid-cols-2 relative">
+      <div class="relative street-bg-l grain min-h-[400px] sm:min-h-[540px] md:min-h-[680px] overflow-hidden">
         <img src="images/shoes/lifestyle-02.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />
-        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%)"></div>
-      </div>
-      <div class="relative street-bg-r grain min-h-[540px] md:min-h-[640px] overflow-hidden">
-        <img src="images/shoes/lifestyle-03.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />
-        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%)"></div>
-        <div class="absolute right-8 bottom-8 text-white text-right">
-          <p class="marquee-thin">Moments</p>
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.55) 100%)"></div>
+        <div class="absolute left-5 sm:left-8 bottom-6 sm:bottom-8 text-white">
+          <p class="ezra-script text-[2.6rem] sm:text-4xl md:text-5xl leading-tight">In-House</p>
+          <p class="marquee-thin mt-1 text-white/80 text-[0.62rem] sm:text-[0.72rem]">Cast — Spring Editorial</p>
         </div>
+      </div>
+      <div class="relative street-bg-r grain min-h-[400px] sm:min-h-[540px] md:min-h-[680px] overflow-hidden">
+        <img src="images/shoes/lifestyle-03.jpg" alt="" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.55) 100%)"></div>
+        <div class="absolute right-5 sm:right-8 bottom-6 sm:bottom-8 text-white text-right">
+          <p class="ezra-script text-[2.6rem] sm:text-4xl md:text-5xl leading-tight">Off-Hours</p>
+          <p class="marquee-thin mt-1 text-white/80 text-[0.62rem] sm:text-[0.72rem]">Photographed in Brooklyn</p>
+        </div>
+      </div>
+      <!-- center seal — desktop only -->
+      <div class="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none">
+        <div class="w-20 h-20 rounded-full flex items-center justify-center text-[#1a1a1a] font-serif italic text-[1.4rem]" style="background:radial-gradient(circle,#F4DBA4 0%,#C6A559 70%,#9c8240 100%);box-shadow:0 8px 30px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.4)">II</div>
       </div>
     </div>
   </section>
 
   <!-- BEST SELLERS — six motif loafers row on dark wood -->
   <section class="relative wood-bg grain overflow-hidden">
-    <div class="relative aspect-banner min-h-[420px] md:min-h-[520px]">
-      <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 grid grid-cols-6 gap-3 px-[5%]">
-        <img src="images/shoes/shoe-01.jpg" class="w-full" alt="" />
-        <img src="images/shoes/shoe-02.jpg" class="w-full" alt="" />
-        <img src="images/shoes/shoe-03.jpg" class="w-full" alt="" />
-        <img src="images/shoes/shoe-04.jpg" class="w-full" alt="" />
-        <img src="images/shoes/shoe-05.jpg" class="w-full" alt="" />
-        <img src="images/shoes/shoe-06.jpg" class="w-full" alt="" />
+    <!-- Mobile stacked layout -->
+    <div class="md:hidden px-6 py-12 text-white">
+      <span class="eyebrow-on-photo mb-4 inline-flex">
+        <span class="vol-num">Vol. 04</span>
+        <span class="pip-d"></span>
+        <span>The Permanent Collection</span>
+      </span>
+      <h2 class="ezra-script text-[3.4rem] sm:text-[4.4rem] leading-[0.95] mt-2">Best&nbsp;Sellers.</h2>
+      <p class="font-serif italic text-white/85 mt-3" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem">The pieces customers return for.</p>
+      <div class="grid grid-cols-3 gap-2.5 mt-8">
+        <img src="images/shoes/shoe-01.jpg" class="w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]" alt="" />
+        <img src="images/shoes/shoe-02.jpg" class="w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]" alt="" />
+        <img src="images/shoes/shoe-03.jpg" class="w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]" alt="" />
+        <img src="images/shoes/shoe-04.jpg" class="w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]" alt="" />
+        <img src="images/shoes/shoe-05.jpg" class="w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]" alt="" />
+        <img src="images/shoes/shoe-06.jpg" class="w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.5)]" alt="" />
       </div>
-      <div class="absolute right-8 bottom-8">
+      <div class="mt-8">
         <a href="#" class="btn btn-light">Shop Best-Sellers</a>
+      </div>
+    </div>
+    <!-- Desktop overlapping layout -->
+    <div class="hidden md:block">
+      <div class="relative min-h-[480px] md:min-h-[580px] py-16">
+        <div class="best-heading reveal">
+          <span class="eyebrow-on-photo mb-4">
+            <span class="vol-num">Vol. 04</span>
+            <span class="pip-d"></span>
+            <span>The Permanent Collection</span>
+          </span>
+          <div class="num">Best&nbsp;Sellers.</div>
+          <h3>The pieces customers return for.</h3>
+        </div>
+        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 grid grid-cols-6 gap-3 px-[5%]">
+          <img src="images/shoes/shoe-01.jpg" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.5)]" alt="" />
+          <img src="images/shoes/shoe-02.jpg" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.5)]" alt="" />
+          <img src="images/shoes/shoe-03.jpg" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.5)]" alt="" />
+          <img src="images/shoes/shoe-04.jpg" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.5)]" alt="" />
+          <img src="images/shoes/shoe-05.jpg" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.5)]" alt="" />
+          <img src="images/shoes/shoe-06.jpg" class="w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.5)]" alt="" />
+        </div>
+        <div class="absolute right-8 bottom-8">
+          <a href="#" class="btn btn-light">Shop Best-Sellers</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- PRODUCT GRID: Best Seller Loafers -->
-  <section class="px-6 lg:px-10 pt-12 pb-10">
+  <section class="px-6 lg:px-10 pt-16 pb-10">
     <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
-      <article class="product-card">
+      <article class="product-card reveal">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
-            <img src="images/shoes/shoe-07.jpg" class="w-full h-full object-cover" alt="" />
+            <span class="product-tag">Bestseller</span>
+            <img src="images/shoes/shoe-07.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Hadley Black Box Stitch Loafer</h3>
+            <h3 class="text-[0.84rem] font-medium">Hadley Black Box Stitch</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a1715"></span>
+              <span style="background:#5a3b25"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-1">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #5a3b25">
-            <img src="images/shoes/shoe-08.jpg" class="w-full h-full object-cover" alt="" />
+            <img src="images/shoes/shoe-08.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Wilde Brown Tumbled Penny Loafer</h3>
+            <h3 class="text-[0.84rem] font-medium">Wilde Brown Tumbled Penny</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#5a3b25"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#dcd2bc"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-2">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #2a2624">
-            <img src="images/shoes/boot-02.jpg" class="w-full h-full object-cover" alt="" />
+            <span class="product-tag">Bestseller</span>
+            <img src="images/shoes/boot-02.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Bloomsbury Lips Embroidered Loafer</h3>
+            <h3 class="text-[0.84rem] font-medium">Bloomsbury Lips Embroidered</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#2a2624"></span>
+              <span style="background:#dcd2bc"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #dcd2bc">
-            <img src="images/shoes/boot-03.jpg" class="w-full h-full object-cover" alt="" />
+            <img src="images/shoes/boot-03.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Bloomsbury Cream Lips Loafer</h3>
+            <h3 class="text-[0.84rem] font-medium">Bloomsbury Cream Lips</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#dcd2bc"></span>
+              <span style="background:#2a2624"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #1a1715">
-            <img src="images/shoes/shoe-01.jpg" class="w-full h-full object-cover" alt="" />
+            <img src="images/shoes/shoe-01.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Wilde Black Tumbled Penny Loafer</h3>
+            <h3 class="text-[0.84rem] font-medium">Wilde Black Tumbled Penny</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#1a1715"></span>
+              <span style="background:#5a3b25"></span>
+            </div>
           </div>
         </a>
       </article>
@@ -748,17 +1408,35 @@
   <!-- TWO IMAGE: CO-LABS / ACCESSORIES -->
   <section>
     <div class="grid grid-cols-1 md:grid-cols-2">
-      <div class="relative colab-bg grain min-h-[520px] md:min-h-[620px] overflow-hidden">
+      <div class="relative colab-bg grain min-h-[520px] md:min-h-[640px] overflow-hidden">
         <img src="images/shoes/lifestyle-05.jpg" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-95" alt="" />
-        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.4) 100%)"></div>
-        <div class="absolute left-8 bottom-8">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.55) 100%)"></div>
+        <div class="absolute left-8 top-8">
+          <span class="eyebrow-on-photo">
+            <span class="vol-num">Vol. 05</span>
+            <span class="pip-d"></span>
+            <span>Co-Labs</span>
+          </span>
+        </div>
+        <div class="absolute left-8 bottom-8 text-white max-w-[360px]">
+          <h3 class="ezra-script text-5xl md:text-6xl leading-[0.95]">Co-Labs</h3>
+          <p class="text-white/85 text-[0.86rem] leading-[1.7] italic mt-2 mb-4" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem">Shared studios, four-handed work.</p>
           <a href="#" class="btn btn-light">Shop Co-Labs</a>
         </div>
       </div>
-      <div class="relative accessories-bg grain min-h-[520px] md:min-h-[620px] overflow-hidden">
+      <div class="relative accessories-bg grain min-h-[520px] md:min-h-[640px] overflow-hidden">
         <img src="images/shoes/lifestyle-06.jpg" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-95" alt="" />
-        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.4) 100%)"></div>
-        <div class="absolute right-8 bottom-8">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.55) 100%)"></div>
+        <div class="absolute right-8 top-8">
+          <span class="eyebrow-on-photo">
+            <span>Companion Pieces</span>
+            <span class="pip-d"></span>
+            <span class="vol-num">Vol. 06</span>
+          </span>
+        </div>
+        <div class="absolute right-8 bottom-8 text-white text-right max-w-[360px]">
+          <h3 class="ezra-script text-5xl md:text-6xl leading-[0.95]">Accessories</h3>
+          <p class="text-white/85 text-[0.86rem] leading-[1.7] italic mt-2 mb-4 ml-auto" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem">Belts, bridle leather, small leathergoods.</p>
           <a href="#" class="btn btn-light">Shop Accessories</a>
         </div>
       </div>
@@ -767,77 +1445,116 @@
 
   <!-- TESTER × ATELIER COLLAB -->
   <section class="relative sofa-bg grain overflow-hidden">
-    <div class="relative min-h-[520px] md:min-h-[640px]">
+    <div class="relative min-h-[540px] md:min-h-[680px]">
       <img src="images/shoes/shoe-02.jpg" class="absolute inset-0 w-full h-full object-cover" alt="" />
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 30%, rgba(0,0,0,0.65) 100%)"></div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white px-6 text-center">
-        <div class="flex items-center gap-3 mb-3">
-          <span class="w-2 h-2 rounded-full bg-gold inline-block"></span>
-          <span class="marquee-thin text-gold-light">Collaboration</span>
-          <span class="w-2 h-2 rounded-full bg-gold inline-block"></span>
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,0.45) 0%, transparent 35%, rgba(0,0,0,0.78) 100%)"></div>
+      <!-- decorative gold bordered frame -->
+      <div class="absolute inset-6 md:inset-10 border border-[rgba(198,165,89,0.28)] pointer-events-none"></div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white px-5 sm:px-6 text-center reveal">
+        <div class="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
+          <span class="block w-8 sm:w-12 h-px" style="background:linear-gradient(90deg,transparent,#C6A559)"></span>
+          <span class="marquee-thin text-[#E6B979] font-semibold">A House Collaboration</span>
+          <span class="block w-8 sm:w-12 h-px" style="background:linear-gradient(-90deg,transparent,#C6A559)"></span>
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">ATELIER STUDIO</h2>
-        <p class="mt-3 text-[0.95rem] tracking-[0.32em] uppercase">Tester<span class="font-light">.io</span></p>
-        <a href="#" class="btn btn-dark mt-7">Now Live</a>
+        <p class="ezra-script text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-2 opacity-95">Tester.io <span style="font-style:italic;font-size:1.2em">×</span></p>
+        <h2 class="font-serif text-[1.75rem] sm:text-5xl md:text-7xl tracking-[-0.02em] text-white leading-[1]" style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:300">ATELIER <em style="background:linear-gradient(180deg,#F4DBA4,#C6A559);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic">Studio</em></h2>
+        <p class="mt-4 sm:mt-5 text-white/80 italic max-w-[40ch] leading-[1.7]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem">A six-piece capsule, made by hand in the Tester atelier and finished in the Studio's archive workshop.</p>
+        <a href="#" class="btn btn-dark mt-7 sm:mt-8">Discover the Capsule</a>
+        <p class="marquee-thin mt-5 text-white/55 text-[0.62rem]">Available 05.07 — 07.30 · Limited to 240 pairs</p>
       </div>
     </div>
   </section>
 
   <!-- PRODUCT GRID: Final mix -->
-  <section class="px-6 lg:px-10 pt-12 pb-16">
+  <section class="px-6 lg:px-10 pt-16 pb-20">
+    <div class="section-head reveal">
+      <div class="left">
+        <p class="editorial-eyebrow"><span class="vol">The Capsule</span><span class="rule"></span><span>Six Pieces</span></p>
+        <h2 class="editorial-title text-4xl md:text-5xl mt-4">Tester × Atelier — <em>shop the edit.</em></h2>
+      </div>
+    </div>
     <div class="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
-      <article class="product-card">
+      <article class="product-card reveal">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4a2f1f">
-            <img src="images/shoes/shoe-03.jpg" class="w-full h-full object-cover" alt="" />
+            <span class="product-tag tag-new">New</span>
+            <img src="images/shoes/shoe-03.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Rachel Loafer — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Loafer</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#4a2f1f"></span>
+              <span style="background:#151312"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-1">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #151312">
-            <img src="images/shoes/sneaker-02.jpg" class="w-full h-full object-cover" alt="" />
+            <span class="product-tag tag-new">New</span>
+            <img src="images/shoes/sneaker-02.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Atelier Black Rachel Loafer — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Atelier Black Loafer — Men's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱22,500</p>
+            <div class="swatch-row">
+              <span style="background:#151312"></span>
+              <span style="background:#4a2f1f"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-2">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4d2c1c">
-            <img src="images/shoes/sneaker-04.jpg" class="w-full h-full object-cover" alt="" />
+            <img src="images/shoes/sneaker-04.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Sneaker — Men's</h3>
+            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Sneaker</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#4d2c1c"></span>
+              <span style="background:#efe9d9"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #4d2c1c">
-            <img src="images/shoes/tee-01.jpg" class="w-full h-full object-cover" alt="" />
+            <img src="images/shoes/tee-01.jpg" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Atelier Brown Suede Sneaker — Women's</h3>
+            <h3 class="text-[0.84rem] font-medium">Atelier Suede Sneaker — Women's</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱18,500</p>
+            <div class="swatch-row">
+              <span style="background:#4d2c1c"></span>
+              <span style="background:#efe9d9"></span>
+            </div>
           </div>
         </a>
       </article>
-      <article class="product-card">
+      <article class="product-card reveal delay-3">
         <a href="#" class="block">
           <div class="relative product-bg overflow-hidden aspect-product" style="--shoe: #efe9d9">
-            <img src="https://loremflickr.com/700/700/tshirt,cream,fashion?lock=105" referrerpolicy="no-referrer" class="w-full h-full object-cover" alt="" />
+            <span class="product-tag">Limited</span>
+            <img src="https://loremflickr.com/700/700/tshirt,cream,fashion?lock=105" referrerpolicy="no-referrer" class="w-full h-full object-cover img-wrap" alt="" />
+            <span class="quick-look">Quick Look</span>
           </div>
           <div class="pt-4 text-center">
-            <h3 class="text-[0.84rem] font-medium">Atelier Essex Jersey T-Shirt</h3>
+            <h3 class="text-[0.84rem] font-medium">Atelier Essex Jersey Tee</h3>
             <p class="text-[0.84rem] text-ink/80 mt-1">₱5,500</p>
+            <div class="swatch-row">
+              <span style="background:#efe9d9"></span>
+              <span style="background:#1a1715"></span>
+              <span style="background:#5a3b25"></span>
+            </div>
           </div>
         </a>
       </article>
@@ -845,7 +1562,20 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-border pt-12 pb-8 px-6 lg:px-10">
+  <footer class="border-t border-border pt-16 pb-8 px-6 lg:px-10">
+    <!-- Brand wordmark statement -->
+    <div class="pb-12 mb-12 border-b border-border reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-7">
+          <p class="editorial-eyebrow mb-5"><span class="vol">House Mark</span><span class="rule"></span><span>Est. 2014 — Northampton & Manila</span></p>
+          <h2 class="footer-mark text-ink dark:text-[#e8e6e1]">Tester<em>.io</em></h2>
+        </div>
+        <div class="md:col-span-5">
+          <p class="text-[0.96rem] leading-[1.85] italic text-ink/75 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.12rem">A small workshop making considered footwear. Every pair is hand-lasted, double-stitched, and finished in the same room it was cut in.</p>
+          <a href="#" class="inline-block mt-5 text-[0.7rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">Read our story →</a>
+        </div>
+      </div>
+    </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
       <div>
         <h4 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-5">Social</h4>
@@ -886,26 +1616,26 @@
           <li><a class="hover:text-ink transition-colors duration-200" href="#">FA.Q. — Programmes</a></li>
         </ul>
       </div>
-      <div>
+      <div class="col-span-2 md:col-span-1">
         <h4 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-5">Mail</h4>
         <p class="text-[0.85rem] text-ink/80 leading-relaxed mb-4">Sign up for 10% off your first order plus the latest Tester.io news, events and exclusive early access to product drops. Conditions apply.</p>
-        <form class="flex items-stretch border border-ink">
-          <input type="email" placeholder="Enter Your Email Address" class="flex-1 px-3 py-3 text-[0.82rem] bg-transparent outline-none placeholder:text-ink/50" />
-          <button type="submit" class="px-5 bg-ink text-white text-[0.72rem] tracking-[0.2em] uppercase transition-colors duration-200 hover:bg-ink/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">Subscribe</button>
+        <form class="flex flex-col items-stretch border border-ink min-w-0">
+          <input type="email" placeholder="Enter Your Email Address" class="min-w-0 flex-1 px-3 py-3 text-[0.82rem] bg-transparent outline-none placeholder:text-ink/50 border-b border-ink/15" />
+          <button type="submit" class="px-5 py-3 bg-ink text-white text-[0.72rem] tracking-[0.2em] uppercase transition-colors duration-200 hover:bg-ink/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">Subscribe</button>
         </form>
       </div>
     </div>
 
-    <div class="divider-y mt-12 pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-      <p class="text-[0.78rem] text-ink/70">© 2026 — Tester.io &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; Terms &amp; Conditions</p>
-      <div class="flex items-center gap-3">
-        <select class="text-[0.78rem] bg-transparent border border-border px-3 py-2 outline-none">
+    <div class="divider-y mt-12 pt-6 flex flex-col md:flex-row md:flex-wrap items-start md:items-center justify-between gap-4">
+      <p class="text-[0.78rem] text-ink/70 order-1">© 2026 — Tester.io &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; Terms &amp; Conditions</p>
+      <div class="flex items-center gap-3 order-3 md:order-2">
+        <select class="text-[0.78rem] bg-transparent border border-border px-3 py-2 outline-none w-full sm:w-auto" aria-label="Currency">
           <option>Philippines (PHP ₱)</option>
           <option>United Kingdom (GBP £)</option>
           <option>United States (USD $)</option>
         </select>
       </div>
-      <div class="flex items-center gap-3 text-ink/70">
+      <div class="flex items-center flex-wrap gap-2 text-ink/70 order-2 md:order-3">
         <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">PayPal</span>
         <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">MC</span>
         <span class="px-2 py-1 border border-border text-[0.7rem] font-medium">VISA</span>
@@ -928,8 +1658,67 @@
         try { localStorage.setItem('theme', next); } catch (e) {}
         btn.setAttribute('aria-pressed', String(next === 'dark'));
       });
-      // Initial aria state
       btn.setAttribute('aria-pressed', String(document.documentElement.classList.contains('dark')));
+    })();
+
+    // Scroll reveal observer
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || !els.length) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Mobile nav drawer
+    (function () {
+      var drawer = document.getElementById('nav-drawer');
+      var openBtn = document.getElementById('nav-open');
+      if (!drawer || !openBtn) return;
+      function open() {
+        drawer.classList.remove('hidden');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        drawer.classList.add('hidden');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      openBtn.addEventListener('click', open);
+      drawer.querySelectorAll('[data-nav-close]').forEach(function (el) {
+        el.addEventListener('click', close);
+      });
+      drawer.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', close);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !drawer.classList.contains('hidden')) close();
+      });
+    })();
+
+    // Cookie banner dismiss
+    (function () {
+      var c = document.querySelector('.cookie');
+      if (!c) return;
+      c.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          c.style.transition = 'opacity 320ms cubic-bezier(0.22,1,0.36,1), transform 320ms cubic-bezier(0.22,1,0.36,1)';
+          c.style.opacity = '0';
+          c.style.transform = 'translateY(20px)';
+          setTimeout(function () { c.remove(); }, 360);
+        });
+      });
     })();
   </script>
 </body>
