@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sights — Burj Khalifa, from line to light</title>
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,30..100,0..1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void:    '#06070a',
+            ink:     '#0c0e13',
+            slate:   '#161922',
+            paper:   '#f4f1ea',
+            mist:    '#a8b0bd',
+            mute:    '#5e6675',
+            cyan:    '#5fb8ff',
+            cyandim: '#1f4f7f',
+            ember:   '#d6b46a',
+            line:    'rgba(244,241,234,0.08)',
+            'line-strong': 'rgba(244,241,234,0.16)',
+          },
+          fontFamily: {
+            display: ['"Fraunces"', 'Georgia', 'serif'],
+            sans:    ['"Manrope"', 'system-ui', 'sans-serif'],
+            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --void:    #06070a;
+      --ink:     #0c0e13;
+      --slate:   #161922;
+      --paper:   #f4f1ea;
+      --mist:    #a8b0bd;
+      --mute:    #5e6675;
+      --cyan:    #5fb8ff;
+      --cyandim: #1f4f7f;
+      --ember:   #d6b46a;
+      --line:    rgba(244,241,234,0.08);
+      --line-strong: rgba(244,241,234,0.16);
+      --ease:    cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html, body {
+      background: var(--void);
+      color: var(--paper);
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-feature-settings: 'ss01' on, 'ss02' on;
+    }
+    html { scroll-behavior: smooth; }
+
+    /* Atmosphere — layered radial gradients + blueprint grid */
+    .stage {
+      background:
+        radial-gradient(circle at 78% -8%, rgba(95,184,255,0.07), transparent 45%),
+        radial-gradient(circle at -10% 30%, rgba(214,180,106,0.04), transparent 55%),
+        radial-gradient(circle at 50% 110%, rgba(95,184,255,0.04), transparent 60%),
+        var(--void);
+    }
+    .grid-bg::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      opacity: 0.28; mix-blend-mode: screen;
+      background-image:
+        linear-gradient(rgba(95,184,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(95,184,255,0.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 40%, rgba(0,0,0,1), rgba(0,0,0,0.2) 70%, transparent 100%);
+      -webkit-mask-image: radial-gradient(circle at 50% 40%, rgba(0,0,0,1), rgba(0,0,0,0.2) 70%, transparent 100%);
+    }
+
+    /* Grain overlay for depth */
+    .grain::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      opacity: 0.06; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* Display typography — Fraunces tuned for editorial */
+    .display {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 1;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+    }
+    .display-mid {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 72, 'SOFT' 30;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.0;
+    }
+    .display-italic {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 144, 'SOFT' 70;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* Mono labels */
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .mono-cap {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 500;
+    }
+    .mono-num { font-family: 'JetBrains Mono', monospace; font-feature-settings: 'tnum' on; }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.24em;
+      text-transform: uppercase; font-weight: 500;
+      color: rgba(244,241,234,0.7);
+    }
+    .eyebrow .num { color: var(--cyan); }
+    .eyebrow .dash {
+      width: 36px; height: 1px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+    }
+
+    /* Hairlines */
+    .rule-h { border-bottom: 1px solid var(--line); }
+    .rule-t { border-top: 1px solid var(--line); }
+
+    /* Type scale */
+    .h-display { font-size: clamp(3.8rem, 14vw, 12rem); }
+    .h-section { font-size: clamp(2.4rem, 6vw, 5rem); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 600;
+      border-radius: 999px;
+      transition:
+        transform 380ms var(--ease),
+        background-color 320ms var(--ease),
+        color 320ms var(--ease),
+        box-shadow 380ms var(--ease),
+        border-color 320ms var(--ease);
+    }
+    .btn-cyan {
+      background: var(--cyan); color: #06181f;
+      border: 1px solid var(--cyan);
+      box-shadow:
+        0 14px 36px -16px rgba(95,184,255,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+    .btn-cyan:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 22px 48px -14px rgba(95,184,255,0.85),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .btn-cyan:active { transform: translateY(0); }
+    .btn-cyan:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+    .btn-ghost {
+      background: transparent; color: var(--paper);
+      border: 1px solid rgba(244,241,234,0.22);
+    }
+    .btn-ghost:hover {
+      border-color: var(--cyan); color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px -22px rgba(95,184,255,0.4);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+    /* Nav link */
+    .nav-link {
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 500;
+      color: rgba(244,241,234,0.65);
+      transition: color 220ms ease;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -8px;
+      height: 1px; background: var(--cyan);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 380ms var(--ease);
+    }
+    .nav-link:hover { color: var(--paper); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link:focus-visible { outline: 2px solid var(--cyan); outline-offset: 6px; border-radius: 2px; }
+
+    /* Brand dot */
+    .brand-dot {
+      width: 9px; height: 9px; border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 14px rgba(95,184,255,0.8);
+      transition: transform 320ms var(--ease);
+    }
+    a:hover .brand-dot { transform: scale(1.18); }
+
+    /* Live dot pulse */
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 12px rgba(95,184,255,0.8);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    /* Glass chip */
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      background: rgba(12,14,19,0.7);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border: 1px solid rgba(244,241,234,0.1);
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 500;
+    }
+
+    /* Marquee ticker */
+    .ticker { animation: ticker 48s linear infinite; will-change: transform; }
+    @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+    /* Reveal on load */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .rise { animation: rise 1000ms var(--ease) both; }
+    .rise.d1 { animation-delay: 120ms; }
+    .rise.d2 { animation-delay: 240ms; }
+    .rise.d3 { animation-delay: 360ms; }
+    .rise.d4 { animation-delay: 480ms; }
+    .rise.d5 { animation-delay: 660ms; }
+
+    /* Scroll-reveal helper */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Big numerals */
+    .num-big {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 144;
+      font-weight: 300;
+      font-size: clamp(3.2rem, 7vw, 5.6rem);
+      line-height: 0.85;
+      letter-spacing: -0.045em;
+      color: var(--paper);
+    }
+    .num-unit { color: var(--cyan); font-style: italic; font-weight: 200; }
+
+    /* Video stage */
+    .video-stage {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--line);
+      box-shadow:
+        0 60px 140px -40px rgba(95,184,255,0.18),
+        0 30px 80px -30px rgba(0,0,0,0.85),
+        inset 0 1px 0 rgba(244,241,234,0.04);
+    }
+    .video-stage video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+    }
+    .video-stage .corner {
+      position: absolute; pointer-events: none;
+      width: 22px; height: 22px;
+      border: 1px solid rgba(95,184,255,0.55);
+      opacity: 0.85;
+    }
+    .video-stage .c-tl { top: 14px; left: 14px; border-right: 0; border-bottom: 0; }
+    .video-stage .c-tr { top: 14px; right: 14px; border-left: 0; border-bottom: 0; }
+    .video-stage .c-bl { bottom: 14px; left: 14px; border-right: 0; border-top: 0; }
+    .video-stage .c-br { bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
+    .video-stage::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      box-shadow: inset 0 0 120px rgba(0,0,0,0.45);
+      mix-blend-mode: multiply;
+    }
+
+    /* ---------- Scroll-driven sequence ---------- */
+    .scroll-runway { position: relative; }
+    .scroll-track { position: relative; height: 400vh; }
+    .scroll-pin {
+      position: sticky; top: 0;
+      height: 100vh;
+      display: grid; place-items: center;
+      overflow: hidden;
+      padding: 0 24px;
+    }
+    .canvas-stage {
+      position: relative;
+      width: min(680px, 92vw);
+      max-height: 88vh;
+      aspect-ratio: 960 / 1316;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--line);
+      box-shadow:
+        0 60px 140px -40px rgba(95,184,255,0.18),
+        0 30px 80px -30px rgba(0,0,0,0.85),
+        inset 0 1px 0 rgba(244,241,234,0.04);
+      will-change: transform;
+    }
+    @media (max-width: 768px) {
+      .canvas-stage { width: 100%; max-width: 460px; }
+    }
+    #frame-canvas {
+      display: block;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      mask-image: radial-gradient(ellipse 78% 90% at 50% 50%, #000 65%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 90% at 50% 50%, #000 65%, transparent 100%);
+      transition: filter 600ms var(--ease);
+    }
+
+    /* Scroll progress bar (fixed to viewport top while pinned) */
+    .scroll-progress {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; z-index: 8;
+      background: rgba(244,241,234,0.06);
+      overflow: hidden;
+    }
+    .scroll-progress > i {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--ember));
+      transform-origin: left center;
+    }
+
+    /* Phase overlay cards */
+    .phase {
+      position: absolute; left: 24px; bottom: 24px;
+      max-width: min(460px, 88vw);
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(6,7,10,0.58);
+      backdrop-filter: blur(16px) saturate(125%);
+      -webkit-backdrop-filter: blur(16px) saturate(125%);
+      border: 1px solid rgba(244,241,234,0.1);
+      box-shadow: 0 24px 60px -28px rgba(0,0,0,0.7);
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+      pointer-events: none;
+    }
+    .phase.in { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .phase .ph-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .phase h4 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 72, 'SOFT' 30;
+      font-weight: 500; font-style: italic;
+      font-size: 1.6rem; letter-spacing: -0.02em;
+      margin: 6px 0 4px;
+    }
+    .phase p {
+      font-size: 0.86rem; line-height: 1.6;
+      color: rgba(244,241,234,0.7);
+    }
+    @media (max-width: 640px) {
+      .phase { left: 14px; right: 14px; bottom: 14px; padding: 12px 14px; }
+      .phase h4 { font-size: 1.3rem; }
+    }
+
+    /* Frame counter chip (top-right of stage) */
+    .frame-chip {
+      position: absolute; top: 16px; right: 16px; z-index: 9;
+    }
+
+    /* Loader overlay */
+    .loader {
+      position: absolute; inset: 0; z-index: 30;
+      display: grid; place-items: center;
+      background: radial-gradient(ellipse at 50% 50%, rgba(6,7,10,0.92), rgba(6,7,10,0.98));
+      transition: opacity 480ms var(--ease), visibility 480ms var(--ease);
+    }
+    .loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-inner {
+      width: min(360px, 80vw); text-align: center;
+      display: flex; flex-direction: column; gap: 14px; align-items: stretch;
+    }
+    .loader-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(244,241,234,0.55);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .loader-eyebrow .live-dot { background: var(--cyan); }
+    .loader-bar {
+      height: 2px; border-radius: 999px; overflow: hidden;
+      background: rgba(244,241,234,0.1);
+    }
+    .loader-bar > i {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--ember));
+      transition: width 220ms var(--ease);
+    }
+    .loader-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem; letter-spacing: 0.18em;
+      color: rgba(244,241,234,0.75);
+    }
+    .loader-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic; font-weight: 300;
+      font-size: 1.4rem; letter-spacing: -0.02em;
+      color: var(--paper);
+      margin-top: 4px;
+    }
+
+    /* Scroll cue (subtle hint when at top) */
+    .scroll-cue {
+      position: absolute; left: 50%; bottom: 28px;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(244,241,234,0.5);
+      display: flex; align-items: center; gap: 10px;
+      transition: opacity 420ms var(--ease);
+      pointer-events: none;
+    }
+    .scroll-cue.hide { opacity: 0; }
+    .scroll-cue .arrow {
+      width: 1px; height: 28px;
+      background: linear-gradient(180deg, transparent, var(--cyan));
+      animation: cue-glide 1.6s ease-in-out infinite;
+    }
+    @keyframes cue-glide {
+      0% { transform: translateY(-6px); opacity: 0.4; }
+      50% { transform: translateY(2px); opacity: 1; }
+      100% { transform: translateY(10px); opacity: 0; }
+    }
+
+    /* Frame card (still tiles) */
+    .frame {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--ink);
+      transition: transform 480ms var(--ease), border-color 320ms ease, box-shadow 480ms var(--ease);
+    }
+    .frame:hover {
+      transform: translateY(-4px);
+      border-color: rgba(95,184,255,0.3);
+      box-shadow:
+        0 32px 80px -36px rgba(95,184,255,0.32),
+        0 16px 40px -24px rgba(0,0,0,0.6);
+    }
+    .frame img {
+      width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4;
+      transition: transform 800ms var(--ease);
+    }
+    .frame:hover img { transform: scale(1.04); }
+    .frame .meta {
+      position: absolute; left: 18px; bottom: 18px;
+      display: flex; align-items: baseline; gap: 12px;
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(6,7,10,0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(244,241,234,0.1);
+    }
+    .frame .meta .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(244,241,234,0.55);
+    }
+    .frame .meta .v {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic; font-weight: 400;
+      font-size: 0.92rem;
+    }
+
+    /* Tick markers row (signature schematic vibe) */
+    .tick-row {
+      display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; height: 8px;
+    }
+    .tick-row > span { border-left: 1px solid rgba(244,241,234,0.12); }
+    .tick-row > span:nth-child(5n+1) { border-left-color: var(--cyan); opacity: 0.55; }
+
+    /* Scribed letterforms section */
+    .scribe-track {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 144;
+      font-weight: 200; font-style: italic;
+      font-size: clamp(8rem, 24vw, 20rem);
+      letter-spacing: -0.05em;
+      line-height: 0.86;
+      color: rgba(244,241,234,0.06);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Mobile menu toggle */
+    .menu-toggle { display: inline-flex; }
+    @media (min-width: 768px) { .menu-toggle { display: none; } }
+    #mobile-nav { display: none; }
+    #mobile-nav.open { display: block; }
+
+    /* Generic focus ring fallback */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ===== Mobile / tablet refinements ===== */
+    @media (max-width: 1024px) {
+      .h-display { font-size: clamp(3rem, 12vw, 6.5rem); line-height: 0.94; }
+      .h-section { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.04; }
+    }
+    @media (max-width: 640px) {
+      section.py-32 { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+      section.py-24 { padding-top: 4rem; padding-bottom: 4rem; }
+      .btn { padding: 0.85rem 1.25rem; font-size: 0.65rem; letter-spacing: 0.18em; }
+      .v-toolbar { left: 12px; right: 12px; bottom: 12px; padding: 8px 10px; }
+      .video-stage .corner { width: 16px; height: 16px; }
+      .video-stage .c-tl, .video-stage .c-tr { top: 8px; }
+      .video-stage .c-bl, .video-stage .c-br { bottom: 8px; }
+      .video-stage .c-tl, .video-stage .c-bl { left: 8px; }
+      .video-stage .c-tr, .video-stage .c-br { right: 8px; }
+    }
+  </style>
+</head>
+
+<body class="stage relative grain grid-bg min-h-screen">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-void/65 border-b border-line">
+    <div class="px-6 lg:px-10">
+      <div class="grid grid-cols-12 items-center h-16">
+        <a href="index.html" class="col-span-9 md:col-span-3 flex items-center gap-2.5 group" aria-label="Tester home">
+          <span class="brand-dot"></span>
+          <img src="brand_assets/Tester%20Logo.png" alt="" class="h-6 w-auto opacity-90" />
+          <span class="font-display text-[1.1rem] font-medium leading-none tracking-tight">Tester<span class="text-cyan italic font-light">.sights</span></span>
+        </a>
+
+        <nav class="hidden md:flex col-span-6 justify-center items-center gap-9">
+          <a href="#feature" class="nav-link">Feature</a>
+          <a href="#frames" class="nav-link">Frames</a>
+          <a href="#numbers" class="nav-link">Numbers</a>
+          <a href="#archive" class="nav-link">Archive</a>
+        </nav>
+
+        <div class="col-span-3 md:col-span-3 flex justify-end items-center gap-3">
+          <a href="index.html" class="hidden sm:inline-flex btn btn-ghost !py-2.5 !px-4 !text-[0.62rem]">Tester.io ↗</a>
+          <button id="mobile-toggle" type="button" class="menu-toggle md:hidden cursor-pointer p-2" aria-label="Toggle menu" aria-controls="mobile-nav" aria-expanded="false">
+            <span class="block w-5 h-px bg-paper mb-1.5"></span>
+            <span class="block w-5 h-px bg-paper mb-1.5"></span>
+            <span class="block w-3 h-px bg-paper ml-auto"></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-nav" class="md:hidden pb-5 pt-1">
+        <nav class="flex flex-col gap-4 pt-3 border-t border-line">
+          <a href="#feature" class="nav-link">Feature</a>
+          <a href="#frames" class="nav-link">Frames</a>
+          <a href="#numbers" class="nav-link">Numbers</a>
+          <a href="#archive" class="nav-link">Archive</a>
+          <a href="index.html" class="btn btn-ghost self-start mt-2">Tester.io ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative px-6 lg:px-10 pt-16 md:pt-28 pb-12 md:pb-16 z-10 overflow-hidden">
+    <div class="grid grid-cols-12 gap-8 md:gap-10 items-end">
+      <div class="col-span-12 md:col-span-7">
+        <p class="eyebrow rise">
+          <span class="num mono-num">// SIGHTS · No. 01</span>
+          <span class="dash"></span>
+          <span>Studies in Vertical Geometry</span>
+        </p>
+        <h1 class="display h-display mt-7 md:mt-9 rise d1">
+          Burj Khalifa,<br/>
+          <span class="display-italic">from line to light.</span>
+        </h1>
+      </div>
+      <div class="col-span-12 md:col-span-5 rise d2">
+        <p class="text-paper/70 leading-[1.8] max-w-[42ch] md:ml-auto">
+          A continuous reveal — drafting room to desert evening — generated frame by frame from a single technical elevation. Ten seconds. One tower. A quiet study in how a drawing decides to become a building.
+        </p>
+        <div class="mt-6 flex items-center gap-3 chip md:ml-auto md:w-fit">
+          <span class="live-dot"></span>
+          <span class="text-paper/85">Now Playing · 00:10 loop</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 mt-14 md:mt-20 rule-t pt-8 rise d3">
+      <div>
+        <div class="mono-cap text-paper/45">Subject</div>
+        <div class="font-display text-2xl mt-2 leading-none">Burj Khalifa</div>
+        <div class="mono-cap text-mist/70 mt-1 text-[0.62rem]">Dubai · UAE</div>
+      </div>
+      <div>
+        <div class="mono-cap text-paper/45">Method</div>
+        <div class="font-display text-2xl mt-2 leading-none">Frame Synthesis</div>
+        <div class="mono-cap text-mist/70 mt-1 text-[0.62rem]">Kling 3.0 · Pro</div>
+      </div>
+      <div>
+        <div class="mono-cap text-paper/45">Length</div>
+        <div class="font-display text-2xl mt-2 leading-none mono-num">00<span class="text-cyan">:</span>10</div>
+        <div class="mono-cap text-mist/70 mt-1 text-[0.62rem]">Continuous Push-In</div>
+      </div>
+      <div>
+        <div class="mono-cap text-paper/45">Edition</div>
+        <div class="font-display text-2xl mt-2 leading-none mono-num">01<span class="text-cyan">/</span>∞</div>
+        <div class="mono-cap text-mist/70 mt-1 text-[0.62rem]">Spring · 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE — scroll-driven frame sequence -->
+  <section id="feature" class="scroll-runway relative z-10">
+    <div class="scroll-track" id="scroll-track">
+      <div class="scroll-pin">
+        <div class="canvas-stage" id="canvas-stage">
+          <canvas id="frame-canvas" width="960" height="1316" aria-label="Cinematic blueprint-to-render transformation of the Burj Khalifa, scrubbed by scroll position."></canvas>
+
+          <span class="corner c-tl" aria-hidden="true"></span>
+          <span class="corner c-tr" aria-hidden="true"></span>
+          <span class="corner c-bl" aria-hidden="true"></span>
+          <span class="corner c-br" aria-hidden="true"></span>
+
+          <!-- Scroll progress bar -->
+          <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress-fill"></i></div>
+
+          <!-- Persistent shot label -->
+          <div class="absolute top-5 left-5 chip z-10">
+            <span class="text-cyan">SHOT 01</span>
+            <span class="opacity-50">·</span>
+            <span class="text-paper/70">Scroll to scrub</span>
+          </div>
+
+          <!-- Frame counter -->
+          <div class="frame-chip chip">
+            <span class="mono-num text-paper/85" id="frame-counter">001 / 181</span>
+          </div>
+
+          <!-- Phase overlays — fade in/out by scroll range -->
+          <div class="phase" data-start="0.00" data-end="0.18">
+            <div class="ph-num">Phase 01</div>
+            <h4>Drawing</h4>
+            <p>Pure schematic. Line on paper — every floor a hairline, every measurement a promise.</p>
+          </div>
+          <div class="phase" data-start="0.22" data-end="0.42">
+            <div class="ph-num">Phase 02</div>
+            <h4>Edges glow</h4>
+            <p>Geometry awakens. The grid breathes; the wireframe carries the first hint of weight.</p>
+          </div>
+          <div class="phase" data-start="0.46" data-end="0.66">
+            <div class="ph-num">Phase 03</div>
+            <h4>Surfaces</h4>
+            <p>Material returns. Glass, aluminium, concrete — the cladding finds its grain.</p>
+          </div>
+          <div class="phase" data-start="0.70" data-end="0.86">
+            <div class="ph-num">Phase 04</div>
+            <h4>Light</h4>
+            <p>Golden hour. Reflections sharpen, shadows lengthen, the desert sky agrees to participate.</p>
+          </div>
+          <div class="phase" data-start="0.90" data-end="1.00">
+            <div class="ph-num">Phase 05</div>
+            <h4>Built</h4>
+            <p>Burj Khalifa — 828 m of evidence that the drawing was right.</p>
+          </div>
+
+          <!-- Scroll cue -->
+          <div class="scroll-cue" id="scroll-cue">
+            <span>Scroll</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </div>
+
+          <!-- Loader -->
+          <div class="loader" id="loader" role="status" aria-live="polite">
+            <div class="loader-inner">
+              <span class="loader-eyebrow"><span class="live-dot"></span><span>Preparing 181 frames</span></span>
+              <div class="loader-title display-italic">Burj Khalifa</div>
+              <div class="loader-bar"><i id="loader-fill"></i></div>
+              <span class="loader-pct mono-num" id="loader-pct">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption row (after the runway) -->
+    <div class="px-6 lg:px-10 pt-8 pb-16 md:pb-24">
+      <div class="grid grid-cols-12 gap-8">
+        <div class="col-span-12 md:col-span-7">
+          <p class="font-display text-2xl md:text-3xl leading-[1.25] tracking-tight">
+            “The drawing remembers the building before the building remembers itself.”
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-5 md:text-right">
+          <p class="mono-cap text-mist/70">Field Notes · Studio of Vertical Things</p>
+          <p class="text-paper/65 mt-3 leading-[1.7] max-w-[42ch] md:ml-auto">A camera pushes; a wireframe softens; surfaces find their light. The reveal you scrub through is computed, but the geometry beneath it is real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER STRIP -->
+  <section class="rule-t rule-h overflow-hidden bg-ink/40 relative z-10">
+    <div class="ticker flex gap-12 py-5 whitespace-nowrap mono-cap text-paper/55">
+      <span>● Reinforced concrete core</span>
+      <span>● Y-shaped tri-axial plan</span>
+      <span>● 828 m to spire tip</span>
+      <span>● Bundled tube structure</span>
+      <span>● 163 occupied floors</span>
+      <span>● Aluminium &amp; stainless cladding</span>
+      <span>● 26,000 reflective glass panels</span>
+      <span>● Completed 04 Jan 2010</span>
+      <span>● Reinforced concrete core</span>
+      <span>● Y-shaped tri-axial plan</span>
+      <span>● 828 m to spire tip</span>
+      <span>● Bundled tube structure</span>
+      <span>● 163 occupied floors</span>
+      <span>● Aluminium &amp; stainless cladding</span>
+      <span>● 26,000 reflective glass panels</span>
+      <span>● Completed 04 Jan 2010</span>
+    </div>
+  </section>
+
+  <!-- TWO-UP FRAMES -->
+  <section id="frames" class="px-6 lg:px-10 py-24 md:py-32 rule-t relative z-10">
+    <div class="grid grid-cols-12 gap-8 items-end mb-12">
+      <div class="col-span-12 md:col-span-7">
+        <p class="eyebrow">
+          <span class="num mono-num">// 02</span>
+          <span class="dash"></span>
+          <span>Source Frames</span>
+        </p>
+        <h2 class="display-mid h-section mt-5">Two stills, <span class="display-italic">one transition.</span></h2>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:text-right">
+        <p class="text-paper/65 max-w-[44ch] md:ml-auto leading-[1.8]">The film is bookended by these two images. Everything between them is interpolated — guided only by the prompt and the geometry of the page.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 reveal">
+      <figure class="frame">
+        <img src="images/burj-khalifa/burj-blueprint.png" alt="Blueprint elevation of the Burj Khalifa, white linework on cyan paper" loading="lazy" />
+        <figcaption class="meta">
+          <span class="k">Frame 01</span>
+          <span class="v">Drawing</span>
+        </figcaption>
+        <span class="absolute top-4 right-4 chip"><span class="text-cyan">START</span></span>
+      </figure>
+
+      <figure class="frame">
+        <img src="images/burj-khalifa/burj-rendered.png" alt="Photoreal render of the Burj Khalifa at golden hour over the Dubai skyline" loading="lazy" />
+        <figcaption class="meta">
+          <span class="k">Frame 02</span>
+          <span class="v">Building</span>
+        </figcaption>
+        <span class="absolute top-4 right-4 chip"><span class="text-ember">END</span></span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- NUMBERS / VITALS -->
+  <section id="numbers" class="relative px-6 lg:px-10 py-24 md:py-32 rule-t z-10 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <div class="absolute -left-10 top-10 scribe-track">khalifa khalifa</div>
+    </div>
+
+    <div class="relative z-10 grid grid-cols-12 gap-8 items-end mb-12">
+      <div class="col-span-12 md:col-span-5">
+        <p class="eyebrow">
+          <span class="num mono-num">// 03</span>
+          <span class="dash"></span>
+          <span>Vitals</span>
+        </p>
+        <h3 class="display-mid h-section mt-5">Engineered, <span class="display-italic">measured.</span></h3>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:text-right">
+        <p class="text-paper/65 max-w-[58ch] md:ml-auto leading-[1.8]">Public record. Verified by the Council on Tall Buildings and Urban Habitat — the figures the drawing was asked to honour.</p>
+      </div>
+    </div>
+
+    <div class="relative z-10 tick-row mb-12">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0 gap-x-6 reveal">
+      <div>
+        <div class="num-big mono-num">828<span class="num-unit">m</span></div>
+        <div class="mono-cap text-paper/55 mt-3">Tip Height</div>
+      </div>
+      <div>
+        <div class="num-big mono-num">163</div>
+        <div class="mono-cap text-paper/55 mt-3">Occupied Floors</div>
+      </div>
+      <div>
+        <div class="num-big mono-num">2010</div>
+        <div class="mono-cap text-paper/55 mt-3">Year Completed</div>
+      </div>
+      <div>
+        <div class="num-big mono-num">26<span class="num-unit">k</span></div>
+        <div class="mono-cap text-paper/55 mt-3">Glass Panels</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHIVE / NEXT-UP CTA -->
+  <section id="archive" class="px-6 lg:px-10 py-24 md:py-28 rule-t relative z-10">
+    <div class="relative max-w-5xl mx-auto rounded-md border border-line overflow-hidden">
+      <div class="absolute inset-0" style="background:
+        radial-gradient(circle at 78% 0%, rgba(95,184,255,0.18), transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(214,180,106,0.12), transparent 60%),
+        linear-gradient(180deg, rgba(6,7,10,0.55), rgba(6,7,10,0.78));"></div>
+      <div aria-hidden="true" class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(95,184,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(95,184,255,0.08) 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+      <div class="relative z-10 px-6 md:px-14 py-16 md:py-20 text-center">
+        <p class="eyebrow justify-center">
+          <span class="num mono-num">// 04</span>
+          <span class="dash"></span>
+          <span>Forthcoming</span>
+        </p>
+        <h3 class="display-mid h-section mt-5 max-w-3xl mx-auto">Next sight. <span class="display-italic">Coming soon.</span></h3>
+        <p class="mt-6 max-w-[58ch] mx-auto text-paper/70 leading-[1.8]">The archive is small on purpose. New towers, bridges, and stations enter the series only when they survive a long stare.</p>
+
+        <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a href="#feature" class="btn btn-cyan">Replay the Reveal <span aria-hidden="true">→</span></a>
+          <a href="index.html" class="btn btn-ghost">Back to Tester.io</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="rule-t mt-8 px-6 lg:px-10 pt-16 pb-10 relative z-10">
+    <div class="grid grid-cols-12 gap-8 mb-12">
+      <div class="col-span-12 md:col-span-6">
+        <div class="flex items-center gap-2.5">
+          <span class="brand-dot"></span>
+          <img src="brand_assets/Tester%20Logo.png" alt="" class="h-7 w-auto" />
+          <span class="font-display text-2xl font-medium leading-none tracking-tight">Tester<span class="text-cyan italic font-light">.sights</span></span>
+        </div>
+        <p class="mt-5 max-w-[48ch] text-paper/60 leading-[1.8]">A studio of <a href="index.html" class="text-paper hover:text-cyan transition-colors duration-200">Tester.io</a>. We make short films about long things — towers, lighthouses, stations, masts.</p>
+      </div>
+
+      <nav class="col-span-6 md:col-span-3">
+        <p class="mono-cap text-paper/45 mb-4">Series</p>
+        <ul class="space-y-3 text-sm text-paper/75">
+          <li><a class="hover:text-cyan transition-colors duration-200" href="#feature">Burj Khalifa</a></li>
+          <li><a class="hover:text-cyan transition-colors duration-200 italic text-paper/40 cursor-not-allowed" href="#" aria-disabled="true">Eiffel — Apr</a></li>
+          <li><a class="hover:text-cyan transition-colors duration-200 italic text-paper/40 cursor-not-allowed" href="#" aria-disabled="true">Sagrada — May</a></li>
+          <li><a class="hover:text-cyan transition-colors duration-200 italic text-paper/40 cursor-not-allowed" href="#" aria-disabled="true">Salk — Jun</a></li>
+        </ul>
+      </nav>
+
+      <nav class="col-span-6 md:col-span-3">
+        <p class="mono-cap text-paper/45 mb-4">House</p>
+        <ul class="space-y-3 text-sm text-paper/75">
+          <li><a class="hover:text-cyan transition-colors duration-200" href="index.html">Tester.io</a></li>
+          <li><a class="hover:text-cyan transition-colors duration-200" href="TesterTech.html">Tester.tech</a></li>
+          <li><a class="hover:text-cyan transition-colors duration-200" href="#">Press</a></li>
+          <li><a class="hover:text-cyan transition-colors duration-200" href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="rule-t pt-6 flex flex-col md:flex-row gap-3 justify-between items-center mono-cap text-paper/40">
+      <span>© 2026 — Tester.sights &nbsp;·&nbsp; A division of Tester.io</span>
+      <span class="flex items-center gap-2.5"><span class="live-dot"></span><span>Frame synthesis · Kling 3.0 · Spring Edition</span></span>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- mobile drawer ----------
+    (() => {
+      const btn = document.getElementById('mobile-toggle');
+      const drawer = document.getElementById('mobile-nav');
+      if (!btn || !drawer) return;
+      btn.addEventListener('click', () => {
+        const open = drawer.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+
+    // ---------- scroll reveal ----------
+    (() => {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || !els.length) {
+        els.forEach(e => e.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -60px 0px' });
+      els.forEach((el) => io.observe(el));
+    })();
+
+    // ---------- scroll-driven frame sequence ----------
+    (() => {
+      const TOTAL = 181;
+      const BATCH = 18;
+      const FRAME_W = 960;
+      const FRAME_H = 1316;
+      const PATH = (i) => `images/burj-khalifa/frames/frame-${String(i).padStart(4, '0')}.webp`;
+
+      const canvas  = document.getElementById('frame-canvas');
+      const track   = document.getElementById('scroll-track');
+      const counter = document.getElementById('frame-counter');
+      const progressFill = document.getElementById('scroll-progress-fill');
+      const loader  = document.getElementById('loader');
+      const loaderFill = document.getElementById('loader-fill');
+      const loaderPct  = document.getElementById('loader-pct');
+      const cue     = document.getElementById('scroll-cue');
+      const phases  = Array.from(document.querySelectorAll('.phase'));
+      if (!canvas || !track) return;
+
+      const ctx = canvas.getContext('2d');
+      const frames = new Array(TOTAL);
+
+      function loadFrame(i) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.decoding = 'async';
+          img.onload = () => { frames[i] = img; resolve(true); };
+          img.onerror = () => { resolve(false); };
+          img.src = PATH(i + 1);
+        });
+      }
+
+      async function preload() {
+        let done = 0;
+        for (let i = 0; i < TOTAL; i += BATCH) {
+          const batch = [];
+          for (let j = i; j < Math.min(i + BATCH, TOTAL); j++) batch.push(loadFrame(j));
+          await Promise.all(batch);
+          done = Math.min(i + BATCH, TOTAL);
+          const pct = Math.round((done / TOTAL) * 100);
+          if (loaderFill) loaderFill.style.width = pct + '%';
+          if (loaderPct)  loaderPct.textContent  = pct + '%';
+        }
+        // Draw the first frame and reveal the stage
+        if (frames[0]) ctx.drawImage(frames[0], 0, 0, FRAME_W, FRAME_H);
+        if (loader) loader.classList.add('hide');
+        // Kick the render loop and do an initial scroll sync
+        scheduleScrollCalc();
+        requestAnimationFrame(renderTick);
+      }
+
+      // Scroll → frame index (calc only; no drawing here)
+      let currentFrame = 0;
+      let drawnFrame = -1;
+      let progress01 = 0;
+
+      function scheduleScrollCalc() {
+        const r = track.getBoundingClientRect();
+        const total = r.height - window.innerHeight;
+        // Clamp 0..1 across the runway
+        const raw = total > 0 ? (-r.top) / total : 0;
+        progress01 = Math.min(1, Math.max(0, raw));
+        currentFrame = Math.min(Math.floor(progress01 * TOTAL), TOTAL - 1);
+
+        // Cheap UI updates that run at scroll cadence (no heavy paint)
+        if (progressFill) progressFill.style.width = (progress01 * 100) + '%';
+        if (counter) counter.textContent = String(currentFrame + 1).padStart(3, '0') + ' / ' + TOTAL;
+
+        // Hide the scroll cue once we're moving
+        if (cue) cue.classList.toggle('hide', progress01 > 0.02);
+
+        // Phase visibility — class-toggle is cheap & uses CSS transitions
+        for (const p of phases) {
+          const s = parseFloat(p.dataset.start);
+          const e = parseFloat(p.dataset.end);
+          const inRange = progress01 >= s && progress01 <= e;
+          if (inRange !== p.classList.contains('in')) {
+            p.classList.toggle('in', inRange);
+          }
+        }
+      }
+
+      function renderTick() {
+        if (currentFrame !== drawnFrame && frames[currentFrame]) {
+          ctx.drawImage(frames[currentFrame], 0, 0, FRAME_W, FRAME_H);
+          drawnFrame = currentFrame;
+        }
+        requestAnimationFrame(renderTick);
+      }
+
+      // Passive scroll — never blocks, only updates state
+      window.addEventListener('scroll', scheduleScrollCalc, { passive: true });
+      window.addEventListener('resize', scheduleScrollCalc);
+
+      // Begin
+      preload();
+    })();
+  </script>
+</body>
+</html>

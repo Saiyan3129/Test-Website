@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Project Anything — a next-gen gaming console reveal." />
+<meta name="theme-color" content="#050307" />
+<title>Anything · Project Reveal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #050307;
+  --bg-2: #0a0612;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.18);
+  --text: rgba(255,255,255,0.95);
+  --text-muted: rgba(255,255,255,0.62);
+  --text-faint: rgba(255,255,255,0.40);
+  --cyan: #00e5ff;
+  --magenta: #ff2dd1;
+  --cyan-soft: rgba(0,229,255,0.18);
+  --magenta-soft: rgba(255,45,209,0.18);
+
+  --font-display: "Space Grotesk", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* atmospheric backdrop layer */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60% 50% at 20% 10%, rgba(0,229,255,0.12), transparent 60%),
+    radial-gradient(50% 60% at 85% 90%, rgba(255,45,209,0.10), transparent 60%),
+    radial-gradient(80% 60% at 50% 50%, rgba(10,6,18,0.6), transparent 70%);
+}
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.18'/></svg>");
+  mix-blend-mode: overlay;
+  opacity: 0.42;
+}
+
+::selection { background: var(--cyan-soft); color: var(--text); }
+img, video { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; transition: color 280ms var(--ease-out); }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 100;
+  padding: 22px 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(180deg, rgba(5,3,7,0.7), rgba(5,3,7,0));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.nav__brand {
+  display: flex; align-items: center; gap: 12px;
+  font-weight: 500; font-size: 14px; letter-spacing: 0.02em;
+}
+.nav__brand-icon {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  position: relative;
+}
+.nav__brand-icon::before, .nav__brand-icon::after {
+  content: ""; position: absolute;
+  width: 8px; height: 8px;
+}
+.nav__brand-icon::before {
+  top: -1px; left: -1px;
+  border-top: 1px solid var(--cyan);
+  border-left: 1px solid var(--cyan);
+}
+.nav__brand-icon::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 1px solid var(--magenta);
+  border-right: 1px solid var(--magenta);
+}
+.nav__brand-text strong { font-weight: 700; letter-spacing: -0.01em; }
+.nav__brand-text span { color: var(--text-faint); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-left: 6px; }
+
+.nav__back {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color 280ms var(--ease-out), border-color 280ms var(--ease-out), background 280ms var(--ease-out), transform 280ms var(--ease-out);
+}
+.nav__back:hover { color: var(--text); border-color: var(--cyan); background: var(--cyan-soft); transform: translateY(-1px); }
+
+/* ---------- LAYOUT ---------- */
+main { position: relative; z-index: 1; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 36px; }
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100vh; min-height: 100svh;
+  padding: 140px 36px 80px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__rails {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, var(--line) 1px, transparent 1px),
+    linear-gradient(180deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(70% 60% at 50% 50%, #000 0%, transparent 80%);
+  opacity: 0.4;
+}
+
+.hero__head {
+  position: relative;
+  text-align: left;
+  max-width: 1180px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px 60px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+
+.hero__chip {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  align-self: start;
+}
+.hero__chip-dot {
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  animation: chipPulse 1800ms ease-in-out infinite;
+}
+@keyframes chipPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(48px, 9.4vw, 156px);
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  margin-top: 28px;
+}
+.hero__title strong {
+  font-weight: 700;
+  background: linear-gradient(120deg, var(--cyan) 0%, #ffffff 50%, var(--magenta) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 24px rgba(0,229,255,0.25));
+}
+.hero__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.hero__meta {
+  display: flex; flex-direction: column; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-align: right;
+  white-space: nowrap;
+}
+.hero__meta strong { color: var(--text); font-weight: 500; letter-spacing: 0.12em; }
+
+/* video stage */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #000;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 0 0 1px var(--line-strong),
+    0 60px 140px -40px rgba(0,229,255,0.30),
+    0 60px 140px -40px rgba(255,45,209,0.20);
+}
+
+.stage__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.stage__overlay {
+  position: absolute; inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 70% at 50% 50%, transparent 60%, rgba(0,0,0,0.45) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.20) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.30) 100%);
+}
+
+.stage__hud {
+  position: absolute; inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  padding: 22px 26px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+}
+.stage__hud-row { display: flex; justify-content: space-between; gap: 12px; }
+.stage__hud-row span { display: inline-flex; align-items: center; gap: 8px; }
+.stage__hud-row span::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 999px;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+}
+.stage__hud-row span.mag::before { background: var(--magenta); box-shadow: 0 0 8px var(--magenta); }
+
+/* corner markers */
+.stage__corners::before, .stage__corners::after,
+.stage__corners > i:nth-child(1), .stage__corners > i:nth-child(2) {
+  content: "";
+  position: absolute;
+  width: 24px; height: 24px;
+  border: 1px solid rgba(255,255,255,0.6);
+  z-index: 4;
+  pointer-events: none;
+}
+.stage__corners::before { top: 14px; left: 14px; border-right: 0; border-bottom: 0; }
+.stage__corners::after  { top: 14px; right: 14px; border-left: 0; border-bottom: 0; }
+.stage__corners > i:nth-child(1) { bottom: 14px; left: 14px; border-right: 0; border-top: 0; }
+.stage__corners > i:nth-child(2) { bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
+
+/* poster frame visible while video loads / if fails */
+.stage__poster {
+  position: absolute; inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(45% 60% at 50% 55%, rgba(0,229,255,0.12), transparent 60%),
+    radial-gradient(55% 70% at 50% 80%, rgba(255,45,209,0.16), transparent 65%),
+    linear-gradient(180deg, #050307 0%, #0a0612 60%, #15081f 100%);
+  display: grid; place-items: center;
+}
+.stage__poster-svg { width: 60%; max-width: 520px; opacity: 0.85; }
+.stage__poster-text {
+  position: absolute; bottom: 28px; left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* underglow reflection */
+.stage::after {
+  content: "";
+  position: absolute;
+  left: 8%; right: 8%; bottom: -54px; height: 80px;
+  border-radius: 50%;
+  background:
+    radial-gradient(50% 100% at 30% 50%, var(--cyan-soft), transparent 70%),
+    radial-gradient(50% 100% at 70% 50%, var(--magenta-soft), transparent 70%);
+  filter: blur(28px);
+  z-index: -1;
+}
+
+/* status / spec strip */
+.specs {
+  margin-top: 96px;
+  width: 100%;
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.spec {
+  background: var(--bg);
+  padding: 22px 24px;
+}
+.spec__label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.spec__value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin-top: 8px;
+  background: linear-gradient(120deg, var(--cyan), #fff 50%, var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- TEASER LINE ---------- */
+.teaser {
+  padding: 140px 36px 160px;
+  position: relative;
+}
+.teaser__inner {
+  max-width: 1180px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+.teaser__lede {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(28px, 3.6vw, 56px);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+}
+.teaser__lede em {
+  font-style: italic;
+  display: inline-block;
+  line-height: 1.25;
+  padding: 0.12em 0.04em 0.06em;
+  margin: -0.12em 0 -0.06em;
+  vertical-align: baseline;
+  background: linear-gradient(120deg, var(--cyan), var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.teaser__copy {
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 52ch;
+}
+.teaser__copy + .teaser__copy { margin-top: 18px; }
+
+/* ---------- FOOTER ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 44px 36px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  position: relative; z-index: 1;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 980px) {
+  .hero__head { grid-template-columns: 1fr; align-items: start; }
+  .hero__meta { text-align: left; }
+  .specs { grid-template-columns: repeat(2, 1fr); }
+  .teaser__inner { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (max-width: 560px) {
+  .nav { padding: 14px 18px; }
+  .nav__brand-text span { display: none; }
+  .nav__back {
+    padding: 8px 12px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    gap: 6px;
+  }
+  .nav__back svg { width: 10px; height: 10px; }
+
+  .hero { padding: 96px 18px 56px; }
+  .wrap, .teaser { padding-left: 18px; padding-right: 18px; }
+
+  .hero__head { gap: 18px 0; margin-bottom: 28px; }
+  .hero__chip { font-size: 9px; padding: 6px 12px; letter-spacing: 0.18em; }
+  .hero__title { margin-top: 16px; letter-spacing: -0.04em; }
+  .hero__meta { font-size: 9px; letter-spacing: 0.14em; }
+
+  .stage { border-radius: 10px; }
+  .stage__hud { padding: 10px 12px; font-size: 8px; letter-spacing: 0.18em; }
+  .stage__hud-row { gap: 8px; }
+  .stage__hud-row span::before { width: 5px; height: 5px; }
+  .stage__corners::before, .stage__corners::after,
+  .stage__corners > i { width: 16px; height: 16px; top: 8px; }
+  .stage__corners::before { left: 8px; }
+  .stage__corners::after  { right: 8px; }
+  .stage__corners > i:nth-child(1) { bottom: 8px; left: 8px; top: auto; }
+  .stage__corners > i:nth-child(2) { bottom: 8px; right: 8px; top: auto; }
+  .stage::after { left: 4%; right: 4%; bottom: -38px; height: 56px; filter: blur(20px); }
+
+  .specs { grid-template-columns: 1fr 1fr; margin-top: 64px; }
+  .spec { padding: 16px 18px; }
+  .spec__value { font-size: 17px; letter-spacing: -0.01em; }
+  .spec__label { font-size: 9px; letter-spacing: 0.18em; }
+
+  .teaser { padding: 80px 18px 96px; }
+  .teaser__inner { gap: 18px; }
+  .teaser__lede { font-size: clamp(22px, 6.4vw, 32px); }
+  .teaser__copy { font-size: 14px; line-height: 1.65; }
+
+  .footer {
+    padding: 32px 18px 40px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero { padding: 88px 14px 48px; }
+  .wrap, .teaser, .footer { padding-left: 14px; padding-right: 14px; }
+  .specs { grid-template-columns: 1fr 1fr; }
+  .stage__hud { padding: 8px 10px; font-size: 7.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="nav__brand" href="#top">
+    <span class="nav__brand-icon" aria-hidden="true"></span>
+    <span class="nav__brand-text"><strong>Anything</strong><span>// Project File 003</span></span>
+  </a>
+  <a class="nav__back" href="product.html">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M19 12H5M11 18l-6-6 6-6"/>
+    </svg>
+    Back to Tester Pro
+  </a>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__rails" aria-hidden="true"></div>
+
+    <div class="hero__head">
+      <div>
+        <span class="hero__chip">
+          <span class="hero__chip-dot" aria-hidden="true"></span>
+          Live Capture · Reveal 24
+        </span>
+        <h1 class="hero__title">Project<br><strong>Anything.</strong> <em>The console, reimagined.</em></h1>
+      </div>
+      <div class="hero__meta">
+        <div><strong>Status</strong> · Concept Reveal</div>
+        <div><strong>Format</strong> · Cinematic 16:9</div>
+        <div><strong>Run-time</strong> · 00:08</div>
+      </div>
+    </div>
+
+    <!-- Video stage -->
+    <div class="stage">
+      <!-- Poster fallback (always visible behind the video; video covers it on play) -->
+      <div class="stage__poster" aria-hidden="true">
+        <svg class="stage__poster-svg" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00e5ff"/>
+              <stop offset="100%" stop-color="#ff2dd1"/>
+            </linearGradient>
+          </defs>
+          <rect x="60" y="80" width="280" height="100" rx="14" stroke="url(#g1)" stroke-width="1.2" opacity="0.7"/>
+          <rect x="80" y="100" width="240" height="60" rx="8" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+          <circle cx="120" cy="130" r="8" stroke="#00e5ff" stroke-width="1"/>
+          <circle cx="280" cy="130" r="8" stroke="#ff2dd1" stroke-width="1"/>
+          <line x1="60" y1="200" x2="340" y2="200" stroke="rgba(255,255,255,0.20)" stroke-dasharray="2 4"/>
+        </svg>
+        <div class="stage__poster-text">Generating reveal · stand by</div>
+      </div>
+
+      <video class="stage__video"
+             id="hero-video"
+             src="videos/console-hero.mp4"
+             autoplay muted loop playsinline preload="metadata"
+             poster=""></video>
+
+      <div class="stage__overlay" aria-hidden="true"></div>
+
+      <div class="stage__corners" aria-hidden="true"><i></i><i></i></div>
+
+      <div class="stage__hud" aria-hidden="true">
+        <div class="stage__hud-row">
+          <span>REC · 4K</span>
+          <span class="mag">VEO · CLIP 003</span>
+        </div>
+        <div class="stage__hud-row">
+          <span>RGB · cyan + magenta</span>
+          <span class="mag">DOF · f/1.8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="specs">
+      <div class="spec"><div class="spec__label">Codename</div><div class="spec__value">Anything</div></div>
+      <div class="spec"><div class="spec__label">Form Factor</div><div class="spec__value">Sculpted</div></div>
+      <div class="spec"><div class="spec__label">Lighting</div><div class="spec__value">RGB Underglow</div></div>
+      <div class="spec"><div class="spec__label">Quality</div><div class="spec__value">4K Hyperreal</div></div>
+    </div>
+  </section>
+
+  <!-- ============ TEASER ============ -->
+  <section class="teaser">
+    <div class="teaser__inner">
+      <h2 class="teaser__lede">A console <em>reimagined</em> from the underglow up — sculpted curves, pulsing accents, a controller that feels like it caught the light first.</h2>
+      <div>
+        <p class="teaser__copy">Filmed on a glossy black surface in a fully-controlled studio environment. Cinematic key light, magenta rim, cyan kicker. Particle haze layered in post.</p>
+        <p class="teaser__copy">This page is a holding-pattern reveal — the video is generated by Veo via the kie.ai pipeline and embedded directly. Refresh after generation completes to see the latest cut.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <span>© 2026 · Project Anything</span>
+    <span>Generated · Veo · kie.ai</span>
+    <span>Reveal File · 003</span>
+  </footer>
+
+</main>
+
+<script>
+  // If the video errors out (e.g., file not yet generated), the poster
+  // and HUD remain visible — no broken icon, page still feels intentional.
+  const v = document.getElementById('hero-video');
+  if (v) {
+    v.addEventListener('error', () => { v.style.display = 'none'; }, { once: true });
+    v.addEventListener('stalled', () => {}, { once: true });
+  }
+</script>
+
+</body>
+</html>

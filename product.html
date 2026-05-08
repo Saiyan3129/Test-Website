@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Tester Smart Watch Pro — engineered titanium, sapphire crystal, 14-day battery." />
+<meta name="theme-color" content="#000000" />
+<title>Tester Smart Watch Pro</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #000000;
+  --surface: #050505;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.16);
+  --text: rgba(255,255,255,0.94);
+  --text-muted: rgba(255,255,255,0.62);
+  --text-faint: rgba(255,255,255,0.40);
+  --accent: #00d4ff;
+  --accent-soft: rgba(0,212,255,0.18);
+  --accent-glow: rgba(0,212,255,0.55);
+  --silver-1: #ffffff;
+  --silver-2: #b8bcc4;
+  --silver-3: #6e7480;
+
+  --font-display: -apple-system, "SF Pro Display", "BlinkMacSystemFont", "Inter", system-ui, sans-serif;
+  --font-body: -apple-system, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent-soft); color: var(--text); }
+
+img, video { display: block; max-width: 100%; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 240ms var(--ease-out), opacity 240ms var(--ease-out);
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 100;
+  padding: 18px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: background 320ms var(--ease-out), border-color 320ms var(--ease-out);
+}
+.nav.scrolled { background: rgba(0,0,0,0.78); border-bottom-color: var(--line); }
+
+.nav__brand {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav__brand-mark {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.nav__links { display: flex; gap: 36px; align-items: center; }
+.nav__links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  font-weight: 400;
+  position: relative;
+}
+.nav__links a:hover { color: var(--text); }
+.nav__links a::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -6px;
+  height: 1px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 320ms var(--ease-out);
+}
+.nav__links a:hover::after { transform: scaleX(1); }
+
+.nav__cta {
+  font-size: 13px;
+  padding: 8px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  letter-spacing: -0.005em;
+  transition: border-color 240ms var(--ease-out), background 240ms var(--ease-out), transform 240ms var(--ease-out);
+}
+.nav__cta:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
+
+.nav__menu { display: none; }
+
+.nav__toggle {
+  display: none;
+  width: 32px; height: 32px;
+  position: relative;
+}
+.nav__toggle span {
+  position: absolute; left: 6px; right: 6px; height: 1px;
+  background: var(--text);
+  transition: transform 320ms var(--ease-out), opacity 240ms var(--ease-out), top 320ms var(--ease-out);
+}
+.nav__toggle span:nth-child(1) { top: 12px; }
+.nav__toggle span:nth-child(2) { top: 19px; }
+.nav.open .nav__toggle span:nth-child(1) { top: 15px; transform: rotate(45deg); }
+.nav.open .nav__toggle span:nth-child(2) { top: 15px; transform: rotate(-45deg); }
+
+/* ---------- LAYOUT ---------- */
+main { display: block; }
+section { position: relative; }
+
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.eyebrow::before {
+  content: "";
+  width: 24px; height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 32px 80px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__video-wrap {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: -1;
+}
+.hero__video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: heroVideoFade 1600ms var(--ease-out) 200ms forwards;
+}
+.hero__video-mask {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(45% 40% at 50% 48%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.7) 75%, #000 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.2) 70%, rgba(0,0,0,0.95) 100%);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  text-align: center;
+  max-width: 980px;
+}
+.hero__eyebrow { opacity: 0; animation: rise 1100ms var(--ease-out) 600ms forwards; }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: clamp(48px, 8.4vw, 124px);
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  margin-top: 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 55%, #8a8d94 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  animation: rise 1300ms var(--ease-out) 750ms forwards;
+}
+.hero__title em {
+  font-style: italic;
+  font-weight: 300;
+  background: linear-gradient(180deg, var(--accent) 0%, #6cd9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__tagline {
+  margin-top: 28px;
+  font-size: clamp(16px, 1.4vw, 20px);
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  line-height: 1.55;
+  max-width: 56ch;
+  margin-left: auto; margin-right: auto;
+  opacity: 0;
+  animation: rise 1300ms var(--ease-out) 1000ms forwards;
+}
+
+.hero__meta {
+  margin-top: 44px;
+  display: flex; gap: 22px; justify-content: center; flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  opacity: 0;
+  animation: rise 1300ms var(--ease-out) 1250ms forwards;
+}
+.hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero__meta span::before {
+  content: "•"; color: var(--accent); font-size: 14px;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-faint);
+  opacity: 0;
+  animation: rise 1300ms var(--ease-out) 1500ms forwards;
+}
+.scroll-indicator__line {
+  width: 1px; height: 48px;
+  background: linear-gradient(180deg, transparent, var(--text-faint));
+  position: relative; overflow: hidden;
+}
+.scroll-indicator__line::after {
+  content: ""; position: absolute; top: -50%; left: 0;
+  width: 100%; height: 50%;
+  background: var(--accent);
+  animation: scrollDot 2400ms ease-in-out infinite;
+}
+
+@keyframes heroVideoFade { to { opacity: 1; } }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollDot {
+  0% { top: -50%; }
+  100% { top: 100%; }
+}
+
+/* ---------- FEATURES ---------- */
+.features {
+  padding: 160px 0 140px;
+  border-top: 1px solid var(--line);
+}
+.features__head {
+  max-width: 760px;
+  margin-bottom: 96px;
+}
+.features__title {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: clamp(36px, 4.6vw, 64px);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-top: 22px;
+}
+.features__title em {
+  font-style: italic; font-weight: 300;
+  color: var(--text-muted);
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.feature {
+  background: #000;
+  padding: 44px 40px 48px;
+  position: relative;
+  transition: background 480ms var(--ease-out);
+}
+.feature:hover { background: #050505; }
+.feature::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 600ms var(--ease-out);
+}
+.feature:hover::before { transform: scaleX(1); }
+
+.feature__icon {
+  width: 36px; height: 36px;
+  color: var(--accent);
+  margin-bottom: 32px;
+  stroke-width: 1.25;
+}
+
+.feature__num {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em;
+  color: var(--text-faint);
+  position: absolute; top: 28px; right: 32px;
+}
+
+.feature__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.feature__copy {
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.65;
+  max-width: 36ch;
+}
+.feature__spec {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-faint);
+  display: flex; justify-content: space-between;
+}
+.feature__spec strong { color: var(--text); font-weight: 500; }
+
+/* ---------- DISSECTION ---------- */
+.dissection {
+  padding: 140px 0 160px;
+  border-top: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.dissection__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 80px;
+}
+.dissection__title {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: clamp(36px, 4.6vw, 64px);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-top: 22px;
+}
+.dissection__title em { font-style: italic; font-weight: 300; color: var(--text-muted); }
+
+.dissection__stage {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+}
+
+.dissection__video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #000;
+  position: relative; z-index: 1;
+}
+
+.dissection__video-mask {
+  position: absolute; inset: -1px;
+  pointer-events: none;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 120px 12px rgba(0,0,0,0.6),
+    0 40px 100px -20px rgba(0,212,255,0.08);
+  z-index: 2;
+}
+
+.callout {
+  position: absolute;
+  z-index: 3;
+  font-family: var(--font-mono);
+  display: flex; flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+  pointer-events: none;
+}
+.dissection.in .callout { opacity: 1; transform: translateY(0); }
+.dissection.in .callout:nth-child(2) { transition-delay: 200ms; }
+.dissection.in .callout:nth-child(3) { transition-delay: 400ms; }
+.dissection.in .callout:nth-child(4) { transition-delay: 600ms; }
+.dissection.in .callout:nth-child(5) { transition-delay: 800ms; }
+.dissection.in .callout:nth-child(6) { transition-delay: 1000ms; }
+
+.callout__index {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent);
+  display: flex; align-items: center; gap: 10px;
+}
+.callout__index::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0,212,255,0.18), 0 0 16px var(--accent-glow);
+  animation: pulse 2400ms var(--ease-out) infinite;
+}
+.callout__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.callout__copy {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 24ch;
+}
+
+/* Pin positions (relative to stage) */
+.callout--tl { top: 4%; left: 3%; }
+.callout--tr { top: 4%; right: 3%; text-align: right; align-items: flex-end; }
+.callout--bl { bottom: 6%; left: 3%; }
+.callout--br { bottom: 6%; right: 3%; text-align: right; align-items: flex-end; }
+.callout--ml { top: 42%; left: -2%; }
+.callout--mr { top: 42%; right: -2%; text-align: right; align-items: flex-end; }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(0,212,255,0.18), 0 0 12px var(--accent-glow); }
+  50% { box-shadow: 0 0 0 7px rgba(0,212,255,0.06), 0 0 22px var(--accent-glow); }
+}
+
+/* ---------- CTA ---------- */
+.cta {
+  padding: 160px 0 180px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 70% at 50% 100%, rgba(0,212,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta__price {
+  font-family: var(--font-mono);
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 32px;
+}
+.cta__price strong { color: var(--text); font-weight: 500; }
+.cta__title {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: clamp(40px, 5.6vw, 80px);
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  max-width: 16ch;
+  margin: 0 auto;
+}
+.cta__title em {
+  font-style: italic; font-weight: 300;
+  background: linear-gradient(180deg, var(--accent) 0%, #6cd9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cta__sub {
+  margin: 24px auto 0;
+  color: var(--text-muted);
+  font-size: 16px;
+  font-weight: 300;
+  max-width: 52ch;
+}
+
+.cta__btn {
+  margin-top: 56px;
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 20px 48px;
+  background: var(--text);
+  color: #000;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  position: relative;
+  isolation: isolate;
+  transition: transform 320ms var(--ease-spring), box-shadow 320ms var(--ease-out), background 320ms var(--ease-out), color 320ms var(--ease-out);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.0),
+    0 18px 40px -12px rgba(0,212,255,0.0);
+}
+.cta__btn::before {
+  content: "";
+  position: absolute; inset: -2px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--accent), #6cd9ff, var(--accent));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+  filter: blur(8px);
+}
+.cta__btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: var(--accent);
+  color: #001218;
+  box-shadow:
+    0 0 0 1px rgba(0,212,255,0.3),
+    0 22px 48px -12px var(--accent-glow);
+}
+.cta__btn:hover::before { opacity: 0.55; }
+.cta__btn:active { transform: translateY(0) scale(0.99); }
+.cta__btn-arrow {
+  width: 18px; height: 18px;
+  transition: transform 320ms var(--ease-spring);
+}
+.cta__btn:hover .cta__btn-arrow { transform: translateX(4px); }
+
+.cta__row {
+  margin-top: 56px;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cta__row .cta__btn { margin-top: 0; }
+
+.cta__btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  box-shadow: none;
+}
+.cta__btn--ghost::before { display: none; }
+.cta__btn--ghost:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(0,212,255,0.18),
+    0 18px 40px -16px var(--accent-glow);
+}
+
+.cta__small {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 56px 32px 64px;
+  text-align: center;
+}
+.footer__brand {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.footer__brand-mark {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.footer__social {
+  margin-top: 24px;
+  display: flex; justify-content: center; gap: 24px;
+}
+.footer__social a {
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  color: var(--text-faint);
+  transition: color 240ms var(--ease-out), background 240ms var(--ease-out), transform 240ms var(--ease-out);
+}
+.footer__social a:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+.footer__social svg { width: 18px; height: 18px; }
+.footer__copy {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ---------- REVEAL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1000ms var(--ease-out), transform 1000ms var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal--delay-1.in { transition-delay: 120ms; }
+.reveal--delay-2.in { transition-delay: 240ms; }
+.reveal--delay-3.in { transition-delay: 360ms; }
+.reveal--delay-4.in { transition-delay: 480ms; }
+.reveal--delay-5.in { transition-delay: 600ms; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 980px) {
+  .features__grid { grid-template-columns: repeat(2, 1fr); }
+  .callout--ml { left: 4%; top: -6%; }
+  .callout--mr { right: 4%; top: -6%; text-align: right; align-items: flex-end; }
+}
+
+@media (max-width: 720px) {
+  .nav { padding: 14px 22px; }
+  .nav__links { display: none; }
+  .nav__cta { display: none; }
+  .nav__toggle { display: block; }
+
+  .nav__menu {
+    display: flex;
+    position: fixed;
+    inset: 60px 0 auto 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line);
+    padding: 24px;
+    flex-direction: column; gap: 18px;
+    transform: translateY(-110%);
+    transition: transform 480ms var(--ease-out);
+  }
+  .nav.open .nav__menu { transform: translateY(0); }
+  .nav__menu a { font-size: 16px; padding: 8px 0; color: var(--text); border-bottom: 1px solid var(--line); }
+  .nav__menu a:last-child { border-bottom: none; }
+
+  .wrap { padding: 0 22px; }
+  .features { padding: 110px 0 90px; }
+  .features__head { margin-bottom: 56px; }
+  .features__grid { grid-template-columns: 1fr; }
+  .feature { padding: 36px 28px 38px; }
+
+  .dissection { padding: 100px 0 220px; }
+  .dissection__head { margin-bottom: 56px; }
+  .dissection__stage { aspect-ratio: 4 / 3; }
+  .callout {
+    position: static;
+    text-align: left !important;
+    align-items: flex-start !important;
+    margin-top: 24px;
+    max-width: 100%;
+  }
+  .callout__copy { max-width: 48ch; }
+
+  .cta { padding: 110px 0 130px; }
+  .cta__btn { padding: 18px 36px; font-size: 15px; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav__brand" aria-label="Tester home">
+    <span class="nav__brand-mark" aria-hidden="true"></span>
+    Tester<span style="color:var(--text-faint);font-weight:300">.io</span>
+  </a>
+
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#features">Features</a>
+    <a href="#dissection">Inside</a>
+    <a href="#order">Pre-Order</a>
+  </nav>
+
+  <a href="#order" class="nav__cta">Buy Now</a>
+
+  <button class="nav__toggle" aria-label="Open menu" aria-controls="nav-menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+
+  <div class="nav__menu" id="nav-menu">
+    <a href="#features">Features</a>
+    <a href="#dissection">Inside</a>
+    <a href="#order">Pre-Order</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__video-wrap" aria-hidden="true">
+      <video class="hero__video"
+             src="Smart%20Watch%20Dissection.mp4"
+             autoplay muted loop playsinline preload="metadata"></video>
+      <div class="hero__video-mask"></div>
+    </div>
+
+    <div class="hero__content">
+      <p class="eyebrow hero__eyebrow">Series 04 — Pro</p>
+      <h1 class="hero__title" id="hero-title">Tester Smart<br>Watch <em>Pro.</em></h1>
+      <p class="hero__tagline">Engineered titanium. Sapphire crystal. A custom silicon platform that runs for fourteen days on a single charge — and senses everything in between.</p>
+
+      <div class="hero__meta">
+        <span>Grade-5 Titanium</span>
+        <span>Always-On OLED</span>
+        <span>14-Day Battery</span>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="scroll-indicator__line"></span>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="features__head reveal">
+        <p class="eyebrow">// 02 — Capabilities</p>
+        <h2 class="features__title" id="features-title">Six systems, <em>one quiet machine.</em></h2>
+      </div>
+
+      <div class="features__grid">
+
+        <article class="feature reveal">
+          <span class="feature__num">01</span>
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12h4l2-7 4 14 2-7h6"/>
+          </svg>
+          <h3 class="feature__title">Optical Heart Rate</h3>
+          <p class="feature__copy">A 24-channel photoplethysmography array samples 100 times per second, surfacing cardiac irregularity within a single beat.</p>
+          <div class="feature__spec"><span>Sample Rate</span><strong>100 Hz</strong></div>
+        </article>
+
+        <article class="feature reveal reveal--delay-1">
+          <span class="feature__num">02</span>
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+          </svg>
+          <h3 class="feature__title">Dual-Frequency GPS</h3>
+          <p class="feature__copy">L1 + L5 satellite tracking pierces dense canopy and city canyon. Sub-metre accuracy, even in motion.</p>
+          <div class="feature__spec"><span>Constellations</span><strong>5</strong></div>
+        </article>
+
+        <article class="feature reveal reveal--delay-2">
+          <span class="feature__num">03</span>
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="3" width="16" height="18" rx="3"/>
+            <path d="M9 8h6M9 12h6M9 16h4"/>
+          </svg>
+          <h3 class="feature__title">Always-On OLED</h3>
+          <p class="feature__copy">A 480 × 480 LTPO panel dims to a single nit at rest and surges to 3,000 nits in direct sun. You see the time. The battery doesn't notice.</p>
+          <div class="feature__spec"><span>Peak Brightness</span><strong>3,000 nit</strong></div>
+        </article>
+
+        <article class="feature reveal reveal--delay-3">
+          <span class="feature__num">04</span>
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3c-3 4.5-6 7.8-6 11a6 6 0 0 0 12 0c0-3.2-3-6.5-6-11z"/>
+            <path d="M9 14c.5 1.5 1.7 2.5 3 2.7"/>
+          </svg>
+          <h3 class="feature__title">100m Water Rated</h3>
+          <p class="feature__copy">ISO 22810 dive-certified. Pressure-tested to ten atmospheres. Swim, surf, free-dive — the gaskets don't care.</p>
+          <div class="feature__spec"><span>Rating</span><strong>10 ATM</strong></div>
+        </article>
+
+        <article class="feature reveal reveal--delay-4">
+          <span class="feature__num">05</span>
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="7" width="16" height="10" rx="2"/>
+            <path d="M19 10v4M7 12h6"/>
+          </svg>
+          <h3 class="feature__title">14-Day Battery</h3>
+          <p class="feature__copy">A custom low-power silicon block, paired with an LTPO display and an adaptive sensor fusion stack, stretches one charge across two full weeks.</p>
+          <div class="feature__spec"><span>Standby</span><strong>336 hr</strong></div>
+        </article>
+
+        <article class="feature reveal reveal--delay-5">
+          <span class="feature__num">06</span>
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+          <h3 class="feature__title">Sleep Architecture</h3>
+          <p class="feature__copy">Tracks every cycle — REM, deep, light, wake — and quietly maps your circadian rhythm against ambient light, temperature, and HRV.</p>
+          <div class="feature__spec"><span>Stages</span><strong>4 + Wake</strong></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DISSECTION ============ -->
+  <section class="dissection" id="dissection" aria-labelledby="dissection-title">
+    <div class="wrap">
+      <div class="dissection__head reveal">
+        <p class="eyebrow" style="justify-content:center; display:flex;">// 03 — Architecture</p>
+        <h2 class="dissection__title" id="dissection-title">Layer by layer. <em>Element by element.</em></h2>
+      </div>
+
+      <div class="dissection__stage">
+        <video class="dissection__video"
+               src="Smart%20Watch%20Dissection.mp4"
+               autoplay muted loop playsinline preload="none"></video>
+        <div class="dissection__video-mask" aria-hidden="true"></div>
+
+        <div class="callout callout--tl">
+          <span class="callout__index">// 01 Case</span>
+          <span class="callout__title">Grade-5 Titanium</span>
+          <span class="callout__copy">CNC-milled from a single billet. 41% lighter than steel.</span>
+        </div>
+
+        <div class="callout callout--tr">
+          <span class="callout__index">// 02 Crystal</span>
+          <span class="callout__title">Sapphire Face</span>
+          <span class="callout__copy">9H Mohs hardness with anti-reflective coating on both surfaces.</span>
+        </div>
+
+        <div class="callout callout--ml">
+          <span class="callout__index">// 03 Silicon</span>
+          <span class="callout__title">Custom S-Class Chip</span>
+          <span class="callout__copy">5nm dual-core, dedicated NPU for on-device inference.</span>
+        </div>
+
+        <div class="callout callout--mr">
+          <span class="callout__index">// 04 Sensors</span>
+          <span class="callout__title">24-Channel Array</span>
+          <span class="callout__copy">PPG, ECG, SpO₂, skin temperature, and barometric altimeter.</span>
+        </div>
+
+        <div class="callout callout--bl">
+          <span class="callout__index">// 05 Display</span>
+          <span class="callout__title">LTPO OLED</span>
+          <span class="callout__copy">1Hz idle to 60Hz refresh. 3,000-nit peak luminance.</span>
+        </div>
+
+        <div class="callout callout--br">
+          <span class="callout__index">// 06 Power</span>
+          <span class="callout__title">410mAh Lithium</span>
+          <span class="callout__copy">Dual-cell stack with 14-day endurance, 60-min full charge.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="order" aria-labelledby="cta-title">
+    <div class="wrap">
+      <p class="cta__price reveal">From <strong>$799</strong> &nbsp;·&nbsp; Ships March 2026</p>
+      <h2 class="cta__title reveal reveal--delay-1" id="cta-title">Reserve yours <em>today.</em></h2>
+      <p class="cta__sub reveal reveal--delay-2">First-batch units are individually serialised and engraved with the production run. Free worldwide shipping. 30-day return.</p>
+
+      <div class="cta__row reveal reveal--delay-3">
+        <a href="#" class="cta__btn">
+          Pre-Order Now
+          <svg class="cta__btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+        <a href="anything.html" class="cta__btn cta__btn--ghost">
+          Watch Project Anything
+          <svg class="cta__btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+      </div>
+
+      <p class="cta__small reveal reveal--delay-4">Secured payment · Encrypted at rest · Cancel anytime</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__brand">
+      <span class="footer__brand-mark" aria-hidden="true"></span>
+      Tester<span style="color:var(--text-faint);font-weight:300">.io</span>
+    </div>
+
+    <div class="footer__social" aria-label="Social media">
+      <a href="#" aria-label="X / Twitter">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.13C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.47A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.13C4.4 20.4 12 20.4 12 20.4s7.6 0 9.4-.47a3 3 0 0 0 2.1-2.13A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="footer__copy">© 2026 Tester.io · All rights reserved</p>
+  </footer>
+
+</main>
+
+<script>
+(() => {
+  // --- Sticky nav background on scroll ---
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 24) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // --- Mobile menu toggle ---
+  const toggle = nav.querySelector('.nav__toggle');
+  const menu = nav.querySelector('.nav__menu');
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // --- IntersectionObserver reveal ---
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal, .dissection').forEach(el => io.observe(el));
+
+  // --- Pause hero video when off-screen for perf ---
+  const heroVideo = document.querySelector('.hero__video');
+  const dissectionVideo = document.querySelector('.dissection__video');
+  const pauseObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, { threshold: 0.05 });
+  if (heroVideo) pauseObserver.observe(heroVideo);
+  if (dissectionVideo) pauseObserver.observe(dissectionVideo);
+})();
+</script>
+
+</body>
+</html>

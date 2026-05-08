@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tester Tech — Engineered Companions</title>
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            graphite: '#0a0a0b',
+            charcoal: '#14141a',
+            shale: '#1d1d23',
+            warmwhite: '#f5f3ee',
+            mute: '#6c6a66',
+            accent: '#d4ff3a',
+            'accent-2': '#c6a559',
+            rule: 'rgba(245,243,238,0.08)',
+          },
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --graphite: #0a0a0b;
+      --charcoal: #14141a;
+      --shale: #1d1d23;
+      --warmwhite: #f5f3ee;
+      --mute: #6c6a66;
+      --accent: #d4ff3a;
+      --accent-2: #c6a559;
+      --rule: rgba(245,243,238,0.08);
+      --rule-strong: rgba(245,243,238,0.14);
+    }
+
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html, body {
+      background: var(--graphite);
+      color: var(--warmwhite);
+      font-family: 'Manrope', system-ui, sans-serif;
+    }
+
+    /* Atmosphere */
+    .stage-bg {
+      background:
+        radial-gradient(circle at 82% -8%, rgba(212,255,58,0.10), transparent 42%),
+        radial-gradient(circle at -10% 38%, rgba(198,165,89,0.07), transparent 50%),
+        radial-gradient(circle at 50% 110%, rgba(212,255,58,0.04), transparent 60%),
+        var(--graphite);
+    }
+
+    /* Grain overlay */
+    .grain::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      opacity: 0.07; mix-blend-mode: overlay; z-index: 1;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* Display typography */
+    .display {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-variation-settings: 'opsz' 96;
+      letter-spacing: -0.035em;
+      line-height: 0.92;
+      font-weight: 700;
+    }
+    .display-mid {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-variation-settings: 'opsz' 48;
+      letter-spacing: -0.025em;
+      line-height: 1.0;
+      font-weight: 700;
+    }
+    .display-small {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      font-variation-settings: 'opsz' 24;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+    }
+    .italic-light { font-style: italic; font-weight: 300; }
+
+    /* Mono helpers */
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .mono-cap {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 500;
+    }
+    .mono-num { font-family: 'JetBrains Mono', monospace; font-feature-settings: 'tnum' on; }
+
+    /* Hairlines */
+    .rule-h { border-bottom: 1px solid var(--rule); }
+    .rule-t { border-top: 1px solid var(--rule); }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 500;
+    }
+    .eyebrow .num { color: var(--accent); }
+    .eyebrow .dash { width: 32px; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); }
+    .eyebrow .label { color: rgba(245,243,238,0.7); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 600;
+      border-radius: 999px;
+      transition:
+        transform 360ms cubic-bezier(0.22,1,0.36,1),
+        background-color 320ms cubic-bezier(0.22,1,0.36,1),
+        color 320ms cubic-bezier(0.22,1,0.36,1),
+        box-shadow 360ms cubic-bezier(0.22,1,0.36,1),
+        border-color 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .btn-accent {
+      background: var(--accent); color: #0a0a0b;
+      border: 1px solid var(--accent);
+      box-shadow:
+        0 14px 34px -16px rgba(212,255,58,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+    .btn-accent:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 22px 48px -14px rgba(212,255,58,0.85),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .btn-accent:active { transform: translateY(0); }
+    .btn-accent:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .btn-ghost {
+      background: transparent; color: var(--warmwhite);
+      border: 1px solid rgba(245,243,238,0.22);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent); color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px -22px rgba(212,255,58,0.4);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .btn-text {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 500;
+      color: var(--warmwhite);
+      transition: color 220ms ease, transform 280ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .btn-text .arrow { transition: transform 320ms cubic-bezier(0.22,1,0.36,1); display: inline-block; }
+    .btn-text:hover { color: var(--accent); }
+    .btn-text:hover .arrow { transform: translateX(5px); }
+    .btn-text:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
+
+    /* Nav link */
+    .nav-link {
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 500;
+      color: rgba(245,243,238,0.72);
+      transition: color 220ms ease;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -8px;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 360ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .nav-link:hover { color: var(--warmwhite); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 2px; }
+
+    /* Product card */
+    .product-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(29,29,35,0.72), rgba(20,20,26,0.5));
+      border: 1px solid rgba(245,243,238,0.06);
+      border-radius: 18px;
+      overflow: hidden;
+      transition:
+        transform 460ms cubic-bezier(0.22,1,0.36,1),
+        border-color 320ms ease,
+        box-shadow 460ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,255,58,0.32);
+      box-shadow:
+        0 28px 60px -28px rgba(212,255,58,0.22),
+        0 14px 34px -18px rgba(0,0,0,0.55);
+    }
+    .product-card .img-frame {
+      position: relative;
+      background:
+        radial-gradient(circle at 28% 22%, rgba(212,255,58,0.07), transparent 50%),
+        radial-gradient(circle at 78% 80%, rgba(198,165,89,0.06), transparent 60%),
+        var(--shale);
+    }
+    .product-card .img-wrap { transition: transform 760ms cubic-bezier(0.22,1,0.36,1); }
+    .product-card:hover .img-wrap { transform: scale(1.045); }
+
+    /* Image treatment overlay */
+    .img-treat::before {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(180deg, transparent 50%, rgba(10,10,11,0.55) 100%);
+    }
+    .img-treat::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: rgba(20,20,26,0.18); mix-blend-mode: multiply;
+    }
+
+    /* Live status dot */
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(212,255,58,0.8);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    /* Marquee ticker */
+    .ticker { animation: ticker 38s linear infinite; will-change: transform; }
+    @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+    /* Reveal on load (staggered) */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .rise { animation: rise 880ms cubic-bezier(0.22,1,0.36,1) both; }
+    .rise.d1 { animation-delay: 100ms; }
+    .rise.d2 { animation-delay: 200ms; }
+    .rise.d3 { animation-delay: 300ms; }
+    .rise.d4 { animation-delay: 400ms; }
+    .rise.d5 { animation-delay: 540ms; }
+
+    /* Tick markers */
+    .tick-row {
+      display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; height: 8px;
+    }
+    .tick-row > span { border-left: 1px solid rgba(245,243,238,0.12); }
+    .tick-row > span:nth-child(5n+1) { border-left-color: var(--accent); opacity: 0.55; }
+
+    /* Big numerals */
+    .num-big {
+      font-family: 'Bricolage Grotesque', system-ui;
+      font-variation-settings: 'opsz' 96;
+      font-weight: 700;
+      font-size: clamp(3.4rem, 7vw, 5.4rem);
+      line-height: 0.85;
+      letter-spacing: -0.045em;
+      color: var(--warmwhite);
+    }
+    .num-unit { color: var(--accent); }
+
+    /* Glass chip */
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      background: rgba(20,20,26,0.7);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border: 1px solid rgba(245,243,238,0.10);
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 500;
+    }
+
+    /* Form input */
+    .input {
+      background: rgba(20,20,26,0.6);
+      border: 1px solid rgba(245,243,238,0.14);
+      color: var(--warmwhite);
+      border-radius: 999px;
+      padding: 0.95rem 1.35rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.92rem;
+      transition: border-color 240ms ease, background-color 240ms ease;
+    }
+    .input::placeholder { color: rgba(245,243,238,0.4); }
+    .input:focus { outline: none; border-color: var(--accent); background: rgba(20,20,26,0.85); }
+
+    /* Spec floater */
+    .spec-floater {
+      background: rgba(10,10,11,0.7);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+      border: 1px solid rgba(245,243,238,0.10);
+      border-radius: 16px;
+      box-shadow: 0 30px 60px -30px rgba(0,0,0,0.7);
+    }
+
+    /* Aspect ratios */
+    .ar-square   { aspect-ratio: 1 / 1; }
+    .ar-portrait { aspect-ratio: 4 / 5; }
+    .ar-tall     { aspect-ratio: 3 / 4; }
+    .ar-wide     { aspect-ratio: 16 / 9; }
+    .ar-feature  { aspect-ratio: 5 / 4; }
+
+    /* Responsive type */
+    .h-display { font-size: clamp(3rem, 11vw, 9rem); }
+    .h-section { font-size: clamp(2.25rem, 5.4vw, 4.4rem); }
+
+    /* Generic focus ring fallback */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* Logo dot */
+    .brand-dot {
+      width: 10px; height: 10px; border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(212,255,58,0.7);
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    a:hover .brand-dot { transform: scale(1.18); }
+
+    /* Mobile menu toggle */
+    .menu-toggle { display: inline-flex; }
+    @media (min-width: 768px) { .menu-toggle { display: none; } }
+    #mobile-nav { display: none; }
+    #mobile-nav.open { display: block; }
+
+    /* ===== Mobile / tablet refinements ===== */
+    @media (max-width: 1024px) {
+      .h-display { font-size: clamp(2.6rem, 9.4vw, 5.6rem); line-height: 0.96; }
+      .h-section { font-size: clamp(2rem, 6.4vw, 3.2rem); line-height: 1.04; }
+    }
+
+    @media (max-width: 640px) {
+      /* Tighter section vertical rhythm on small screens */
+      section.py-24 { padding-top: 4.25rem; padding-bottom: 4.25rem; }
+      section.pt-24 { padding-top: 4.25rem; }
+      section.pb-16 { padding-bottom: 3rem; }
+      section.pb-24 { padding-bottom: 4.25rem; }
+
+      .display-mid { line-height: 1.06; }
+
+      /* Hero CTA buttons stretch full-width on tiny screens for tap-friendly hit areas */
+      .hero-ctas .btn { flex: 1 1 100%; justify-content: center; }
+
+      /* Buttons: looser tracking is hard to fit on small screens — soften slightly */
+      .btn { padding: 0.85rem 1.25rem; font-size: 0.65rem; letter-spacing: 0.18em; }
+      .btn-text { font-size: 0.65rem; letter-spacing: 0.18em; }
+
+      /* Eyebrow: dash takes too much room on narrow screens, narrow it */
+      .eyebrow .dash { width: 22px; }
+      .eyebrow { gap: 0.55rem; flex-wrap: wrap; }
+
+      /* Chip: a touch smaller so it doesn't bleed off image overlays */
+      .chip { padding: 0.4rem 0.7rem; font-size: 0.6rem; letter-spacing: 0.16em; }
+
+      /* Optics + lens overlay: stack the info row instead of justify-between */
+      .img-overlay-stack { flex-direction: column !important; align-items: flex-start !important; gap: 0.65rem !important; }
+      .img-overlay-stack > * { width: auto; }
+
+      /* Big numbers — keep tight */
+      .num-big { font-size: clamp(2.6rem, 11.5vw, 4rem); }
+
+      /* Spec floater hidden — already handled by hidden sm:block, just safety */
+      .spec-floater { display: none !important; }
+    }
+
+    @media (max-width: 380px) {
+      section.px-6 { padding-left: 1.05rem; padding-right: 1.05rem; }
+      .h-display { font-size: 2.4rem; }
+      .h-section { font-size: 1.85rem; }
+    }
+
+    /* Section divider dots */
+    .dot-rule {
+      display: flex; align-items: center; gap: 8px; color: rgba(245,243,238,0.18);
+    }
+    .dot-rule::before, .dot-rule::after {
+      content: ''; flex: 1; height: 1px; background: rgba(245,243,238,0.08);
+    }
+  </style>
+</head>
+
+<body class="stage-bg relative grain min-h-screen">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-graphite/65 border-b border-rule">
+    <div class="px-6 lg:px-10">
+      <div class="grid grid-cols-12 items-center h-16">
+        <a href="index.html" class="col-span-9 md:col-span-3 flex items-center gap-2.5 group" aria-label="Tester.tech home">
+          <span class="brand-dot"></span>
+          <img src="brand_assets/Tester%20Logo.png" alt="" class="h-6 w-auto opacity-95" />
+          <span class="display-small text-[1.05rem] font-bold leading-none">Tester<span class="text-accent">.tech</span></span>
+        </a>
+
+        <nav class="hidden md:flex col-span-6 justify-center items-center gap-9">
+          <a href="#timepieces" class="nav-link">Timepieces</a>
+          <a href="#optics" class="nav-link">Optics</a>
+          <a href="#voice" class="nav-link">Voice</a>
+          <a href="#everyday" class="nav-link">Everyday</a>
+        </nav>
+
+        <div class="col-span-3 md:col-span-3 flex justify-end items-center gap-3">
+          <a href="#preorder" class="hidden sm:inline-flex btn btn-accent !py-2.5 !px-4 !text-[0.62rem]">Pre-order</a>
+          <button id="mobile-toggle" type="button" class="menu-toggle md:hidden cursor-pointer p-2" aria-label="Toggle menu" aria-controls="mobile-nav" aria-expanded="false">
+            <span class="block w-5 h-px bg-warmwhite mb-1.5"></span>
+            <span class="block w-5 h-px bg-warmwhite mb-1.5"></span>
+            <span class="block w-3 h-px bg-warmwhite ml-auto"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile drawer -->
+      <div id="mobile-nav" class="md:hidden pb-5 pt-1">
+        <nav class="flex flex-col gap-4 pt-3 border-t border-rule">
+          <a href="#timepieces" class="nav-link">Timepieces</a>
+          <a href="#optics" class="nav-link">Optics</a>
+          <a href="#voice" class="nav-link">Voice</a>
+          <a href="#everyday" class="nav-link">Everyday</a>
+          <a href="#preorder" class="btn btn-accent self-start mt-2">Pre-order</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative px-6 lg:px-10 pt-14 md:pt-24 pb-24 md:pb-36 z-10 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <img src="images/tech/bg-hero.png" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="" />
+      <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 30%, transparent 0%, rgba(10,10,11,0.55) 60%, var(--graphite) 100%);"></div>
+    </div>
+    <div class="relative z-10 grid grid-cols-12 gap-8 md:gap-10">
+      <div class="col-span-12 md:col-span-7">
+        <div class="rise">
+          <p class="eyebrow">
+            <span class="num mono-num">// 2026</span>
+            <span class="dash"></span>
+            <span class="label">Spring Lineup — Engineered Companions</span>
+          </p>
+        </div>
+        <h1 class="display h-display mt-7 md:mt-9 rise d1">
+          Tech with the<br/>
+          <span class="italic-light">heft of</span> craft.
+        </h1>
+        <p class="mt-7 max-w-[55ch] text-warmwhite/70 leading-[1.7] rise d2">
+          A workshop-first take on consumer hardware. Five families of intelligent objects — drawn with the same precision as our atelier sole. Designed in Manila &amp; Berlin. Finished in Northampton.
+        </p>
+        <div class="hero-ctas mt-10 flex flex-wrap items-center gap-4 rise d3">
+          <a href="#timepieces" class="btn btn-accent">Explore the Lineup <span aria-hidden="true">→</span></a>
+          <a href="#preorder" class="btn btn-ghost">Watch the Film</a>
+        </div>
+
+        <div class="mt-12 grid grid-cols-3 gap-x-6 max-w-md rise d4">
+          <div class="rule-t pt-4">
+            <div class="mono-cap text-warmwhite/50">Families</div>
+            <div class="display-small text-2xl mt-1.5 mono-num">04</div>
+          </div>
+          <div class="rule-t pt-4">
+            <div class="mono-cap text-warmwhite/50">Objects</div>
+            <div class="display-small text-2xl mt-1.5 mono-num">11</div>
+          </div>
+          <div class="rule-t pt-4">
+            <div class="mono-cap text-warmwhite/50">Markets</div>
+            <div class="display-small text-2xl mt-1.5 mono-num">38</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero showcase -->
+      <div class="col-span-12 md:col-span-5 relative rise d4">
+        <div class="relative">
+          <div class="ar-portrait rounded-3xl overflow-hidden border border-rule relative" style="background: radial-gradient(circle at 30% 25%, rgba(212,255,58,0.10), transparent 55%), radial-gradient(circle at 75% 80%, rgba(198,165,89,0.07), transparent 60%), var(--shale);">
+            <div class="img-treat absolute inset-0"></div>
+            <img src="images/tech/ts01-hero.png" class="w-full h-full object-cover opacity-95" alt="Tester One Watch" loading="eager" />
+
+            <div class="absolute top-5 right-5 chip z-10">
+              <span class="live-dot"></span>
+              <span class="text-warmwhite/85">Online</span>
+            </div>
+
+            <div class="absolute bottom-5 left-5 chip z-10">
+              <span class="text-accent">TS01</span>
+              <span class="opacity-50">·</span>
+              <span class="text-warmwhite/70">42mm Titanium</span>
+            </div>
+          </div>
+
+          <!-- Floating spec card -->
+          <div class="spec-floater absolute -bottom-10 -left-4 md:-left-14 px-5 py-4 hidden sm:block rise d5">
+            <div class="flex items-center gap-5">
+              <div>
+                <div class="mono-cap text-warmwhite/50">Battery</div>
+                <div class="num-big text-[2rem] mt-1 mono-num">14<span class="num-unit">d</span></div>
+              </div>
+              <div class="w-px h-10 bg-rule"></div>
+              <div>
+                <div class="mono-cap text-warmwhite/50">Sensors</div>
+                <div class="num-big text-[2rem] mt-1 mono-num">17</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <section class="rule-t rule-h overflow-hidden bg-charcoal/30 relative z-10">
+    <div class="ticker flex gap-12 py-5 whitespace-nowrap mono-cap text-warmwhite/55">
+      <span>● Titanium G5</span>
+      <span>● Sapphire Crystal</span>
+      <span>● ARM v9 Neon</span>
+      <span>● 5nm SoC</span>
+      <span>● LiDAR — 4D</span>
+      <span>● Haptic Engine</span>
+      <span>● MIL-STD-810H</span>
+      <span>● 14-day Cell</span>
+      <span>● End-to-End Encrypted</span>
+      <span>● Recycled Alloy</span>
+      <span>● Titanium G5</span>
+      <span>● Sapphire Crystal</span>
+      <span>● ARM v9 Neon</span>
+      <span>● 5nm SoC</span>
+      <span>● LiDAR — 4D</span>
+      <span>● Haptic Engine</span>
+      <span>● MIL-STD-810H</span>
+      <span>● 14-day Cell</span>
+      <span>● End-to-End Encrypted</span>
+      <span>● Recycled Alloy</span>
+    </div>
+  </section>
+
+  <!-- 01 — TIMEPIECES -->
+  <section id="timepieces" class="px-6 lg:px-10 pt-24 pb-16 relative z-10">
+    <div class="grid grid-cols-12 gap-8 items-end mb-12">
+      <div class="col-span-12 md:col-span-7">
+        <p class="eyebrow">
+          <span class="num mono-num">// 01</span>
+          <span class="dash"></span>
+          <span class="label">Timepieces</span>
+        </p>
+        <h2 class="display-mid h-section mt-5">A wrist that <span class="italic-light">remembers.</span></h2>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:text-right">
+        <p class="text-warmwhite/65 max-w-[42ch] md:ml-auto leading-[1.7]">Three watch families — formal, light, and field. Same titanium chassis, same 14-day cell. Different conversations.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="product-card">
+        <div class="img-frame ar-portrait img-treat overflow-hidden">
+          <img src="images/tech/tester-one.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester One" />
+          <span class="absolute top-4 left-4 chip z-10"><span class="text-accent">New</span></span>
+        </div>
+        <div class="p-6">
+          <div class="flex items-baseline justify-between gap-3">
+            <h3 class="display-small text-[1.05rem]">Tester One</h3>
+            <span class="mono-num text-warmwhite/65 text-sm">$649</span>
+          </div>
+          <p class="mt-2 text-sm text-warmwhite/55">Titanium · 42mm · GPS + Cellular</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono-cap text-warmwhite/40">TS01—01</span>
+            <a href="#" class="btn-text">Spec sheet <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-frame ar-portrait img-treat overflow-hidden">
+          <img src="images/tech/tester-lite.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Lite" />
+        </div>
+        <div class="p-6">
+          <div class="flex items-baseline justify-between gap-3">
+            <h3 class="display-small text-[1.05rem]">Tester Lite</h3>
+            <span class="mono-num text-warmwhite/65 text-sm">$429</span>
+          </div>
+          <p class="mt-2 text-sm text-warmwhite/55">Aluminium · 38mm · Daily Wear</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono-cap text-warmwhite/40">TS01—02</span>
+            <a href="#" class="btn-text">Spec sheet <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-frame ar-portrait img-treat overflow-hidden">
+          <img src="images/tech/tester-field.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Field" />
+          <span class="absolute top-4 left-4 chip z-10"><span class="text-accent-2">Limited</span></span>
+        </div>
+        <div class="p-6">
+          <div class="flex items-baseline justify-between gap-3">
+            <h3 class="display-small text-[1.05rem]">Tester Field</h3>
+            <span class="mono-num text-warmwhite/65 text-sm">$789</span>
+          </div>
+          <p class="mt-2 text-sm text-warmwhite/55">Titanium G5 · 46mm · MIL-STD</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono-cap text-warmwhite/40">TS01—03</span>
+            <a href="#" class="btn-text">Spec sheet <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 02 — OPTICS / SMART GLASSES (split feature) -->
+  <section id="optics" class="relative px-6 lg:px-10 py-24 rule-t z-10">
+    <div class="grid grid-cols-12 gap-10 md:gap-14 items-center">
+      <div class="col-span-12 md:col-span-5 order-2 md:order-1">
+        <p class="eyebrow">
+          <span class="num mono-num">// 02</span>
+          <span class="dash"></span>
+          <span class="label">Optics</span>
+        </p>
+        <h2 class="display-mid h-section mt-5">Lenses that <span class="italic-light">listen.</span></h2>
+        <p class="mt-6 text-warmwhite/70 leading-[1.7] max-w-[44ch]">A heads-up companion in 6 grams of acetate and titanium. Live captions, navigation, recall — without a screen between you and the room.</p>
+
+        <div class="mt-9 grid grid-cols-3 gap-4 max-w-md">
+          <div class="rule-t pt-4">
+            <div class="mono-cap text-warmwhite/50">Weight</div>
+            <div class="display-small text-2xl mt-1.5 mono-num">6<span class="text-accent">g</span></div>
+          </div>
+          <div class="rule-t pt-4">
+            <div class="mono-cap text-warmwhite/50">Battery</div>
+            <div class="display-small text-2xl mt-1.5 mono-num">9<span class="text-accent">h</span></div>
+          </div>
+          <div class="rule-t pt-4">
+            <div class="mono-cap text-warmwhite/50">Mics</div>
+            <div class="display-small text-2xl mt-1.5 mono-num">06</div>
+          </div>
+        </div>
+
+        <div class="hero-ctas mt-10 flex flex-wrap gap-4">
+          <a href="#preorder" class="btn btn-accent">Reserve a Pair <span aria-hidden="true">→</span></a>
+          <a href="#" class="btn btn-ghost">Read the Spec</a>
+        </div>
+      </div>
+
+      <div class="col-span-12 md:col-span-7 order-1 md:order-2 relative">
+        <div class="ar-feature rounded-3xl border border-rule overflow-hidden img-treat" style="background: radial-gradient(circle at 25% 30%, rgba(212,255,58,0.08), transparent 55%), var(--shale);">
+          <img src="images/tech/tester-lens.png" class="w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Lens" />
+
+          <div class="absolute top-5 right-5 chip z-10">
+            <span class="text-accent">TG02</span>
+            <span class="opacity-50">·</span>
+            <span class="text-warmwhite/70">Lens A</span>
+          </div>
+
+          <div class="img-overlay-stack absolute bottom-5 left-5 right-5 flex flex-wrap items-end justify-between gap-3 z-10">
+            <div class="min-w-0">
+              <div class="mono-cap text-warmwhite/55">Live Translation</div>
+              <div class="display-small text-lg md:text-xl mt-1">38 languages, on-device</div>
+            </div>
+            <span class="chip flex-shrink-0"><span class="live-dot"></span><span class="text-warmwhite/85">Capturing</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 — VOICE / SMART ASSISTANTS -->
+  <section id="voice" class="px-6 lg:px-10 py-24 rule-t relative z-10">
+    <div class="grid grid-cols-12 gap-8 items-end mb-12">
+      <div class="col-span-12 md:col-span-7">
+        <p class="eyebrow">
+          <span class="num mono-num">// 03</span>
+          <span class="dash"></span>
+          <span class="label">Voice</span>
+        </p>
+        <h2 class="display-mid h-section mt-5">A room that <span class="italic-light">answers.</span></h2>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:text-right">
+        <p class="text-warmwhite/65 max-w-[44ch] md:ml-auto leading-[1.7]">Two voice-first companions for the living and the moving. Both sit quietly when you don't need them.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <article class="product-card">
+        <div class="img-frame ar-square img-treat overflow-hidden">
+          <img src="images/tech/tester-pulse.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Pulse" />
+          <span class="absolute bottom-5 left-5 chip z-10"><span class="live-dot"></span><span class="text-warmwhite/85">Listening</span></span>
+        </div>
+        <div class="p-7">
+          <div class="flex items-baseline justify-between gap-3">
+            <h3 class="display-small text-[1.2rem]">Tester Pulse</h3>
+            <span class="mono-num text-warmwhite/65">$329</span>
+          </div>
+          <p class="mt-2 text-sm text-warmwhite/55">360° aluminum cabinet · room calibration · 14-mic far-field array</p>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="mono-cap text-warmwhite/40">TV03—01</span>
+            <a href="#" class="btn-text">Specs <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-frame ar-square img-treat overflow-hidden">
+          <img src="images/tech/tester-mini.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Mini" />
+        </div>
+        <div class="p-7">
+          <div class="flex items-baseline justify-between gap-3">
+            <h3 class="display-small text-[1.2rem]">Tester Mini</h3>
+            <span class="mono-num text-warmwhite/65">$119</span>
+          </div>
+          <p class="mt-2 text-sm text-warmwhite/55">Voice puck · battery powered · pocket-portable</p>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="mono-cap text-warmwhite/40">TV03—02</span>
+            <a href="#" class="btn-text">Specs <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 04 — EVERYDAY -->
+  <section id="everyday" class="px-6 lg:px-10 py-24 rule-t relative z-10">
+    <div class="grid grid-cols-12 gap-8 items-end mb-12">
+      <div class="col-span-12 md:col-span-7">
+        <p class="eyebrow">
+          <span class="num mono-num">// 04</span>
+          <span class="dash"></span>
+          <span class="label">Everyday Objects</span>
+        </p>
+        <h2 class="display-mid h-section mt-5">Quiet things, <span class="italic-light">always there.</span></h2>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:text-right">
+        <p class="text-warmwhite/65 max-w-[42ch] md:ml-auto leading-[1.7]">Pocket-sized, jacket-sized, finger-sized — the rest of the lineup.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+      <article class="product-card">
+        <div class="img-frame ar-square img-treat overflow-hidden">
+          <img src="images/tech/tester-ring.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Ring" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-baseline justify-between gap-2">
+            <h3 class="display-small text-[0.95rem]">Tester Ring</h3>
+            <span class="mono-num text-warmwhite/65 text-xs">$249</span>
+          </div>
+          <p class="mt-1.5 text-xs text-warmwhite/55">Sleep · HR · SpO₂</p>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-frame ar-square img-treat overflow-hidden">
+          <img src="images/tech/tester-buds.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Buds" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-baseline justify-between gap-2">
+            <h3 class="display-small text-[0.95rem]">Tester Buds</h3>
+            <span class="mono-num text-warmwhite/65 text-xs">$179</span>
+          </div>
+          <p class="mt-1.5 text-xs text-warmwhite/55">ANC · 9h · Spatial</p>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-frame ar-square img-treat overflow-hidden">
+          <img src="images/tech/tester-pen.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Pen" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-baseline justify-between gap-2">
+            <h3 class="display-small text-[0.95rem]">Tester Pen</h3>
+            <span class="mono-num text-warmwhite/65 text-xs">$159</span>
+          </div>
+          <p class="mt-1.5 text-xs text-warmwhite/55">OCR · Pressure · 30d</p>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-frame ar-square img-treat overflow-hidden">
+          <img src="images/tech/tester-tag.png" class="img-wrap w-full h-full object-cover absolute inset-0 opacity-95" alt="Tester Tag" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-baseline justify-between gap-2">
+            <h3 class="display-small text-[0.95rem]">Tester Tag</h3>
+            <span class="mono-num text-warmwhite/65 text-xs">$39</span>
+          </div>
+          <p class="mt-1.5 text-xs text-warmwhite/55">UWB · 1y battery</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 05 — HOUSE STANDARDS NUMBERS STRIP -->
+  <section class="px-6 lg:px-10 py-24 rule-t relative z-10 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <img src="images/tech/bg-standards.png" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, var(--graphite) 0%, rgba(10,10,11,0.5) 35%, rgba(10,10,11,0.5) 65%, var(--graphite) 100%);"></div>
+    </div>
+    <div class="relative z-10 grid grid-cols-12 gap-8 items-end mb-10">
+      <div class="col-span-12 md:col-span-5">
+        <p class="eyebrow">
+          <span class="num mono-num">// 05</span>
+          <span class="dash"></span>
+          <span class="label">House Standards</span>
+        </p>
+        <h3 class="display-mid h-section mt-5">Engineered, <span class="italic-light">measured.</span></h3>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:text-right">
+        <p class="text-warmwhite/65 max-w-[52ch] md:ml-auto leading-[1.7]">Numbers we publish ourselves. Independently verified by Stuttgart Acoustic Lab and SGS Hong Kong.</p>
+      </div>
+    </div>
+
+    <div class="relative z-10 tick-row mb-12">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0 gap-x-6">
+      <div>
+        <div class="num-big mono-num">14<span class="num-unit">d</span></div>
+        <div class="mono-cap text-warmwhite/55 mt-3">Mean cell life</div>
+      </div>
+      <div>
+        <div class="num-big mono-num">256</div>
+        <div class="mono-cap text-warmwhite/55 mt-3">Onboard sensors</div>
+      </div>
+      <div>
+        <div class="num-big mono-num">06</div>
+        <div class="mono-cap text-warmwhite/55 mt-3">Wireless protocols</div>
+      </div>
+      <div>
+        <div class="num-big mono-num">AAA</div>
+        <div class="mono-cap text-warmwhite/55 mt-3">Accessibility tier</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — PRE-ORDER -->
+  <section id="preorder" class="px-6 lg:px-10 py-24 rule-t relative z-10">
+    <div class="relative max-w-5xl mx-auto rounded-3xl border border-rule overflow-hidden">
+      <img src="images/tech/bg-preorder.png" class="absolute inset-0 w-full h-full object-cover opacity-65" alt="" aria-hidden="true" />
+      <div class="absolute inset-0" style="background:
+        radial-gradient(circle at 82% 0%, rgba(212,255,58,0.22), transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(198,165,89,0.14), transparent 60%),
+        linear-gradient(180deg, rgba(10,10,11,0.55), rgba(10,10,11,0.7));"></div>
+
+      <div class="relative z-10 px-6 md:px-14 py-16 md:py-20 text-center">
+        <p class="eyebrow justify-center">
+          <span class="num mono-num">// 06</span>
+          <span class="dash"></span>
+          <span class="label">First Wave</span>
+        </p>
+        <h3 class="display-mid h-section mt-5 max-w-3xl mx-auto">First call. <span class="italic-light">First batch.</span></h3>
+        <p class="mt-6 max-w-[58ch] mx-auto text-warmwhite/70 leading-[1.7]">Reserve early access to the Spring lineup. We write twice a season — never more.</p>
+
+        <form class="mt-10 flex flex-col sm:flex-row gap-3 max-w-xl mx-auto" onsubmit="event.preventDefault()">
+          <input type="email" required placeholder="your@workshop.email" class="input flex-1" aria-label="Email address" />
+          <button type="submit" class="btn btn-accent shrink-0">Reserve <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="mono-cap text-warmwhite/40 mt-5">Encrypted at rest · Unsubscribe in one click</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="rule-t mt-16 px-6 lg:px-10 pt-16 pb-10 relative z-10">
+    <div class="grid grid-cols-12 gap-8 mb-12">
+      <div class="col-span-12 md:col-span-5">
+        <div class="flex items-center gap-2.5">
+          <span class="brand-dot"></span>
+          <img src="brand_assets/Tester%20Logo.png" alt="" class="h-7 w-auto" />
+          <span class="display-small text-2xl font-bold leading-none">Tester<span class="text-accent">.tech</span></span>
+        </div>
+        <p class="mt-5 max-w-[44ch] text-warmwhite/60 leading-[1.7]">A tech division of <a href="index.html" class="text-warmwhite hover:text-accent transition-colors duration-200">Tester.io</a>. We make connected objects with the discipline of a cobbler's bench.</p>
+      </div>
+
+      <nav class="col-span-6 md:col-span-2">
+        <p class="mono-cap text-warmwhite/45 mb-4">Lineup</p>
+        <ul class="space-y-3 text-sm text-warmwhite/75">
+          <li><a class="hover:text-accent transition-colors duration-200" href="#timepieces">Timepieces</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#optics">Optics</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#voice">Voice</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#everyday">Everyday</a></li>
+        </ul>
+      </nav>
+
+      <nav class="col-span-6 md:col-span-2">
+        <p class="mono-cap text-warmwhite/45 mb-4">House</p>
+        <ul class="space-y-3 text-sm text-warmwhite/75">
+          <li><a class="hover:text-accent transition-colors duration-200" href="index.html">Tester.io</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Workshop</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Press</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Careers</a></li>
+        </ul>
+      </nav>
+
+      <nav class="col-span-12 md:col-span-3">
+        <p class="mono-cap text-warmwhite/45 mb-4">Support</p>
+        <ul class="space-y-3 text-sm text-warmwhite/75">
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Service</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Documentation</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Returns</a></li>
+          <li><a class="hover:text-accent transition-colors duration-200" href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="rule-t pt-6 flex flex-col md:flex-row gap-3 justify-between items-center mono-cap text-warmwhite/40">
+      <span>© 2026 — Tester.tech &nbsp;·&nbsp; Manila &nbsp;·&nbsp; Berlin &nbsp;·&nbsp; Northampton</span>
+      <span class="flex items-center gap-2.5"><span class="live-dot"></span><span>All systems · 99.99% uptime</span></span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const btn = document.getElementById('mobile-toggle');
+      const drawer = document.getElementById('mobile-nav');
+      if (!btn || !drawer) return;
+      btn.addEventListener('click', () => {
+        const open = drawer.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      drawer.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+  <script src="/kie-image-gen.js" defer></script>
+</body>
+</html>

@@ -18,3 +18,8 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Secrets
+.env
+.env.local
+.env.*.local
