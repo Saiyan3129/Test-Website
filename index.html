@@ -675,6 +675,120 @@
                   color 280ms cubic-bezier(0.22,1,0.36,1),
                   border-color 280ms cubic-bezier(0.22,1,0.36,1);
     }
+
+    /* ==================== Contact — Editorial split correspondence ==================== */
+    .contact-l {
+      background-color: #efe6d4;
+      background-image:
+        radial-gradient(70% 80% at 28% 38%, #f7eed9 0%, #e4d6b8 55%, #c8b693 100%);
+    }
+    html.dark .contact-l {
+      background-color: #2a1f15;
+      background-image:
+        radial-gradient(70% 80% at 28% 38%, #4a3725 0%, #2c1f17 60%, #160c08 100%);
+    }
+    .contact-r {
+      background-color: #1f1d1b;
+      background-image:
+        radial-gradient(70% 60% at 72% 48%, #2e2b27 0%, #1a1816 70%, #0e0c0b 100%);
+      isolation: isolate;
+    }
+    .contact-r::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(60% 45% at 80% 18%, rgba(230,185,121,0.10), transparent 60%),
+        linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.25) 100%);
+    }
+    .contact-l-eyebrow {
+      color: #9c8240;
+    }
+    html.dark .contact-l-eyebrow { color: #E6B979; }
+    .contact-l-title { color: #2c1f17; }
+    html.dark .contact-l-title { color: #f4ecd8; }
+    .contact-l-body { color: #5a4a3e; }
+    html.dark .contact-l-body { color: rgba(244,236,216,0.78); }
+
+    .contact-glow {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 9999px;
+      pointer-events: none;
+      filter: blur(20px);
+      background: radial-gradient(circle, rgba(230,185,121,0.22) 0%, rgba(198,165,89,0) 70%);
+    }
+
+    /* Form field underline + floating label */
+    .contact-form { color: #f4ecd8; }
+    .contact-field {
+      position: relative;
+      padding-top: 1.2rem;
+    }
+    .contact-field input,
+    .contact-field textarea {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(244,236,216,0.22);
+      color: #f4ecd8;
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 0.95rem;
+      padding: 0.6rem 0 0.7rem 0;
+      outline: none;
+      font-weight: 400;
+      letter-spacing: 0.005em;
+      transition: border-color 320ms cubic-bezier(0.22,1,0.36,1);
+      caret-color: #E6B979;
+    }
+    .contact-field textarea {
+      resize: none;
+      min-height: 86px;
+      line-height: 1.6;
+    }
+    .contact-field label {
+      position: absolute;
+      left: 0;
+      top: 1.95rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(244,236,216,0.5);
+      font-weight: 500;
+      pointer-events: none;
+      transform-origin: left top;
+      transition: transform 380ms cubic-bezier(0.22,1,0.36,1),
+                  color 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .contact-field input::placeholder,
+    .contact-field textarea::placeholder { color: transparent; }
+    .contact-field input:focus ~ label,
+    .contact-field input:not(:placeholder-shown) ~ label,
+    .contact-field textarea:focus ~ label,
+    .contact-field textarea:not(:placeholder-shown) ~ label {
+      transform: translate(0, -1.55rem) scale(0.82);
+      color: #E6B979;
+      letter-spacing: 0.32em;
+    }
+    .contact-field::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, #E6B979 0%, #C6A559 50%, rgba(198,165,89,0) 100%);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 540ms cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+    }
+    .contact-field:focus-within::after { transform: scaleX(1); }
+    .contact-field:focus-within input,
+    .contact-field:focus-within textarea { border-bottom-color: rgba(244,236,216,0.05); }
+
   </style>
 </head>
 <body class="text-ink">
@@ -821,6 +935,76 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- CONTACT — Editorial split correspondence -->
+  <section id="contact" class="relative">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <!-- Left: cream editorial pane -->
+      <div class="contact-l relative grain overflow-hidden flex items-center">
+        <span class="contact-glow" style="top: -120px; right: -80px;"></span>
+        <span class="contact-glow" style="bottom: -160px; left: -120px; opacity: 0.6;"></span>
+        <div class="relative z-10 w-full px-8 sm:px-12 lg:px-20 py-20 lg:py-28 max-w-xl reveal">
+          <p class="editorial-eyebrow contact-l-eyebrow">
+            <span class="vol">Vol. 01</span>
+            <span class="rule"></span>
+            <span>Correspondence</span>
+          </p>
+          <h2 class="editorial-title contact-l-title text-5xl sm:text-6xl md:text-[4.25rem] lg:text-[4.75rem] mt-7">
+            Begin a<br/>
+            <em>conversation.</em>
+          </h2>
+          <p class="contact-l-body mt-7 text-[0.94rem] leading-[1.85] font-medium max-w-[42ch]">
+            For bespoke enquiries, press, made-to-order requests, or to plan an atelier visit — write to us. Each note is read and answered by hand within two working days.
+          </p>
+          <div class="mt-12 flex items-center gap-4 contact-l-eyebrow">
+            <span class="block w-10 h-px" style="background: linear-gradient(90deg, #C6A559, transparent);"></span>
+            <p class="text-[0.66rem] tracking-[0.32em] uppercase font-semibold">Atelier · Northampton</p>
+          </div>
+        </div>
+      </div>
+      <!-- Right: dark form pane -->
+      <div class="contact-r relative grain overflow-hidden flex items-center">
+        <div class="relative z-10 w-full px-8 sm:px-12 lg:px-16 py-20 lg:py-28 max-w-xl reveal delay-1">
+          <p class="editorial-eyebrow" style="color: #E6B979;">
+            <span class="vol" style="color: #F4DBA4;">N° 02</span>
+            <span class="rule"></span>
+            <span>Write to the Atelier</span>
+          </p>
+          <h3 class="editorial-title mt-6 text-3xl sm:text-4xl" style="color: #f4ecd8;">
+            A note <em>by hand.</em>
+          </h3>
+          <form id="contact-form" class="contact-form mt-10 space-y-6" action="/api/contact" method="POST" novalidate>
+            <!-- Honeypot — hidden from real users, bots fill it in -->
+            <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+              <label for="contact-company">Company</label>
+              <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="contact-field">
+              <input type="text" id="contact-name" name="name" placeholder=" " required autocomplete="name" maxlength="120" />
+              <label for="contact-name">Name</label>
+            </div>
+            <div class="contact-field">
+              <input type="email" id="contact-email" name="email" placeholder=" " required autocomplete="email" maxlength="200" />
+              <label for="contact-email">Email</label>
+            </div>
+            <div class="contact-field">
+              <textarea id="contact-message" name="message" rows="4" placeholder=" " required maxlength="5000"></textarea>
+              <label for="contact-message">Message</label>
+            </div>
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-5 pt-4">
+              <p class="text-[0.6rem] tracking-[0.28em] uppercase" style="color: rgba(244,236,216,0.45);">
+                By writing, you agree to our privacy notice.
+              </p>
+              <button type="submit" class="btn btn-dark !px-7 !py-3.5 !text-[0.7rem]">
+                Send Enquiry
+              </button>
+            </div>
+            <p id="contact-error" class="hidden mt-4 text-[0.72rem] tracking-[0.04em]" style="color: #e89090;" aria-live="polite" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Cookie banner — minimal floating toast -->
@@ -1760,6 +1944,74 @@
       });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !drawer.classList.contains('hidden')) close();
+      });
+    })();
+
+    // Contact form — POST to /api/contact, redirect to /thankyou.html on success
+    (function () {
+      var form = document.getElementById('contact-form');
+      var errorEl = document.getElementById('contact-error');
+      if (!form) return;
+
+      function showError(msg) {
+        if (!errorEl) return;
+        errorEl.textContent = msg;
+        errorEl.classList.remove('hidden');
+      }
+      function clearError() {
+        if (!errorEl) return;
+        errorEl.textContent = '';
+        errorEl.classList.add('hidden');
+      }
+
+      form.addEventListener('submit', async function (ev) {
+        ev.preventDefault();
+        clearError();
+
+        var name = form.querySelector('#contact-name').value.trim();
+        var email = form.querySelector('#contact-email').value.trim();
+        var message = form.querySelector('#contact-message').value.trim();
+        var company = form.querySelector('#contact-company').value;
+
+        if (!name || !email || !message) {
+          showError('Please fill in all fields.');
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showError('Please enter a valid email address.');
+          return;
+        }
+
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        submitBtn.style.opacity = '0.7';
+
+        try {
+          var res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name: name, email: email, message: message, company: company }),
+          });
+          var data = {};
+          try { data = await res.json(); } catch (_) {}
+          if (!res.ok) {
+            throw new Error(data.error || 'Could not send your message. Please try again.');
+          }
+          // Smooth fade out, then redirect
+          form.style.transition = 'opacity 320ms cubic-bezier(0.22,1,0.36,1), transform 320ms cubic-bezier(0.22,1,0.36,1)';
+          form.style.opacity = '0';
+          form.style.transform = 'translateY(-6px)';
+          setTimeout(function () {
+            window.location.href = '/thankyou.html';
+          }, 280);
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+          submitBtn.style.opacity = '';
+          showError(err.message || 'Network error. Please try again.');
+        }
       });
     })();
 
