@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Tester.io</title>
+  <meta name="description" content="Write to the atelier — bespoke enquiries, press, made-to-order requests. Each note is read and answered by hand within two working days." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .contact-l {
+      background-color: #efe6d4;
+      background-image: radial-gradient(70% 80% at 28% 38%, #f7eed9 0%, #e4d6b8 55%, #c8b693 100%);
+    }
+    html.dark .contact-l {
+      background-color: #2a1f15;
+      background-image: radial-gradient(70% 80% at 28% 38%, #4a3725 0%, #2c1f17 60%, #160c08 100%);
+    }
+    .contact-r {
+      background-color: #1f1d1b;
+      background-image: radial-gradient(70% 60% at 72% 48%, #2e2b27 0%, #1a1816 70%, #0e0c0b 100%);
+      isolation: isolate;
+    }
+    .contact-glow { position: absolute; width: 360px; height: 360px; border-radius: 9999px; pointer-events: none; filter: blur(20px); background: radial-gradient(circle, rgba(230,185,121,0.22) 0%, rgba(198,165,89,0) 70%); }
+    .contact-form { color: #f4ecd8; }
+    .contact-field { position: relative; padding-top: 1.2rem; }
+    .contact-field input, .contact-field textarea {
+      width: 100%; background: transparent; border: 0;
+      border-bottom: 1px solid rgba(244,236,216,0.22);
+      color: #f4ecd8; font-size: 0.95rem; padding: 0.6rem 0 0.7rem;
+      outline: none; font-weight: 400; letter-spacing: 0.005em;
+      transition: border-color 320ms cubic-bezier(0.22,1,0.36,1);
+      caret-color: #E6B979;
+    }
+    .contact-field textarea { resize: none; min-height: 86px; line-height: 1.6; }
+    .contact-field label {
+      position: absolute; left: 0; top: 1.95rem;
+      font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(244,236,216,0.5); font-weight: 500; pointer-events: none;
+      transform-origin: left top;
+      transition: transform 380ms cubic-bezier(0.22,1,0.36,1), color 320ms;
+    }
+    .contact-field input::placeholder, .contact-field textarea::placeholder { color: transparent; }
+    .contact-field input:focus ~ label, .contact-field input:not(:placeholder-shown) ~ label,
+    .contact-field textarea:focus ~ label, .contact-field textarea:not(:placeholder-shown) ~ label {
+      transform: translate(0, -1.55rem) scale(0.82);
+      color: #E6B979; letter-spacing: 0.32em;
+    }
+    .contact-field::after {
+      content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+      background: linear-gradient(90deg, #E6B979 0%, #C6A559 50%, rgba(198,165,89,0) 100%);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 540ms cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+    }
+    .contact-field:focus-within::after { transform: scaleX(1); }
+  </style>
+</head>
+<body class="text-ink" data-page="contact.html">
+
+  <div data-site-header data-active="contact.html"></div>
+
+  <section class="relative">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="contact-l relative grain overflow-hidden flex items-center">
+        <span class="contact-glow" style="top:-120px; right:-80px;"></span>
+        <span class="contact-glow" style="bottom:-160px; left:-120px; opacity:0.6;"></span>
+        <div class="relative z-10 w-full px-8 sm:px-12 lg:px-20 py-20 lg:py-28 max-w-xl reveal">
+          <p class="editorial-eyebrow" style="color:#9c8240"><span class="vol">Vol. 01</span><span class="rule"></span><span>Correspondence</span></p>
+          <h1 class="editorial-title text-5xl sm:text-6xl md:text-[4.25rem] lg:text-[4.75rem] mt-7" style="color:#2c1f17">Begin a<br/><em>conversation.</em></h1>
+          <p class="mt-7 text-[0.94rem] leading-[1.85] font-medium max-w-[42ch]" style="color:#5a4a3e">For bespoke enquiries, press, made-to-order requests, or to plan an atelier visit — write to us. Each note is read and answered by hand within two working days.</p>
+
+          <div class="mt-10 grid grid-cols-2 gap-6 text-[0.78rem] leading-[1.65]" style="color:#5a4a3e">
+            <div>
+              <p class="text-[0.66rem] tracking-[0.32em] uppercase font-semibold" style="color:#9c8240">Manila</p>
+              <p class="mt-2">108 Tordesillas St,<br/>Salcedo Village,<br/>Makati 1227</p>
+              <p class="mt-2">+63 2 8845 9921</p>
+            </div>
+            <div>
+              <p class="text-[0.66rem] tracking-[0.32em] uppercase font-semibold" style="color:#9c8240">Northampton</p>
+              <p class="mt-2">14 Overstone Rd,<br/>Northampton<br/>NN1 3JR, UK</p>
+              <p class="mt-2">+44 1604 230 044</p>
+            </div>
+          </div>
+
+          <div class="mt-10 flex items-center gap-4">
+            <span class="block w-10 h-px" style="background:linear-gradient(90deg,#C6A559,transparent)"></span>
+            <p class="text-[0.66rem] tracking-[0.32em] uppercase font-semibold" style="color:#9c8240">hello@tester.io</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-r relative grain overflow-hidden flex items-center">
+        <div class="relative z-10 w-full px-8 sm:px-12 lg:px-16 py-20 lg:py-28 max-w-xl reveal">
+          <p class="editorial-eyebrow" style="color:#E6B979"><span class="vol" style="color:#F4DBA4">N° 02</span><span class="rule"></span><span>Write to the Atelier</span></p>
+          <h2 class="editorial-title mt-6 text-3xl sm:text-4xl" style="color:#f4ecd8">A note <em>by hand.</em></h2>
+
+          <form id="contact-form" class="contact-form mt-10 space-y-6" action="/api/contact" method="POST" novalidate>
+            <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+              <label for="contact-company">Company</label>
+              <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off"/>
+            </div>
+            <div class="contact-field">
+              <input type="text" id="contact-name" name="name" placeholder=" " required autocomplete="name" maxlength="120"/>
+              <label for="contact-name">Name</label>
+            </div>
+            <div class="contact-field">
+              <input type="email" id="contact-email" name="email" placeholder=" " required autocomplete="email" maxlength="200"/>
+              <label for="contact-email">Email</label>
+            </div>
+            <div class="contact-field">
+              <select id="contact-topic" name="topic" required class="w-full bg-transparent border-0 border-b border-[rgba(244,236,216,0.22)] py-[0.6rem] text-[0.95rem] text-[#f4ecd8] outline-none focus:border-[#E6B979] cursor-pointer appearance-none" style="background-image:linear-gradient(45deg,transparent 50%,#E6B979 50%),linear-gradient(135deg,#E6B979 50%,transparent 50%);background-position:calc(100% - 14px) 50%,calc(100% - 8px) 50%;background-size:6px 6px,6px 6px;background-repeat:no-repeat;">
+                <option value="general" style="color:#1a1410">General enquiry</option>
+                <option value="custom" style="color:#1a1410">Made-to-order request</option>
+                <option value="press" style="color:#1a1410">Press &amp; media</option>
+                <option value="visit" style="color:#1a1410">Plan an atelier visit</option>
+                <option value="returns" style="color:#1a1410">Returns &amp; exchanges</option>
+              </select>
+              <label for="contact-topic" style="top:0.4rem;transform:translate(0, -0.25rem) scale(0.82);color:#E6B979;letter-spacing:0.32em;">Topic</label>
+            </div>
+            <div class="contact-field">
+              <textarea id="contact-message" name="message" rows="4" placeholder=" " required maxlength="5000"></textarea>
+              <label for="contact-message">Message</label>
+            </div>
+            <label class="flex items-start gap-3 cursor-pointer pt-1">
+              <input type="checkbox" id="contact-newsletter" name="newsletter" class="mt-1 accent-[#E6B979]"/>
+              <span class="text-[0.68rem] tracking-[0.18em] uppercase leading-[1.6]" style="color:rgba(244,236,216,0.7)">Subscribe to the newsletter — occasional dispatches from the atelier.</span>
+            </label>
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-5 pt-4">
+              <p class="text-[0.6rem] tracking-[0.28em] uppercase" style="color:rgba(244,236,216,0.45)">By writing, you agree to our privacy notice.</p>
+              <button type="submit" class="btn btn-dark !px-7 !py-3.5 !text-[0.7rem]">Send Enquiry</button>
+            </div>
+            <p id="contact-error" class="hidden mt-4 text-[0.72rem] tracking-[0.04em]" style="color:#e89090;" aria-live="polite" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      var errorEl = document.getElementById('contact-error');
+      if (!form) return;
+
+      function showError(msg) { if (errorEl) { errorEl.textContent = msg; errorEl.classList.remove('hidden'); } }
+      function clearError() { if (errorEl) { errorEl.textContent = ''; errorEl.classList.add('hidden'); } }
+
+      form.addEventListener('submit', async function (ev) {
+        ev.preventDefault();
+        clearError();
+        var name = form.querySelector('#contact-name').value.trim();
+        var email = form.querySelector('#contact-email').value.trim();
+        var topic = form.querySelector('#contact-topic').value;
+        var message = form.querySelector('#contact-message').value.trim();
+        var newsletter = form.querySelector('#contact-newsletter').checked;
+        var company = form.querySelector('#contact-company').value;
+
+        if (!name || !email || !message) return showError('Please fill in name, email, and message.');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Please enter a valid email address.');
+
+        var btn = form.querySelector('button[type="submit"]');
+        var orig = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…'; btn.style.opacity = '0.7';
+
+        try {
+          var fullMessage = '[Topic: ' + topic + ']\n\n' + message;
+          var res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, email: email, message: fullMessage, newsletter: newsletter, company: company }) });
+          var data = {}; try { data = await res.json(); } catch (_) {}
+          if (!res.ok) throw new Error(data.error || 'Could not send. Please try again.');
+          form.style.transition = 'opacity 320ms cubic-bezier(0.22,1,0.36,1), transform 320ms';
+          form.style.opacity = '0'; form.style.transform = 'translateY(-6px)';
+          setTimeout(function () { window.location.href = '/thankyou.html'; }, 280);
+        } catch (err) {
+          btn.disabled = false; btn.textContent = orig; btn.style.opacity = '';
+          showError(err.message || 'Network error. Please try again.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

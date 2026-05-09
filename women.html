@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Women — Tester.io</title>
+  <meta name="description" content="The women's collection — heritage loafers, court sneakers, and small leathergoods, drawn on the women's last." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .women-hero {
+      position: relative; min-height: 60vh;
+      background-color: #d6c4ad;
+      background-image: radial-gradient(60% 70% at 60% 50%, #efe3d0 0%, #b8a48a 60%, #80715b 100%);
+      overflow: hidden; isolation: isolate;
+    }
+    .women-hero::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.45) 100%); }
+    .filter-pill { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; padding: 0.55rem 0.9rem; border: 1px solid var(--c-border); color: var(--c-ink); background: transparent; cursor: pointer; transition: all 220ms cubic-bezier(0.22,1,0.36,1); }
+    html.dark .filter-pill { color: #e8e6e1; border-color: #2a2a2a; }
+    .filter-pill:hover { border-color: #C6A559; color: #9c8240; }
+    .filter-pill.is-active { background: #1a1a1a; color: #E6B979; border-color: #1a1a1a; }
+    html.dark .filter-pill.is-active { background: #E6B979; color: #1a1a1a; border-color: #E6B979; }
+  </style>
+</head>
+<body class="text-ink" data-page="women.html">
+
+  <div data-site-header data-active="women.html"></div>
+
+  <section class="women-hero grain">
+    <img src="images/shoes/lifestyle-03.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"/>
+    <div class="relative z-10 px-6 lg:px-10 py-20 md:py-32 max-w-3xl text-[#2b1f17]">
+      <p class="editorial-eyebrow"><span class="vol">Vol. 03</span><span class="rule"></span><span>The Women's Atelier</span></p>
+      <h1 class="mt-5" style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(2.6rem,6.5vw,5.4rem);line-height:0.95;letter-spacing:-0.025em">A wardrobe of <em style="color:#9c8240;font-weight:300;font-style:italic">considered pieces.</em></h1>
+      <p class="mt-6 italic max-w-[52ch] text-[#3d2f1f]/85" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.08rem;line-height:1.75">Drawn on the women's last — a quieter geometry, the same hand-finishing. From the Plus Court court shoe to the Ezra loafer in suede.</p>
+      <div class="mt-8 flex items-center gap-4">
+        <a href="#grid" class="btn btn-dark">Browse the Collection</a>
+        <a href="custom.html" class="text-[0.68rem] tracking-[0.28em] uppercase text-[#9c8240] hover:text-[#C6A559] transition-colors duration-200 font-medium border-b border-[rgba(198,165,89,0.4)] pb-1">Made-to-order →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 lg:px-10 pt-12 pb-6">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div>
+        <p class="editorial-eyebrow"><span class="vol">Selection</span><span class="rule"></span><span>22 pieces · in stock</span></p>
+        <h2 class="editorial-title text-3xl md:text-4xl mt-3">Shop the women's catalogue.</h2>
+      </div>
+      <div class="flex flex-wrap gap-2" role="tablist" aria-label="Category filters">
+        <button class="filter-pill is-active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="loafers">Loafers</button>
+        <button class="filter-pill" data-filter="sneakers">Sneakers</button>
+        <button class="filter-pill" data-filter="boots">Mules &amp; Boots</button>
+        <button class="filter-pill" data-filter="accessories">Accessories</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="grid" class="px-6 lg:px-10 pb-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12" data-product-grid>
+
+      <article class="product-card reveal" data-product-card data-id="ezra-brown-pebble-womens" data-name="Ezra Brown Pebble — Women's" data-price-php="22500" data-href="product.html" data-image="images/shoes/shoe-06.jpg" data-tag="Iconic" data-category="loafers" data-swatches="Brown,#3d2418|Tan,#a87c44|Black,#1a1715">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <span class="product-tag">Iconic</span>
+            <img data-product-image src="images/shoes/shoe-06.jpg" alt="Ezra Brown Pebble Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Brown Pebble — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="22500">₱22,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#3d2418" class="is-active" aria-label="Brown"></button>
+              <button type="button" data-swatch style="background:#a87c44" aria-label="Tan"></button>
+              <button type="button" data-swatch style="background:#1a1715" aria-label="Black"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal delay-1" data-product-card data-id="ezra-tan-suede-womens" data-name="Ezra Tan Suede — Women's" data-price-php="22500" data-href="product.html" data-image="images/shoes/shoe-07.jpg" data-tag="New" data-category="loafers" data-swatches="Tan,#a87c44|Brown,#3d2418|Black,#1a1715">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <span class="product-tag tag-new">New</span>
+            <img data-product-image src="images/shoes/shoe-07.jpg" alt="Ezra Tan Suede Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Ezra Tan Suede — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="22500">₱22,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#a87c44" class="is-active" aria-label="Tan"></button>
+              <button type="button" data-swatch style="background:#3d2418" aria-label="Brown"></button>
+              <button type="button" data-swatch style="background:#1a1715" aria-label="Black"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal delay-2" data-product-card data-id="plus-court-white-womens" data-name="Plus Court White — Women's" data-price-php="15200" data-href="product.html" data-image="images/shoes/sneaker-06.jpg" data-category="sneakers" data-swatches="White,#efe9d9|Black,#1a1715|Tan,#b88a52">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <img data-product-image src="images/shoes/sneaker-06.jpg" alt="Plus Court White Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court White — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="15200">₱15,200</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#efe9d9" class="is-active" aria-label="White"></button>
+              <button type="button" data-swatch style="background:#1a1715" aria-label="Black"></button>
+              <button type="button" data-swatch style="background:#b88a52" aria-label="Tan"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal delay-3" data-product-card data-id="plus-court-diamond-womens" data-name="Plus Court Diamond — Women's" data-price-php="15500" data-href="product.html" data-image="images/shoes/sneaker-07.jpg" data-tag="New" data-category="sneakers" data-swatches="White,#efe9d9|Vintage,#dcd5c2|Navy,#1a2240">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <span class="product-tag tag-new">New</span>
+            <img data-product-image src="images/shoes/sneaker-07.jpg" alt="Plus Court Diamond Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Plus Court Diamond — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="15500">₱15,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#efe9d9" class="is-active" aria-label="White"></button>
+              <button type="button" data-swatch style="background:#dcd5c2" aria-label="Vintage"></button>
+              <button type="button" data-swatch style="background:#1a2240" aria-label="Navy"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal" data-product-card data-id="winston-navy-mule-womens" data-name="Winston NY Navy Mule — Women's" data-price-php="15500" data-href="product.html" data-image="images/shoes/sneaker-01.jpg" data-category="boots" data-swatches="Navy,#1a2240|Black,#1a1715|Brown,#4a2f1f">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <img data-product-image src="images/shoes/sneaker-01.jpg" alt="Winston NY Navy Mule Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Winston Navy Mule — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="15500">₱15,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#1a2240" class="is-active" aria-label="Navy"></button>
+              <button type="button" data-swatch style="background:#1a1715" aria-label="Black"></button>
+              <button type="button" data-swatch style="background:#4a2f1f" aria-label="Brown"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal delay-1" data-product-card data-id="wilde-ny-penny-womens" data-name="Wilde NY Penny — Women's" data-price-php="13500" data-href="product.html" data-image="images/shoes/boot-02.jpg" data-category="loafers" data-swatches="Black,#1a1715|Cream,#efe9d9|Brown,#5a3b25">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <img data-product-image src="images/shoes/boot-02.jpg" alt="Wilde NY Penny Loafer Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Wilde NY Penny — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="13500">₱13,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#1a1715" class="is-active" aria-label="Black"></button>
+              <button type="button" data-swatch style="background:#efe9d9" aria-label="Cream"></button>
+              <button type="button" data-swatch style="background:#5a3b25" aria-label="Brown"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal delay-2" data-product-card data-id="bloomsbury-cream-lips" data-name="Bloomsbury Cream Lips" data-price-php="18500" data-href="product.html" data-image="images/shoes/boot-03.jpg" data-category="loafers" data-swatches="Cream,#dcd2bc|Black,#2a2624">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <img data-product-image src="images/shoes/boot-03.jpg" alt="Bloomsbury Cream Lips" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Bloomsbury Cream Lips</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="18500">₱18,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#dcd2bc" class="is-active" aria-label="Cream"></button>
+              <button type="button" data-swatch style="background:#2a2624" aria-label="Black"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card reveal delay-3" data-product-card data-id="atelier-suede-sneaker-womens" data-name="Atelier Suede Sneaker — Women's" data-price-php="18500" data-href="product.html" data-image="images/shoes/sneaker-04.jpg" data-category="sneakers" data-swatches="Brown,#4d2c1c|Cream,#efe9d9">
+        <a href="product.html" class="block">
+          <div class="relative product-bg overflow-hidden aspect-product">
+            <img data-product-image src="images/shoes/sneaker-04.jpg" alt="Atelier Suede Sneaker Women's" class="w-full h-full object-cover img-wrap"/>
+            <span class="quick-look" data-quick-look role="button" tabindex="0">Quick Look</span>
+          </div>
+          <div class="pt-4 text-center">
+            <h3 class="text-[0.84rem] font-medium">Atelier Suede — Women's</h3>
+            <p class="text-[0.84rem] text-ink/80 dark:text-[rgba(232,230,225,0.75)] mt-1" data-price-php="18500">₱18,500</p>
+            <div class="swatch-row">
+              <button type="button" data-swatch style="background:#4d2c1c" class="is-active" aria-label="Brown"></button>
+              <button type="button" data-swatch style="background:#efe9d9" aria-label="Cream"></button>
+            </div>
+          </div>
+        </a>
+      </article>
+
+    </div>
+
+    <div id="empty-state" class="hidden text-center py-16">
+      <p class="editorial-eyebrow justify-center"><span class="vol">No matches</span><span class="rule"></span></p>
+      <p class="mt-4 italic text-ink/60 dark:text-[rgba(232,230,225,0.55)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.06rem">Nothing in this category — yet. Try another tab.</p>
+    </div>
+  </section>
+
+  <section class="px-6 lg:px-10 pb-20">
+    <div class="border border-border dark:border-[#2a2a2a] p-10 md:p-16 text-center">
+      <p class="editorial-eyebrow justify-center"><span class="vol">Vol. 02</span><span class="rule"></span><span>Made-to-order</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-4">Build a pair to <em>your last.</em></h2>
+      <p class="mt-5 max-w-[52ch] mx-auto italic text-ink/70 dark:text-[rgba(232,230,225,0.65)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.08rem;line-height:1.7">Pick the leather, the sole, the lining, the welt. We cut and last to order; six-week lead time, hand-finished by your name's maker.</p>
+      <div class="mt-8 flex flex-wrap items-center gap-4 justify-center">
+        <a href="custom.html" class="btn btn-dark">Begin a custom pair</a>
+        <a href="men.html" class="text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">See men's →</a>
+      </div>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+  <script>
+    (function () {
+      var pills = document.querySelectorAll('.filter-pill');
+      var grid = document.querySelector('[data-product-grid]');
+      var empty = document.getElementById('empty-state');
+      if (!pills.length || !grid) return;
+      pills.forEach(function (p) {
+        p.addEventListener('click', function () {
+          var f = p.getAttribute('data-filter');
+          pills.forEach(function (q) { q.classList.toggle('is-active', q === p); });
+          var visible = 0;
+          grid.querySelectorAll('[data-product-card]').forEach(function (card) {
+            var cat = card.getAttribute('data-category') || '';
+            var show = f === 'all' || cat === f;
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+          });
+          if (empty) empty.classList.toggle('hidden', visible !== 0);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

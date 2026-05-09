@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart — Tester.io</title>
+  <meta name="description" content="Your shopping cart. Review and adjust your selection before checkout." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .cart-row {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: 18px;
+      padding: 24px 0;
+      border-top: 1px solid var(--c-border);
+    }
+    @media (min-width: 720px) { .cart-row { grid-template-columns: 132px 1fr auto auto; gap: 24px; padding: 28px 0; } }
+    html.dark .cart-row { border-top-color: #252422; }
+    .cart-row__img { width: 96px; height: 96px; object-fit: cover; background: var(--c-stone); }
+    @media (min-width: 720px) { .cart-row__img { width: 132px; height: 132px; } }
+    .cart-row__name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; line-height: 1.15; letter-spacing: -0.005em; font-weight: 400; color: var(--c-ink); }
+    html.dark .cart-row__name { color: #f4ecd8; }
+    .cart-row__meta { display: flex; gap: 18px; font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-muted); margin-top: 8px; }
+    .qty-stepper { display: inline-flex; border: 1px solid var(--c-border); }
+    html.dark .qty-stepper { border-color: #2a2a2a; }
+    .qty-stepper button { width: 30px; height: 30px; background: transparent; border: 0; color: var(--c-ink); cursor: pointer; transition: background-color 200ms; }
+    html.dark .qty-stepper button { color: #e8e6e1; }
+    .qty-stepper button:hover { background: rgba(198,165,89,0.08); color: #9c8240; }
+    .qty-stepper input { width: 40px; height: 30px; text-align: center; background: transparent; border: 0; font-size: 0.84rem; color: var(--c-ink); }
+    html.dark .qty-stepper input { color: #e8e6e1; }
+    .qty-stepper input::-webkit-outer-spin-button, .qty-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .qty-stepper input[type=number] { -moz-appearance: textfield; }
+    .summary {
+      background: var(--c-stone);
+      padding: 28px;
+      border: 1px solid var(--c-border);
+    }
+    html.dark .summary { background: #141414; border-color: #252422; }
+    .summary dl { font-size: 0.86rem; }
+    .summary dl > div { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--c-border); }
+    html.dark .summary dl > div { border-top-color: #252422; }
+    .summary dl > div:first-child { border-top: 0; }
+    .summary .total {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2rem; font-weight: 400; line-height: 1; letter-spacing: -0.01em;
+      color: var(--c-ink);
+    }
+    html.dark .summary .total { color: #f4ecd8; }
+    .empty-state { padding: 80px 24px; text-align: center; }
+  </style>
+</head>
+<body class="text-ink" data-page="cart.html">
+
+  <div data-site-header data-active="cart.html"></div>
+
+  <section class="px-6 lg:px-10 pt-16 pb-6">
+    <div class="max-w-6xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">Vol. 01</span><span class="rule"></span><span>Your Selection</span></p>
+      <h1 class="editorial-title text-4xl md:text-6xl mt-3">The <em>cart.</em></h1>
+    </div>
+  </section>
+
+  <section class="px-6 lg:px-10 pb-24">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+      <div class="lg:col-span-8" data-cart-list-host>
+        <!-- empty state default -->
+        <div class="empty-state" data-cart-empty>
+          <p class="editorial-eyebrow justify-center"><span class="vol">N° 00</span><span class="rule"></span><span>Cart is empty</span></p>
+          <h2 class="editorial-title text-3xl md:text-4xl mt-4">Nothing here <em>yet.</em></h2>
+          <p class="mt-4 italic text-ink/65 dark:text-[rgba(232,230,225,0.55)] max-w-[42ch] mx-auto" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.7">Browse the catalogue or hover any product card to use Quick Look — add a pair, then come back here.</p>
+          <div class="mt-7 flex items-center gap-4 justify-center flex-wrap">
+            <a href="men.html" class="btn btn-dark">Shop men</a>
+            <a href="women.html" class="btn btn-light">Shop women</a>
+          </div>
+        </div>
+
+        <div class="hidden" data-cart-list>
+          <!-- rows injected here -->
+        </div>
+      </div>
+
+      <aside class="lg:col-span-4">
+        <div class="summary">
+          <p class="editorial-eyebrow"><span class="vol">Summary</span><span class="rule"></span></p>
+          <h2 class="editorial-title text-2xl mt-3 mb-5">Order <em>summary.</em></h2>
+          <dl>
+            <div><dt>Subtotal</dt><dd data-cart-subtotal data-price-php="0">₱0</dd></div>
+            <div><dt>Shipping</dt><dd data-cart-shipping>Calculated at checkout</dd></div>
+            <div><dt>Members' discount</dt><dd data-cart-discount>—</dd></div>
+          </dl>
+          <div class="mt-5 pt-5 border-t border-border dark:border-[#252422] flex items-end justify-between">
+            <p class="text-[0.66rem] tracking-[0.22em] uppercase font-semibold text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Total today</p>
+            <p class="total" data-cart-total data-price-php="0">₱0</p>
+          </div>
+          <button type="button" class="btn btn-dark w-full mt-6" data-checkout>Proceed to checkout</button>
+          <a href="men.html" class="block text-center mt-4 text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-0.5 w-fit mx-auto">Continue shopping →</a>
+          <div class="mt-6 pt-5 border-t border-border dark:border-[#252422] text-[0.66rem] leading-[1.65] text-ink/55 dark:text-[rgba(232,230,225,0.5)]">
+            <p>Free shipping over <span data-currency-symbol>₱</span><span data-price-php="20000">20,000</span>. 30-day returns. Re-soling at half price for life — Atelier tier members.</p>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+  <script>
+    (function () {
+      function fmt(php) { return window.Site ? window.Site.currency.format(php, window.Site.currency.get()) : ('₱' + Math.round(php).toLocaleString()); }
+      function render() {
+        var items = window.Site ? window.Site.cart.read() : [];
+        var listHost = document.querySelector('[data-cart-list]');
+        var emptyHost = document.querySelector('[data-cart-empty]');
+        if (!items.length) {
+          emptyHost.classList.remove('hidden');
+          listHost.classList.add('hidden');
+        } else {
+          emptyHost.classList.add('hidden');
+          listHost.classList.remove('hidden');
+          listHost.innerHTML = '';
+          items.forEach(function (it, idx) {
+            var row = document.createElement('div');
+            row.className = 'cart-row';
+            row.setAttribute('data-row-index', String(idx));
+            var lineTotal = (Number(it.price) || 0) * (Number(it.qty) || 1);
+            var meta = [];
+            if (it.color) meta.push(it.color);
+            if (it.size) meta.push('Size ' + it.size);
+            row.innerHTML =
+              '<img class="cart-row__img" src="' + (it.image || 'https://placehold.co/200x200/efe9d9/2c2b29?text=Tester') + '" alt=""/>' +
+              '<div>' +
+                '<h3 class="cart-row__name">' + (it.name || 'Item') + '</h3>' +
+                '<p class="cart-row__meta">' + meta.join(' · ') + '</p>' +
+                '<button type="button" class="mt-3 text-[0.62rem] tracking-[0.24em] uppercase font-semibold text-ink/55 dark:text-[rgba(232,230,225,0.5)] hover:text-[#9c8240] dark:hover:text-[#E6B979]" data-remove>Remove</button>' +
+              '</div>' +
+              '<div class="self-center"><div class="qty-stepper"><button type="button" data-qty-dec aria-label="Decrease">−</button><input type="number" min="1" value="' + (it.qty || 1) + '" data-qty-input/><button type="button" data-qty-inc aria-label="Increase">+</button></div></div>' +
+              '<div class="self-center text-right"><p class="font-medium" data-price-php="' + lineTotal + '">' + fmt(lineTotal) + '</p></div>';
+
+            row.querySelector('[data-remove]').addEventListener('click', function () {
+              window.Site.cart.remove(it.id, it.size, it.color);
+            });
+            row.querySelector('[data-qty-dec]').addEventListener('click', function () {
+              window.Site.cart.update(it.id, it.size, it.color, { qty: Math.max(0, (Number(it.qty) || 1) - 1) });
+            });
+            row.querySelector('[data-qty-inc]').addEventListener('click', function () {
+              window.Site.cart.update(it.id, it.size, it.color, { qty: (Number(it.qty) || 1) + 1 });
+            });
+            row.querySelector('[data-qty-input]').addEventListener('change', function (e) {
+              var n = Math.max(0, parseInt(e.target.value, 10) || 0);
+              window.Site.cart.update(it.id, it.size, it.color, { qty: n });
+            });
+            listHost.appendChild(row);
+          });
+        }
+
+        var subtotal = window.Site ? window.Site.cart.totalPHP() : 0;
+        var hasItems = items.length > 0;
+        var ship = (subtotal >= 20000 || !hasItems) ? 0 : 850;
+        var discount = 0; // demo: no member tier known
+        var total = subtotal + ship - discount;
+
+        var sub = document.querySelector('[data-cart-subtotal]');
+        if (sub) { sub.setAttribute('data-price-php', subtotal); sub.textContent = fmt(subtotal); }
+        var totalEl = document.querySelector('[data-cart-total]');
+        if (totalEl) { totalEl.setAttribute('data-price-php', total); totalEl.textContent = fmt(total); }
+        var shipEl = document.querySelector('[data-cart-shipping]');
+        if (shipEl) shipEl.textContent = !hasItems ? 'Calculated at checkout' : (ship === 0 ? 'Complimentary' : fmt(ship));
+        var discEl = document.querySelector('[data-cart-discount]');
+        if (discEl) discEl.textContent = discount ? '− ' + fmt(discount) : '—';
+      }
+
+      document.addEventListener('site:cartchange', render);
+      document.addEventListener('site:currencychange', render);
+      // Initial render once Site is ready
+      if (window.Site) render();
+      else document.addEventListener('DOMContentLoaded', render);
+
+      var checkoutBtn = document.querySelector('[data-checkout]');
+      if (checkoutBtn) checkoutBtn.addEventListener('click', function () {
+        if (!window.Site) return;
+        if (!window.Site.cart.count()) {
+          window.Site.toast('Cart is empty.', { kind: 'error' });
+          return;
+        }
+        window.Site.toast('Checkout is not connected in this demo. Your cart is saved.');
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom — Made-to-Order at Tester.io</title>
+  <meta name="description" content="Build a pair to your last. Pick the leather, the sole, the lining; six-week lead time, hand-finished by your name's maker." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .step-card {
+      position: relative;
+      padding: 32px 28px 30px;
+      background: var(--c-paper);
+      border: 1px solid var(--c-border);
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1), box-shadow 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    html.dark .step-card { background: #141414; border-color: #252422; }
+    .step-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-elev1); }
+    .step-card .num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic; font-weight: 300; font-size: 2.4rem;
+      background: linear-gradient(180deg, #F4DBA4 0%, #C6A559 60%, #9c8240 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      line-height: 1;
+    }
+    .opt-card {
+      cursor: pointer;
+      padding: 20px;
+      border: 1px solid var(--c-border);
+      background: var(--c-paper);
+      transition: border-color 220ms cubic-bezier(0.22,1,0.36,1), background-color 220ms cubic-bezier(0.22,1,0.36,1);
+    }
+    html.dark .opt-card { background: #141414; border-color: #252422; }
+    .opt-card:hover { border-color: #C6A559; }
+    .opt-card.is-selected { border-color: #C6A559; box-shadow: 0 0 0 1px #C6A559; }
+    .opt-swatch { width: 100%; aspect-ratio: 1; border-radius: 9999px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12); margin-bottom: 12px; }
+    html.dark .opt-swatch { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12); }
+    .opt-card .name { font-size: 0.78rem; font-weight: 600; }
+    .opt-card .meta { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-muted); margin-top: 2px; }
+  </style>
+</head>
+<body class="text-ink" data-page="custom.html">
+
+  <div data-site-header data-active="custom.html"></div>
+
+  <section class="page-hero">
+    <p class="page-hero__eyebrow"><span class="vol">Service</span><span class="rule"></span><span>Made-to-Order</span></p>
+    <h1 class="page-hero__title">Build a pair to <em>your last.</em></h1>
+    <p class="page-hero__lede">Pick the leather, the sole, the lining, the welt. We cut and last to order; six-week lead time, hand-finished by your name's maker.</p>
+    <div class="mt-8">
+      <a href="#configurator" class="btn btn-dark">Begin a custom pair</a>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="page-section">
+    <div class="max-w-6xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 01</span><span class="rule"></span><span>The Process</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-12">Six steps, six <em>weeks.</em></h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="step-card reveal">
+          <p class="num">01</p>
+          <h3 class="card-editorial__title">Choose your last</h3>
+          <p class="card-editorial__body">Begin with one of three Tester lasts: the Atelier (men's), Bloomsbury (women's), or NY (unisex). Or send measurements for a bespoke last — adds two weeks.</p>
+        </div>
+        <div class="step-card reveal delay-1">
+          <p class="num">02</p>
+          <h3 class="card-editorial__title">Pick a silhouette</h3>
+          <p class="card-editorial__body">Loafer, derby, sneaker, mule, boot. Each silhouette has been refined across a decade of seasons; you're choosing from production patterns.</p>
+        </div>
+        <div class="step-card reveal delay-2">
+          <p class="num">03</p>
+          <h3 class="card-editorial__title">Choose materials</h3>
+          <p class="card-editorial__body">Italian box-calf, English suede, French chèvre, deadstock house leathers. Lining in cabretta or unlined for warm climates.</p>
+        </div>
+        <div class="step-card reveal">
+          <p class="num">04</p>
+          <h3 class="card-editorial__title">Sole &amp; welt</h3>
+          <p class="card-editorial__body">Goodyear-welted with a single, double, or storm welt; soles in oak-bark leather, Dainite rubber, or our own moulded cup.</p>
+        </div>
+        <div class="step-card reveal delay-1">
+          <p class="num">05</p>
+          <h3 class="card-editorial__title">Personalise</h3>
+          <p class="card-editorial__body">Initials inside the sock-liner. Brass eyelets or blind-stitched. A letter to the wearer if it's a gift — we hand-write it in ink.</p>
+        </div>
+        <div class="step-card reveal delay-2">
+          <p class="num">06</p>
+          <h3 class="card-editorial__title">Hand-finish &amp; ship</h3>
+          <p class="card-editorial__body">Six weeks from order. Trial fitting in our showroom or by post — we'll remake at no charge if it isn't right.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Configurator -->
+  <section id="configurator" class="page-section bg-stone dark:bg-[#141414]">
+    <div class="max-w-6xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 02</span><span class="rule"></span><span>Begin Your Pair</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-10">Configure, in <em>five minutes.</em></h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-8 space-y-10">
+
+          <div>
+            <h3 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-4">1 · Silhouette</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <button type="button" class="opt-card is-selected" data-opt="silhouette" data-value="Loafer">
+                <img src="images/shoes/shoe-03.jpg" alt="Loafer" class="w-full aspect-square object-cover mb-3"/>
+                <p class="name">Loafer</p><p class="meta">Penny / horsebit</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="silhouette" data-value="Derby">
+                <img src="images/shoes/shoe-08.jpg" alt="Derby" class="w-full aspect-square object-cover mb-3"/>
+                <p class="name">Derby</p><p class="meta">Open-laced</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="silhouette" data-value="Sneaker">
+                <img src="images/shoes/sneaker-02.jpg" alt="Sneaker" class="w-full aspect-square object-cover mb-3"/>
+                <p class="name">Sneaker</p><p class="meta">Plus Court last</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="silhouette" data-value="Mule">
+                <img src="images/shoes/sneaker-01.jpg" alt="Mule" class="w-full aspect-square object-cover mb-3"/>
+                <p class="name">Mule</p><p class="meta">Unlined / lined</p>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-4">2 · Leather</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <button type="button" class="opt-card is-selected" data-opt="leather" data-value="Italian Box-Calf">
+                <div class="opt-swatch" style="background:#1a1715"></div>
+                <p class="name">Italian Box-Calf</p><p class="meta">Black · brown · tan</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="leather" data-value="English Suede">
+                <div class="opt-swatch" style="background:#b88a52"></div>
+                <p class="name">English Suede</p><p class="meta">Tan · brown · navy</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="leather" data-value="French Chèvre">
+                <div class="opt-swatch" style="background:#5a3b25"></div>
+                <p class="name">French Chèvre</p><p class="meta">Soft / supple</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="leather" data-value="Deadstock">
+                <div class="opt-swatch" style="background:linear-gradient(135deg,#dcd2bc,#9c8240)"></div>
+                <p class="name">House Deadstock</p><p class="meta">+₱2,500 · limited</p>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-4">3 · Sole</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <button type="button" class="opt-card is-selected" data-opt="sole" data-value="Oak-Bark Leather">
+                <p class="name">Oak-Bark Leather</p><p class="meta">Goodyear-welted</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="sole" data-value="Dainite Rubber">
+                <p class="name">Dainite Rubber</p><p class="meta">All-weather</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="sole" data-value="Moulded Cup">
+                <p class="name">Moulded Cup</p><p class="meta">Sneaker only</p>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-4">4 · Lining</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <button type="button" class="opt-card is-selected" data-opt="lining" data-value="Cabretta">
+                <p class="name">Cabretta</p><p class="meta">Standard · soft</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="lining" data-value="Unlined">
+                <p class="name">Unlined</p><p class="meta">Warm climates</p>
+              </button>
+              <button type="button" class="opt-card" data-opt="lining" data-value="Cashmere-blend">
+                <p class="name">Cashmere-blend</p><p class="meta">+₱1,800 · winter</p>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-[0.74rem] tracking-[0.22em] uppercase font-medium mb-4">5 · Personalisation</h3>
+            <label class="block">
+              <span class="text-[0.66rem] tracking-[0.22em] uppercase font-semibold text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Initials inside (max 4)</span>
+              <input type="text" maxlength="4" placeholder="e.g. GMD" class="block w-full mt-2 px-4 py-3 bg-paper dark:bg-[#0f0f0f] border border-border dark:border-[#2a2a2a] outline-none text-[0.95rem] focus:border-[#C6A559]" data-personal-init>
+            </label>
+          </div>
+        </div>
+
+        <!-- Summary panel -->
+        <aside class="lg:col-span-4">
+          <div class="border border-border dark:border-[#2a2a2a] p-7 sticky top-24 bg-paper dark:bg-[#0f0f0f]">
+            <p class="editorial-eyebrow"><span class="vol">Summary</span><span class="rule"></span></p>
+            <h3 class="editorial-title text-2xl mt-3 mb-5">Your <em>configuration.</em></h3>
+            <dl class="text-[0.84rem] space-y-3">
+              <div class="flex items-center justify-between"><dt class="text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Silhouette</dt><dd data-summary="silhouette" class="font-medium">Loafer</dd></div>
+              <div class="flex items-center justify-between"><dt class="text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Leather</dt><dd data-summary="leather" class="font-medium">Italian Box-Calf</dd></div>
+              <div class="flex items-center justify-between"><dt class="text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Sole</dt><dd data-summary="sole" class="font-medium">Oak-Bark Leather</dd></div>
+              <div class="flex items-center justify-between"><dt class="text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Lining</dt><dd data-summary="lining" class="font-medium">Cabretta</dd></div>
+              <div class="flex items-center justify-between"><dt class="text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Initials</dt><dd data-summary="initials" class="font-medium">—</dd></div>
+            </dl>
+            <div class="mt-6 pt-4 border-t border-border dark:border-[#2a2a2a]">
+              <p class="text-[0.66rem] tracking-[0.22em] uppercase font-semibold text-ink/60 dark:text-[rgba(232,230,225,0.55)]">Estimated price</p>
+              <p class="text-2xl font-medium mt-1" data-price-php="38000">₱38,000</p>
+              <p class="text-[0.66rem] tracking-[0.22em] uppercase text-ink/55 dark:text-[rgba(232,230,225,0.5)] mt-1">6-week lead time</p>
+            </div>
+            <button type="button" class="btn btn-dark w-full mt-6" data-add-custom>Add to cart</button>
+            <a href="contact.html" class="block mt-4 text-center text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1 w-fit mx-auto">Speak to a maker first →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Co-labs anchor -->
+  <section id="colabs" class="page-section">
+    <div class="max-w-6xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 03</span><span class="rule"></span><span>Co-Labs</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-6">Four-handed <em>work.</em></h2>
+      <p class="max-w-[58ch] italic text-ink/75 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.08rem;line-height:1.75">Each year we open the workshop to two outside designers — one in spring, one in autumn — for a small, named capsule. Past collaborators include the Atelier Studio, Linnaeus, and the Tobacco Dock archive. Sign up to be notified when the next call opens.</p>
+      <form data-newsletter-form class="flex flex-col sm:flex-row gap-3 mt-7 max-w-md">
+        <input type="email" name="email" required placeholder="Your email" class="flex-1 min-w-0 px-4 py-3 text-[0.86rem] bg-transparent border border-border dark:border-[#2a2a2a] outline-none focus:border-[#C6A559]"/>
+        <button type="submit" class="btn btn-dark whitespace-nowrap">Notify me</button>
+      </form>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+  <script>
+    (function () {
+      var basePrice = 38000;
+      var modifiers = {
+        leather: { 'Italian Box-Calf': 0, 'English Suede': 1500, 'French Chèvre': 3000, 'Deadstock': 2500 },
+        sole: { 'Oak-Bark Leather': 0, 'Dainite Rubber': -1000, 'Moulded Cup': -2000 },
+        lining: { 'Cabretta': 0, 'Unlined': -800, 'Cashmere-blend': 1800 },
+      };
+      var current = { silhouette: 'Loafer', leather: 'Italian Box-Calf', sole: 'Oak-Bark Leather', lining: 'Cabretta', initials: '' };
+
+      function recalc() {
+        var p = basePrice;
+        Object.keys(modifiers).forEach(function (k) {
+          if (modifiers[k][current[k]] != null) p += modifiers[k][current[k]];
+        });
+        var priceEl = document.querySelector('[data-price-php]');
+        if (priceEl) {
+          priceEl.setAttribute('data-price-php', String(p));
+          priceEl.textContent = window.Site ? window.Site.currency.format(p, window.Site.currency.get()) : ('₱' + p.toLocaleString());
+        }
+      }
+      function updateSummary(opt, value) {
+        var dd = document.querySelector('[data-summary="' + opt + '"]');
+        if (dd) dd.textContent = value || '—';
+      }
+
+      document.querySelectorAll('.opt-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          var opt = card.getAttribute('data-opt');
+          var val = card.getAttribute('data-value');
+          document.querySelectorAll('.opt-card[data-opt="' + opt + '"]').forEach(function (c) { c.classList.remove('is-selected'); });
+          card.classList.add('is-selected');
+          current[opt] = val;
+          updateSummary(opt, val);
+          recalc();
+        });
+      });
+
+      var initInput = document.querySelector('[data-personal-init]');
+      if (initInput) initInput.addEventListener('input', function () {
+        current.initials = initInput.value.toUpperCase();
+        initInput.value = current.initials;
+        updateSummary('initials', current.initials || '—');
+      });
+
+      var addBtn = document.querySelector('[data-add-custom]');
+      if (addBtn) addBtn.addEventListener('click', function () {
+        if (!window.Site) return;
+        var summary = current.silhouette + ' · ' + current.leather;
+        var p = parseInt(document.querySelector('[data-price-php]').getAttribute('data-price-php'), 10);
+        window.Site.cart.add({
+          id: 'custom-' + Date.now(),
+          name: 'Custom ' + summary + (current.initials ? ' · ' + current.initials : ''),
+          price: p,
+          image: 'images/shoes/shoe-03.jpg',
+          color: current.leather,
+          size: 'Custom',
+          qty: 1,
+        });
+        window.Site.toast('Added to cart — custom pair (6-week lead time)');
+      });
+    })();
+  </script>
+</body>
+</html>

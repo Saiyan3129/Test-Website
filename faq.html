@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions — Tester.io</title>
+  <meta name="description" content="Sizing, care, programmes, custom orders — answers to the questions we hear most often." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .topic-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+    .topic-strip a {
+      font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+      padding: 0.55rem 0.9rem;
+      border: 1px solid var(--c-border); color: var(--c-ink);
+      transition: all 220ms cubic-bezier(0.22,1,0.36,1);
+      text-decoration: none;
+    }
+    html.dark .topic-strip a { color: #e8e6e1; border-color: #2a2a2a; }
+    .topic-strip a:hover, .topic-strip a.is-active { border-color: #C6A559; color: #9c8240; }
+    html.dark .topic-strip a:hover, html.dark .topic-strip a.is-active { color: #E6B979; }
+
+    details.q {
+      border-top: 1px solid var(--c-border);
+      padding: 22px 0;
+    }
+    html.dark details.q { border-top-color: #252422; }
+    details.q summary {
+      cursor: pointer; list-style: none;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 18px;
+      font-size: 1.05rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400; line-height: 1.4; color: var(--c-ink);
+      transition: color 220ms;
+    }
+    html.dark details.q summary { color: #f4ecd8; }
+    details.q summary::-webkit-details-marker { display: none; }
+    details.q summary:hover { color: #9c8240; }
+    html.dark details.q summary:hover { color: #E6B979; }
+    details.q summary::after {
+      content: '+'; flex-shrink: 0;
+      font-size: 1.4rem; color: #C6A559; line-height: 1;
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    details.q[open] summary::after { transform: rotate(45deg); }
+    details.q .a {
+      margin-top: 14px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic;
+      font-size: 1.02rem; line-height: 1.75;
+      color: rgba(44,43,41,0.78);
+    }
+    html.dark details.q .a { color: rgba(232,230,225,0.72); }
+    .topic-section { padding: 56px 0 24px; scroll-margin-top: 80px; }
+    .topic-section h2 { font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 700; color: #C6A559; }
+    .topic-section h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 2rem; letter-spacing: -0.01em; margin-top: 6px; color: var(--c-ink); }
+    html.dark .topic-section h3 { color: #f4ecd8; }
+    /* Sizing chart */
+    .size-chart { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 14px; }
+    .size-chart th, .size-chart td { padding: 11px 10px; text-align: center; border-top: 1px solid var(--c-border); }
+    html.dark .size-chart th, html.dark .size-chart td { border-top-color: #252422; }
+    .size-chart thead th { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-muted); border-top: 0; padding-bottom: 12px; font-weight: 600; }
+    .size-chart tbody td:first-child { font-weight: 600; color: #9c8240; }
+    html.dark .size-chart tbody td:first-child { color: #E6B979; }
+  </style>
+</head>
+<body class="text-ink" data-page="faq.html">
+
+  <div data-site-header data-active="faq.html"></div>
+
+  <section class="page-hero">
+    <p class="page-hero__eyebrow"><span class="vol">Help</span><span class="rule"></span><span>Frequently asked</span></p>
+    <h1 class="page-hero__title">Questions, <em>answered.</em></h1>
+    <p class="page-hero__lede">Sizing, care, custom commissions, programmes, gifting. If yours isn't here, write to the atelier — we read every note.</p>
+  </section>
+
+  <section class="px-6 lg:px-10 pt-4 pb-6 sticky top-[59px] z-10 bg-paper/95 dark:bg-[#0f0f0f]/95 backdrop-blur border-b border-border dark:border-[#252422]">
+    <div class="max-w-4xl mx-auto py-4">
+      <nav class="topic-strip" aria-label="FAQ topics">
+        <a href="#orders">Orders</a>
+        <a href="#sizing">Sizing</a>
+        <a href="#care">Care</a>
+        <a href="#custom">Custom</a>
+        <a href="#programmes">Programmes</a>
+        <a href="#gifting">Gifting</a>
+        <a href="#workshop">The Workshop</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="max-w-3xl mx-auto">
+
+      <div id="orders" class="topic-section">
+        <h2>Topic 01</h2>
+        <h3>Orders &amp; Shipping</h3>
+        <details class="q"><summary>How long until my pair ships?</summary><div class="a">Stock pairs ship the next Tuesday or Friday after your order — typically within 3–5 days. Custom pairs take 6 weeks; bespoke lasts add 2 weeks. Tracking is sent the moment it leaves the workshop.</div></details>
+        <details class="q"><summary>Do you ship internationally?</summary><div class="a">Yes — anywhere DHL or FedEx will go, plus a few places they won't. UK and EU shipments are sent DDP (no surprise charges); other regions are DDU. See <a href="shipping.html" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2 not-italic">Shipping</a> for full rates.</div></details>
+        <details class="q"><summary>What if I'm not in when it arrives?</summary><div class="a">Couriers leave a card and try the next day. After two attempts the parcel goes to your local depot. We can re-route to your office or a friendly neighbour — write to us before the second attempt.</div></details>
+        <details class="q"><summary>Can I change my order after placing it?</summary><div class="a">Within an hour, yes — most pairs are picked from stock the morning after. After that, it depends; write to <a href="mailto:hello@tester.io" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2 not-italic">hello@tester.io</a> and we'll see what we can do.</div></details>
+      </div>
+
+      <div id="sizing" class="topic-section">
+        <h2>Topic 02</h2>
+        <h3>Sizing</h3>
+        <details class="q" open><summary>What size do I take?</summary><div class="a">Most customers take their usual UK size in the Plus Court (sneaker last) and a half-size down in the Ezra (loafer last) — leather stretches; sneakers don't, much. The chart below is a guide.
+        <table class="size-chart">
+          <thead><tr><th>UK</th><th>EU</th><th>US Men</th><th>US Women</th><th>JP (cm)</th></tr></thead>
+          <tbody>
+            <tr><td>5</td><td>38</td><td>6</td><td>7</td><td>23.5</td></tr>
+            <tr><td>6</td><td>39</td><td>7</td><td>8</td><td>24.5</td></tr>
+            <tr><td>7</td><td>41</td><td>8</td><td>9</td><td>25.5</td></tr>
+            <tr><td>8</td><td>42</td><td>9</td><td>10</td><td>26.5</td></tr>
+            <tr><td>9</td><td>43</td><td>10</td><td>11</td><td>27.5</td></tr>
+            <tr><td>10</td><td>44</td><td>11</td><td>12</td><td>28.5</td></tr>
+            <tr><td>11</td><td>46</td><td>12</td><td>13</td><td>29.5</td></tr>
+          </tbody>
+        </table>
+        </div></details>
+        <details class="q"><summary>I'm between sizes — up or down?</summary><div class="a">Loafers: down. Sneakers: up. Mules and boots: up if your toes need room. We'll exchange free once if it's not right.</div></details>
+        <details class="q"><summary>Do you do half sizes?</summary><div class="a">In the Ezra and Bloomsbury lines, yes (UK 6½ — 9½). Plus Court and the NY range are full sizes only. Wider lasts available by request — adds a week.</div></details>
+        <details class="q"><summary>Can I send my measurements?</summary><div class="a">For made-to-order yes — we have a measurement chart we'll send through. Stand on the chart, mark heel and longest toe, photograph it. We've done this with customers in twelve countries; it works.</div></details>
+      </div>
+
+      <div id="care" class="topic-section">
+        <h2>Topic 03</h2>
+        <h3>Care</h3>
+        <details class="q"><summary>How do I care for the leather?</summary><div class="a">A horsehair brush after every wear, a soft cloth for marks. Once a month, a thin layer of neutral cream (we send a tin with first orders). Avoid waterproofing sprays — they grey the colour over time.</div></details>
+        <details class="q"><summary>What about suede?</summary><div class="a">Brush against the grain, then with the grain. Suede protector once at the start of life — that's enough. For wet-weather wear, the Dainite-soled version is built for it.</div></details>
+        <details class="q"><summary>My soles are worn — can you re-sole?</summary><div class="a">Yes — for life. Half price for Atelier members; full price otherwise (still cheaper than buying a new pair). Send the pair back to the workshop; we re-sole and refinish the leather while it's there. 3–4 weeks turnaround.</div></details>
+        <details class="q"><summary>Can I machine-wash the cotton dust bags?</summary><div class="a">Yes — cold, no bleach, line dry. They go a little softer each wash; that's fine.</div></details>
+      </div>
+
+      <div id="custom" class="topic-section">
+        <h2>Topic 04</h2>
+        <h3>Custom &amp; Made-to-Order</h3>
+        <details class="q"><summary>What's the difference between custom and bespoke?</summary><div class="a">Custom = our patterns, your choices (silhouette, leather, sole, lining, initials). Bespoke = a pattern cut for your foot, from your measurements. Bespoke adds 2 weeks and ₱8,000.</div></details>
+        <details class="q"><summary>Can I commission something not on the configurator?</summary><div class="a">Sometimes. Write to us — describe what you have in mind. If we can do it, we'll quote. If we can't, we'll tell you (and may suggest a better atelier for it).</div></details>
+        <details class="q"><summary>Can I see a sample before committing?</summary><div class="a">Leather swatches: yes, we'll post a small set. Full samples in your size: only at a showroom or a trunk show. See <a href="showrooms.html" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2 not-italic">Showrooms</a> for dates.</div></details>
+      </div>
+
+      <div id="programmes" class="topic-section">
+        <h2>Topic 05</h2>
+        <h3>Loyalty Programmes</h3>
+        <details class="q"><summary>How do tiers work?</summary><div class="a">Apprentice on first purchase. Atelier on three pairs in a year. House by invitation. Custom and made-to-order pairs count double. Tiers reset on your join-date anniversary.</div></details>
+        <details class="q"><summary>I lost my brass card.</summary><div class="a">We'll re-cut it. Same number, ₱500 to cover the brass. Keep it in your wallet next time, or don't — the discount is on file regardless.</div></details>
+        <details class="q"><summary>How do I get invited to House?</summary><div class="a">We invite quietly, usually after a custom commission and at least four pairs over two years. There are fifty members, ever. We don't post a wait list because we don't keep one.</div></details>
+        <details class="q"><summary>Can I gift a tier?</summary><div class="a">Yes — Apprentice and Atelier. House cannot be gifted, by design. See <a href="#gifting" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2 not-italic">Gifting</a> below.</div></details>
+      </div>
+
+      <div id="gifting" class="topic-section">
+        <h2>Topic 06</h2>
+        <h3>Gifting</h3>
+        <details class="q"><summary>Can I send a gift card?</summary><div class="a">Yes — denominations from <span data-currency-symbol>₱</span><span data-price-php="2500">2,500</span> to <span data-currency-symbol>₱</span><span data-price-php="50000">50,000</span>. Hand-stamped on heavy paper, posted in a small envelope, or e-mailed if it's last-minute.</div></details>
+        <details class="q"><summary>Will the box have a price tag?</summary><div class="a">No, never — gift or not. Order summary goes by email; the parcel travels quietly.</div></details>
+        <details class="q"><summary>Can I add a hand-written note?</summary><div class="a">Yes. Tell us what to write at checkout. We use ink — no printers — so allow up to 60 characters.</div></details>
+      </div>
+
+      <div id="workshop" class="topic-section">
+        <h2>Topic 07</h2>
+        <h3>The Workshop</h3>
+        <details class="q"><summary>Where are the shoes actually made?</summary><div class="a">All cutting and finishing in our Northampton workshop. Some uppers (Plus Court sneaker only) are stitched by a small shop in Manila. The Ezra, Wilde, Bloomsbury, and Atelier lines are entirely Northampton-made.</div></details>
+        <details class="q"><summary>Can I visit?</summary><div class="a">Yes — by appointment. Wednesday to Friday at the Northampton workshop, or any day in Manila. Tour, fitting, leather selection, and (usually) a cup of tea. See <a href="showrooms.html" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2 not-italic">Showrooms</a>.</div></details>
+        <details class="q"><summary>Are you hiring apprentices?</summary><div class="a">We take one or two a year. The opening is announced in our newsletter and not advertised elsewhere — sign up at the bottom of any page.</div></details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="page-section bg-stone dark:bg-[#141414]">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="editorial-eyebrow justify-center"><span class="vol">Still stuck?</span><span class="rule"></span></p>
+      <h2 class="editorial-title text-3xl md:text-4xl mt-3">Write to the <em>atelier.</em></h2>
+      <p class="mt-4 italic text-ink/70 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">Each note is read and answered by hand within two working days.</p>
+      <a href="contact.html" class="btn btn-dark mt-7">Send a note</a>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+  <script>
+    // Active topic indicator
+    (function () {
+      var links = document.querySelectorAll('.topic-strip a');
+      function setActive() {
+        var hash = location.hash || '#orders';
+        links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === hash); });
+      }
+      window.addEventListener('hashchange', setActive);
+      setActive();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account — Tester.io</title>
+  <meta name="description" content="Sign in or register a Tester.io account to track orders, manage made-to-order pairs, and access the Atelier Loyalty Programme." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .auth-tab {
+      flex: 1;
+      padding: 16px 12px;
+      font-size: 0.7rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 700;
+      background: transparent; border: 0;
+      color: rgba(44,43,41,0.5);
+      cursor: pointer;
+      position: relative;
+      transition: color 220ms;
+    }
+    html.dark .auth-tab { color: rgba(232,230,225,0.45); }
+    .auth-tab.is-active { color: #C6A559; }
+    .auth-tab.is-active::after {
+      content: ''; position: absolute; bottom: -1px; left: 18%; right: 18%; height: 2px;
+      background: linear-gradient(90deg, transparent, #C6A559, transparent);
+    }
+    .field { position: relative; }
+    .field input {
+      width: 100%; padding: 18px 14px 14px;
+      background: transparent;
+      border: 1px solid var(--c-border);
+      font-size: 0.95rem;
+      color: var(--c-ink);
+      outline: none;
+      transition: border-color 200ms, box-shadow 200ms;
+    }
+    html.dark .field input { color: #e8e6e1; border-color: #2a2a2a; }
+    .field input:focus { border-color: #C6A559; box-shadow: 0 0 0 1px rgba(198,165,89,0.3); }
+    .field label {
+      position: absolute; left: 14px; top: 16px;
+      font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+      color: rgba(44,43,41,0.55);
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1), color 220ms;
+      transform-origin: left top;
+      pointer-events: none;
+    }
+    html.dark .field label { color: rgba(232,230,225,0.55); }
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label {
+      transform: translate(0, -10px) scale(0.78);
+      color: #C6A559;
+    }
+    .field input::placeholder { color: transparent; }
+    .auth-divider { position: relative; text-align: center; margin: 24px 0; }
+    .auth-divider span { background: var(--c-paper); padding: 0 14px; font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--c-muted); position: relative; }
+    .auth-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--c-border); }
+    html.dark .auth-divider span { background: #141414; }
+    html.dark .auth-divider::before { background: #252422; }
+    .social-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--c-border); background: transparent;
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+      color: var(--c-ink); cursor: pointer;
+      transition: border-color 220ms, background-color 220ms;
+    }
+    html.dark .social-btn { color: #e8e6e1; border-color: #2a2a2a; }
+    .social-btn:hover { border-color: #C6A559; background: rgba(198,165,89,0.06); }
+  </style>
+</head>
+<body class="text-ink" data-page="account.html">
+
+  <div data-site-header data-active="account.html"></div>
+
+  <section class="page-hero">
+    <p class="page-hero__eyebrow"><span class="vol">House</span><span class="rule"></span><span>Member access</span></p>
+    <h1 class="page-hero__title">Your <em>account.</em></h1>
+    <p class="page-hero__lede">Track orders, manage made-to-order pairs, see your loyalty tier, and read past correspondence with the atelier.</p>
+  </section>
+
+  <section class="page-section">
+    <div class="max-w-md mx-auto">
+      <div class="bg-paper dark:bg-[#141414] border border-border dark:border-[#252422] shadow-elev1">
+        <div class="flex border-b border-border dark:border-[#252422]">
+          <button class="auth-tab is-active" data-auth-tab="signin">Sign in</button>
+          <button class="auth-tab" data-auth-tab="register">Register</button>
+        </div>
+
+        <!-- Sign in -->
+        <form data-auth-form="signin" class="p-7 space-y-4">
+          <div class="field">
+            <input type="email" id="signin-email" name="email" required autocomplete="email" placeholder=" "/>
+            <label for="signin-email">Email</label>
+          </div>
+          <div class="field">
+            <input type="password" id="signin-pass" name="password" required autocomplete="current-password" placeholder=" "/>
+            <label for="signin-pass">Password</label>
+          </div>
+          <div class="flex items-center justify-between text-[0.66rem] tracking-[0.18em] uppercase font-medium">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="accent-[#C6A559]"/>
+              <span class="text-ink/70 dark:text-[rgba(232,230,225,0.65)]">Remember me</span>
+            </label>
+            <a href="#" data-forgot class="text-[#9c8240] hover:text-[#C6A559]">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-dark w-full">Sign in</button>
+          <div class="auth-divider"><span>Or</span></div>
+          <div class="grid grid-cols-2 gap-3">
+            <button type="button" class="social-btn" data-social="apple">Apple</button>
+            <button type="button" class="social-btn" data-social="google">Google</button>
+          </div>
+          <p class="text-center text-[0.66rem] tracking-[0.22em] uppercase text-ink/55 dark:text-[rgba(232,230,225,0.55)] mt-4">New to Tester.io? <button type="button" class="text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-0.5 font-semibold uppercase tracking-[0.22em]" data-switch-to-register>Create an account</button></p>
+        </form>
+
+        <!-- Register -->
+        <form data-auth-form="register" class="p-7 space-y-4 hidden">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="field">
+              <input type="text" id="reg-first" name="first_name" required autocomplete="given-name" placeholder=" "/>
+              <label for="reg-first">First name</label>
+            </div>
+            <div class="field">
+              <input type="text" id="reg-last" name="last_name" required autocomplete="family-name" placeholder=" "/>
+              <label for="reg-last">Last name</label>
+            </div>
+          </div>
+          <div class="field">
+            <input type="email" id="reg-email" name="email" required autocomplete="email" placeholder=" "/>
+            <label for="reg-email">Email</label>
+          </div>
+          <div class="field">
+            <input type="password" id="reg-pass" name="password" required minlength="8" autocomplete="new-password" placeholder=" "/>
+            <label for="reg-pass">Password (8+ characters)</label>
+          </div>
+          <label class="flex items-start gap-3 cursor-pointer text-[0.7rem] leading-[1.6]">
+            <input type="checkbox" name="newsletter" class="mt-[3px] accent-[#C6A559]"/>
+            <span class="text-ink/70 dark:text-[rgba(232,230,225,0.65)]">Send me three letters a year from the atelier — no marketing, just news.</span>
+          </label>
+          <button type="submit" class="btn btn-dark w-full">Create account</button>
+          <p class="text-[0.62rem] leading-[1.55] text-ink/55 dark:text-[rgba(232,230,225,0.55)] text-center mt-2">By creating an account you agree to our <a href="#" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2">privacy notice</a>. Apprentice tier is auto-applied with your first purchase.</p>
+        </form>
+      </div>
+
+      <p class="text-center mt-8 text-[0.7rem] tracking-[0.18em] uppercase text-ink/55 dark:text-[rgba(232,230,225,0.5)]">Need help? <a href="contact.html" class="text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-0.5 font-semibold">Write to the atelier →</a></p>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll('[data-auth-tab]');
+      var forms = { signin: document.querySelector('[data-auth-form="signin"]'), register: document.querySelector('[data-auth-form="register"]') };
+      function show(which) {
+        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-auth-tab') === which); });
+        Object.keys(forms).forEach(function (k) { forms[k].classList.toggle('hidden', k !== which); });
+      }
+      tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('data-auth-tab')); }); });
+      var sw = document.querySelector('[data-switch-to-register]');
+      if (sw) sw.addEventListener('click', function () { show('register'); });
+
+      forms.signin.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var email = forms.signin.querySelector('[name="email"]').value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          window.Site && window.Site.toast('Enter a valid email', { kind: 'error' });
+          return;
+        }
+        window.Site && window.Site.toast('Signed in (demo) — this is a static showcase.');
+      });
+      forms.register.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        window.Site && window.Site.toast('Account created (demo) — welcome to the Apprentice tier.');
+      });
+      document.querySelectorAll('[data-social]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          window.Site && window.Site.toast('Social sign-in not enabled in this demo.', { kind: 'error' });
+        });
+      });
+      var forgot = document.querySelector('[data-forgot]');
+      if (forgot) forgot.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        var email = prompt('Enter your account email — we\'ll send a reset link.');
+        if (email) window.Site && window.Site.toast('If an account exists, a reset link is on its way.');
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -87,6 +87,33 @@ async function kieFetch(path, init = {}) {
 
 // --- routes -----------------------------------------------------------------
 async function handleApi(req, res, urlPath, urlObj) {
+  // POST /api/contact — dev stub. Production hits api/contact.js (Vercel serverless).
+  // Validates input and returns a success envelope so the form's success path runs locally.
+  if (urlPath === "/api/contact" && req.method === "POST") {
+    let payload;
+    try { payload = JSON.parse(await readBody(req) || "{}"); }
+    catch { return sendJSON(res, 400, { error: "Invalid JSON body" }); }
+    const name = String(payload.name || "").trim();
+    const email = String(payload.email || "").trim();
+    const message = String(payload.message || "").trim();
+    if (!name || !email || !message) return sendJSON(res, 400, { error: "All fields are required." });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return sendJSON(res, 400, { error: "Please enter a valid email address." });
+    if (payload.company) return sendJSON(res, 200, { ok: true });
+    console.log(`[contact:dev] ${name} <${email}> — ${message.slice(0, 80)}`);
+    return sendJSON(res, 200, { ok: true, dev: true });
+  }
+
+  // POST /api/newsletter — dev stub.
+  if (urlPath === "/api/newsletter" && req.method === "POST") {
+    let payload;
+    try { payload = JSON.parse(await readBody(req) || "{}"); }
+    catch { return sendJSON(res, 400, { error: "Invalid JSON body" }); }
+    const email = String(payload.email || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return sendJSON(res, 400, { error: "Please enter a valid email address." });
+    console.log(`[newsletter:dev] ${email}`);
+    return sendJSON(res, 200, { ok: true, dev: true });
+  }
+
   // POST /api/kie/generate { prompt, model?, image_size?, output_format?, image_urls? }
   if (urlPath === "/api/kie/generate" && req.method === "POST") {
     let payload;

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Returns &amp; Exchanges — Tester.io</title>
+  <meta name="description" content="30-day returns, free exchanges, lifetime re-soling at half price for Atelier members." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .step-num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic; font-weight: 300;
+      font-size: 4rem; line-height: 0.9;
+      background: linear-gradient(180deg, #F4DBA4 0%, #C6A559 60%, #9c8240 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: -0.04em;
+    }
+    .terms-row {
+      display: grid; grid-template-columns: 1fr; gap: 8px;
+      padding: 22px 0;
+      border-top: 1px solid var(--c-border);
+    }
+    @media (min-width: 720px) { .terms-row { grid-template-columns: 220px 1fr; gap: 24px; } }
+    html.dark .terms-row { border-top-color: #252422; }
+    .terms-row dt { font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 700; color: #9c8240; padding-top: 4px; }
+    html.dark .terms-row dt { color: #E6B979; }
+    .terms-row dd { font-size: 0.95rem; line-height: 1.75; font-style: italic; color: var(--c-ink); font-family: 'Cormorant Garamond', Georgia, serif; }
+    html.dark .terms-row dd { color: rgba(232,230,225,0.85); }
+  </style>
+</head>
+<body class="text-ink" data-page="returns.html">
+
+  <div data-site-header data-active="returns.html"></div>
+
+  <section class="page-hero">
+    <p class="page-hero__eyebrow"><span class="vol">Help</span><span class="rule"></span><span>Returns &amp; Exchanges</span></p>
+    <h1 class="page-hero__title">Not quite right? <em>We'll make it right.</em></h1>
+    <p class="page-hero__lede">30-day return window, free exchanges, and lifetime re-soling at half price for Atelier-tier members. Custom pairs are remade at no charge if the fit isn't there.</p>
+  </section>
+
+  <!-- The 4 steps -->
+  <section class="page-section">
+    <div class="max-w-5xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 01</span><span class="rule"></span><span>The Process</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-12">Four <em>steps.</em></h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="reveal">
+          <p class="step-num">01</p>
+          <h3 class="text-[1.4rem] font-medium mt-3 mb-2" style="font-family:'Cormorant Garamond',Georgia,serif">Write to us</h3>
+          <p class="italic text-ink/75 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">Send a note to <a href="mailto:returns@tester.io" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2">returns@tester.io</a> with your order number. We'll reply within one working day with a postage label and a small form.</p>
+        </div>
+        <div class="reveal delay-1">
+          <p class="step-num">02</p>
+          <h3 class="text-[1.4rem] font-medium mt-3 mb-2" style="font-family:'Cormorant Garamond',Georgia,serif">Repack the pair</h3>
+          <p class="italic text-ink/75 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">Use the original box if you can; any sturdy carton if not. Pair must be in unworn condition (try them indoors only — soles tell tales). Include the form.</p>
+        </div>
+        <div class="reveal delay-2">
+          <p class="step-num">03</p>
+          <h3 class="text-[1.4rem] font-medium mt-3 mb-2" style="font-family:'Cormorant Garamond',Georgia,serif">Post it back</h3>
+          <p class="italic text-ink/75 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">Use our prepaid label (free for first exchange — domestic) or your own carrier. We're at the addresses on the <a href="showrooms.html" class="text-[#9c8240] hover:text-[#C6A559] underline underline-offset-2">Showrooms</a> page.</p>
+        </div>
+        <div class="reveal delay-3">
+          <p class="step-num">04</p>
+          <h3 class="text-[1.4rem] font-medium mt-3 mb-2" style="font-family:'Cormorant Garamond',Georgia,serif">Refund or remake</h3>
+          <p class="italic text-ink/75 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">Refunds processed within 5 working days of receipt. Exchanges ship within 3 days; if the new size is out of stock we'll cut a fresh pair (no extra charge).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms -->
+  <section class="page-section bg-stone dark:bg-[#141414]">
+    <div class="max-w-4xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 02</span><span class="rule"></span><span>The Fine Print</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-10">The <em>terms.</em></h2>
+      <dl class="border-t border-border dark:border-[#252422]" style="border-top-color:transparent">
+        <div class="terms-row"><dt>Return window</dt><dd>30 days from delivery. We use the courier's confirmed-delivered date, not the day the parcel was opened.</dd></div>
+        <div class="terms-row"><dt>Condition</dt><dd>Unworn outdoors. Mid-soles cleaned. Original dust bags returned. We're not strict about the box but please use one.</dd></div>
+        <div class="terms-row"><dt>Refunds</dt><dd>To original payment method. Card refunds typically appear within 5–10 days; banks differ.</dd></div>
+        <div class="terms-row"><dt>Exchanges</dt><dd>First exchange is free domestically. Second exchange — actual postage, charged at cost.</dd></div>
+        <div class="terms-row"><dt>Custom &amp; made-to-order</dt><dd>Cannot be returned for refund (cut to your specification). Will be remade if the fit is wrong — at no charge — once.</dd></div>
+        <div class="terms-row"><dt>Sale items</dt><dd>Final sale items (marked at checkout) are not returnable. We mention this clearly on the product page; nothing is hidden in the small print.</dd></div>
+        <div class="terms-row"><dt>Re-soling</dt><dd>Half price for life — Atelier members. Full price (still less than the leather costs) for non-members. Posted to the workshop, returned in 3–4 weeks.</dd></div>
+        <div class="terms-row"><dt>Faulty pairs</dt><dd>Out of warranty? Send a photograph anyway. Most things we can put right at the workshop. We'd rather repair than refund.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="page-section">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="editorial-eyebrow justify-center"><span class="vol">Begin</span><span class="rule"></span></p>
+      <h2 class="editorial-title text-3xl md:text-4xl mt-3">Ready to <em>send a pair back?</em></h2>
+      <p class="mt-4 italic text-ink/70 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">Write directly — a sentence is enough. We'll do the rest.</p>
+      <div class="mt-7 flex flex-wrap items-center gap-4 justify-center">
+        <a href="contact.html" class="btn btn-dark">Begin a return</a>
+        <a href="mailto:returns@tester.io" class="text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">returns@tester.io</a>
+      </div>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>

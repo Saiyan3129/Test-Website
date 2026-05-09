@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loyalty — Tester World</title>
+  <meta name="description" content="The Atelier Loyalty Programme — three tiers, hand-numbered cards, atelier visits, early access." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .tier-card {
+      position: relative;
+      padding: 36px 32px 38px;
+      background: var(--c-paper);
+      border: 1px solid var(--c-border);
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1), box-shadow 320ms cubic-bezier(0.22,1,0.36,1);
+      overflow: hidden;
+    }
+    html.dark .tier-card { background: #141414; border-color: #252422; }
+    .tier-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-elev1); }
+    .tier-card.featured {
+      background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+      color: #f4ecd8; border-color: rgba(198,165,89,0.32);
+      box-shadow: 0 24px 60px -28px rgba(198,165,89,0.4);
+    }
+    .tier-card.featured::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(60% 80% at 50% 0%, rgba(230,185,121,0.12), transparent 70%);
+    }
+    .tier-card .tier {
+      font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 700;
+      color: #C6A559;
+    }
+    .tier-card .h {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300; font-size: 2.4rem; letter-spacing: -0.01em;
+      margin: 12px 0 6px;
+    }
+    .tier-card .price {
+      font-size: 0.86rem; color: var(--c-muted);
+    }
+    .tier-card.featured .price { color: rgba(244,236,216,0.6); }
+    .tier-card ul { margin-top: 24px; }
+    .tier-card li { font-size: 0.84rem; line-height: 1.65; padding: 10px 0; border-top: 1px solid rgba(198,165,89,0.18); }
+    .tier-card li:first-child { border-top: 0; }
+    .tier-card.featured li { border-top-color: rgba(198,165,89,0.18); }
+    .tier-card .cta-row { margin-top: 28px; }
+  </style>
+</head>
+<body class="text-ink" data-page="loyalty.html">
+
+  <div data-site-header data-active="loyalty.html"></div>
+
+  <section class="page-hero">
+    <p class="page-hero__eyebrow"><span class="vol">Members</span><span class="rule"></span><span>Tester World</span></p>
+    <h1 class="page-hero__title">The Atelier <em>Loyalty Programme.</em></h1>
+    <p class="page-hero__lede">Three tiers, hand-numbered membership cards, early access to capsule drops, atelier visits, and the right to commission a single pair before they go on sale.</p>
+  </section>
+
+  <!-- Tiers -->
+  <section class="page-section">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="tier-card reveal">
+          <p class="tier">Tier I</p>
+          <h2 class="h">Apprentice</h2>
+          <p class="price">Free · with first purchase</p>
+          <ul>
+            <li>10% off your second pair</li>
+            <li>Free shipping over <span data-currency-symbol>₱</span><span data-price-php="20000">20,000</span></li>
+            <li>Quarterly dispatch: news from the workshop</li>
+            <li>Birthday gift: small leathergoods</li>
+          </ul>
+          <div class="cta-row"><a href="account.html" class="btn btn-light">Join the programme</a></div>
+        </div>
+        <div class="tier-card featured reveal delay-1">
+          <p class="tier">Tier II · Recommended</p>
+          <h2 class="h">Atelier</h2>
+          <p class="price">Auto-upgrade · 3+ pairs / year</p>
+          <ul>
+            <li>15% off, year-round</li>
+            <li>Early access to capsule drops (48h)</li>
+            <li>Annual atelier visit (Northampton or Manila)</li>
+            <li>Hand-numbered membership card · brass</li>
+            <li>Re-soling at half price · for life</li>
+          </ul>
+          <div class="cta-row"><a href="account.html" class="btn btn-dark">Join now</a></div>
+        </div>
+        <div class="tier-card reveal delay-2">
+          <p class="tier">Tier III · Invitation</p>
+          <h2 class="h">House</h2>
+          <p class="price">By invitation only</p>
+          <ul>
+            <li>20% off all pieces</li>
+            <li>One commissioned pair per year, before retail</li>
+            <li>Private dinner · Northampton, autumn</li>
+            <li>Permanent maker's name reserved</li>
+            <li>Annual archive piece, by post</li>
+          </ul>
+          <div class="cta-row"><a href="contact.html" class="btn btn-light">Request invitation</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="programmes" class="page-section bg-stone dark:bg-[#141414]">
+    <div class="max-w-5xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 02</span><span class="rule"></span><span>How it works</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-10">Quietly, <em>by hand.</em></h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="card-editorial__title">Earning</h3>
+          <p class="card-editorial__body">Every pair counts toward your tier. Hand-finished pairs (custom or made-to-order) count double. Tiers reset annually on your join-date.</p>
+        </div>
+        <div>
+          <h3 class="card-editorial__title">Cards</h3>
+          <p class="card-editorial__body">Apprentice — heavy-stock paper, blind-stamped. Atelier — etched brass. House — one of fifty. Members carry the same number for life.</p>
+        </div>
+        <div>
+          <h3 class="card-editorial__title">Atelier visits</h3>
+          <p class="card-editorial__body">Once a year, by appointment, at the Northampton workshop or Manila showroom. Lasting demonstration, leather selection, and a fitting.</p>
+        </div>
+        <div>
+          <h3 class="card-editorial__title">Privacy</h3>
+          <p class="card-editorial__body">No tracking pixels, no quarterly newsletters you didn't ask for. We send three letters a year. Read them or don't.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ teaser -->
+  <section class="page-section">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="editorial-eyebrow justify-center"><span class="vol">N° 03</span><span class="rule"></span><span>Questions</span></p>
+      <h2 class="editorial-title text-3xl md:text-4xl mt-3">Want the <em>fine print?</em></h2>
+      <p class="mt-4 italic text-ink/70 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">FAQ covers points programmes, gifting, what counts toward a tier, and how invitations to the House tier are decided.</p>
+      <a href="faq.html#programmes" class="inline-block mt-6 btn btn-light">Read the FAQ</a>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>

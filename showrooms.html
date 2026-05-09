@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Showrooms — Tester.io</title>
+  <meta name="description" content="The Tester.io showrooms — Northampton workshop, Manila showroom, and visiting trunk shows worldwide." />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    (function () { try { var s = localStorage.getItem('theme'); var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; if ((s || (d?'dark':'light')) === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Montserrat','system-ui','sans-serif'], serif: ['"Cormorant Garamond"','Georgia','serif'] }, colors: { ink: '#2c2b29', paper: '#fff', stone: '#f4f1ec', border: '#e8e6e1', muted: '#8b8884', gold: { DEFAULT: '#C6A559', light: '#E6B979', deep: '#9c8240' } } } } };
+  </script>
+  <style>
+    .store-card { background: var(--c-paper); border: 1px solid var(--c-border); overflow: hidden; transition: transform 320ms cubic-bezier(0.22,1,0.36,1), box-shadow 320ms cubic-bezier(0.22,1,0.36,1); }
+    html.dark .store-card { background: #141414; border-color: #252422; }
+    .store-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-elev1); }
+    .store-card .img { aspect-ratio: 16 / 10; overflow: hidden; }
+    .store-card .img img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms cubic-bezier(0.22,1,0.36,1); }
+    .store-card:hover .img img { transform: scale(1.03); }
+    .store-card .body { padding: 24px 26px 30px; }
+    .store-card .city { font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 700; color: #C6A559; }
+    .store-card .name { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 1.85rem; letter-spacing: -0.01em; line-height: 1.05; margin: 8px 0 12px; color: var(--c-ink); }
+    .store-card dl { font-size: 0.84rem; line-height: 1.65; }
+    .store-card dl div { display: flex; gap: 14px; padding: 8px 0; border-top: 1px solid var(--c-border); }
+    html.dark .store-card dl div { border-top-color: #252422; }
+    .store-card dt { color: var(--c-muted); flex-shrink: 0; min-width: 80px; font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; padding-top: 2px; }
+    .store-card dd { color: var(--c-ink); }
+    html.dark .store-card dd { color: #e8e6e1; }
+  </style>
+</head>
+<body class="text-ink" data-page="showrooms.html">
+
+  <div data-site-header data-active="showrooms.html"></div>
+
+  <section class="page-hero">
+    <p class="page-hero__eyebrow"><span class="vol">Visit</span><span class="rule"></span><span>Showrooms &amp; Workshop</span></p>
+    <h1 class="page-hero__title">Come and <em>see for yourself.</em></h1>
+    <p class="page-hero__lede">Two permanent rooms — Manila and Northampton — and a quiet rotation of trunk shows. Each location is by appointment; we ask so you don't queue.</p>
+  </section>
+
+  <!-- Locations -->
+  <section class="page-section">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <article class="store-card reveal">
+        <div class="img"><img src="images/shoes/lifestyle-06.jpg" alt="Manila showroom"/></div>
+        <div class="body">
+          <p class="city">Manila · Philippines</p>
+          <h2 class="name">Salcedo Village Showroom</h2>
+          <p class="italic text-ink/75 dark:text-[rgba(232,230,225,0.7)] mb-5" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem;line-height:1.7">A first-floor room above a coffee shop, two streets from the park. The whole catalogue, in your size, with a kettle on.</p>
+          <dl>
+            <div><dt>Address</dt><dd>108 Tordesillas St, Salcedo Village,<br/>Makati 1227, Manila</dd></div>
+            <div><dt>Hours</dt><dd>Tue – Sat · 11:00 – 19:00<br/>By appointment Mondays</dd></div>
+            <div><dt>Phone</dt><dd>+63 2 8845 9921</dd></div>
+            <div><dt>Email</dt><dd>manila@tester.io</dd></div>
+          </dl>
+          <div class="mt-7 flex flex-wrap items-center gap-4">
+            <a href="contact.html" class="btn btn-dark">Book a fitting</a>
+            <a href="https://maps.apple.com/?q=Salcedo+Village+Makati" target="_blank" rel="noopener" class="text-[0.68rem] tracking-[0.28em] uppercase text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1 font-semibold">Open in maps →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="store-card reveal delay-1">
+        <div class="img"><img src="images/shoes/lifestyle-05.jpg" alt="Northampton workshop"/></div>
+        <div class="body">
+          <p class="city">Northampton · United Kingdom</p>
+          <h2 class="name">The Workshop</h2>
+          <p class="italic text-ink/75 dark:text-[rgba(232,230,225,0.7)] mb-5" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.04rem;line-height:1.7">Three rooms in a 1924 brick building. Cutting, lasting, and finishing — by appointment, with a maker walking you through each.</p>
+          <dl>
+            <div><dt>Address</dt><dd>14 Overstone Rd, Northampton<br/>NN1 3JR, United Kingdom</dd></div>
+            <div><dt>Hours</dt><dd>Wed – Fri · 10:00 – 17:00<br/>Sat · by appointment only</dd></div>
+            <div><dt>Phone</dt><dd>+44 1604 230 044</dd></div>
+            <div><dt>Email</dt><dd>workshop@tester.io</dd></div>
+          </dl>
+          <div class="mt-7 flex flex-wrap items-center gap-4">
+            <a href="contact.html" class="btn btn-dark">Book a visit</a>
+            <a href="https://maps.apple.com/?q=Overstone+Road+Northampton" target="_blank" rel="noopener" class="text-[0.68rem] tracking-[0.28em] uppercase text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1 font-semibold">Open in maps →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Trunk shows -->
+  <section class="page-section bg-stone dark:bg-[#141414]">
+    <div class="max-w-5xl mx-auto">
+      <p class="editorial-eyebrow"><span class="vol">N° 02</span><span class="rule"></span><span>Trunk Shows · 2026</span></p>
+      <h2 class="editorial-title text-3xl md:text-5xl mt-3 mb-10">On the <em>road.</em></h2>
+
+      <ul class="divide-y divide-border dark:divide-[#252422] border-t border-b border-border dark:border-[#252422]">
+        <li class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center py-6">
+          <div class="md:col-span-2"><p class="text-[#C6A559] font-bold tracking-[0.22em] text-[0.7rem] uppercase">May 22 – 24</p></div>
+          <div class="md:col-span-4"><h3 class="font-medium text-[1.05rem]">New York · Soho</h3><p class="italic text-ink/65 dark:text-[rgba(232,230,225,0.6)]" style="font-family:'Cormorant Garamond',Georgia,serif">at Bloodbrothers Boots, 109 Spring St</p></div>
+          <div class="md:col-span-4 italic text-ink/75 dark:text-[rgba(232,230,225,0.65)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem">Full catalogue, fittings, custom commissions on-site.</div>
+          <div class="md:col-span-2 md:text-right"><a href="contact.html" class="text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">Reserve →</a></div>
+        </li>
+        <li class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center py-6">
+          <div class="md:col-span-2"><p class="text-[#C6A559] font-bold tracking-[0.22em] text-[0.7rem] uppercase">Jul 04 – 05</p></div>
+          <div class="md:col-span-4"><h3 class="font-medium text-[1.05rem]">Tokyo · Aoyama</h3><p class="italic text-ink/65 dark:text-[rgba(232,230,225,0.6)]" style="font-family:'Cormorant Garamond',Georgia,serif">at Atelier Co., 5-3-2 Minami-Aoyama</p></div>
+          <div class="md:col-span-4 italic text-ink/75 dark:text-[rgba(232,230,225,0.65)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem">Capsule sample run, no fittings — appointment only.</div>
+          <div class="md:col-span-2 md:text-right"><a href="contact.html" class="text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">Reserve →</a></div>
+        </li>
+        <li class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center py-6">
+          <div class="md:col-span-2"><p class="text-[#C6A559] font-bold tracking-[0.22em] text-[0.7rem] uppercase">Sep 12 – 14</p></div>
+          <div class="md:col-span-4"><h3 class="font-medium text-[1.05rem]">Singapore · Tanglin</h3><p class="italic text-ink/65 dark:text-[rgba(232,230,225,0.6)]" style="font-family:'Cormorant Garamond',Georgia,serif">at Forum Shopping Centre, Level 3</p></div>
+          <div class="md:col-span-4 italic text-ink/75 dark:text-[rgba(232,230,225,0.65)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem">Full catalogue + made-to-order consultations.</div>
+          <div class="md:col-span-2 md:text-right"><a href="contact.html" class="text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">Reserve →</a></div>
+        </li>
+        <li class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center py-6">
+          <div class="md:col-span-2"><p class="text-[#C6A559] font-bold tracking-[0.22em] text-[0.7rem] uppercase">Nov 06 – 08</p></div>
+          <div class="md:col-span-4"><h3 class="font-medium text-[1.05rem]">Paris · Le Marais</h3><p class="italic text-ink/65 dark:text-[rgba(232,230,225,0.6)]" style="font-family:'Cormorant Garamond',Georgia,serif">at La Garçonnière, 40 Rue des Petits Champs</p></div>
+          <div class="md:col-span-4 italic text-ink/75 dark:text-[rgba(232,230,225,0.65)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem">Capsule with the Atelier Studio — invitation only.</div>
+          <div class="md:col-span-2 md:text-right"><a href="contact.html" class="text-[0.68rem] tracking-[0.28em] uppercase font-semibold text-[#9c8240] hover:text-[#C6A559] border-b border-[rgba(198,165,89,0.4)] pb-1">Request →</a></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sign up -->
+  <section class="page-section">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="editorial-eyebrow justify-center"><span class="vol">N° 03</span><span class="rule"></span><span>Be told first</span></p>
+      <h2 class="editorial-title text-3xl md:text-4xl mt-3">Hear when we're <em>in your city.</em></h2>
+      <p class="mt-4 italic text-ink/70 dark:text-[rgba(232,230,225,0.7)]" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;line-height:1.75">A short letter, six times a year, with the next dates. No marketing, just calendar entries.</p>
+      <form data-newsletter-form class="flex flex-col sm:flex-row gap-3 mt-7 max-w-md mx-auto">
+        <input type="email" name="email" required placeholder="Your email" class="flex-1 min-w-0 px-4 py-3 text-[0.86rem] bg-transparent border border-border dark:border-[#2a2a2a] outline-none focus:border-[#C6A559]"/>
+        <button type="submit" class="btn btn-dark whitespace-nowrap">Notify me</button>
+      </form>
+    </div>
+  </section>
+
+  <div data-site-footer></div>
+  <div data-site-cookie></div>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>
