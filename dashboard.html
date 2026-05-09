@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atelier Ledger — Tester.io</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" type="image/png" href="brand_assets/Tester%20Logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --cream:        #f4ecd8;
+      --cream-soft:   #fbf6e8;
+      --cream-deep:   #ece2c4;
+      --ink:          #2c2b29;
+      --ink-soft:     #5a4a3e;
+      --ink-mute:     rgba(44,43,41,0.55);
+      --gold:         #C6A559;
+      --gold-light:   #E6B979;
+      --gold-deep:    #9c8240;
+      --rule:         rgba(44,43,41,0.10);
+      --rule-strong:  rgba(44,43,41,0.18);
+      --danger:       #b85a4a;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(1200px 600px at 12% -10%, rgba(230,185,121,0.18), transparent 60%),
+        radial-gradient(900px 600px at 100% 110%, rgba(198,165,89,0.12), transparent 55%);
+      background-attachment: fixed;
+    }
+
+    /* Subtle paper grain — adds atelier-paper depth without being noisy */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.16 0 0 0 0 0.14 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      mix-blend-mode: multiply;
+    }
+
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ink-mute);
+    }
+    .gold-text { color: var(--gold-deep); }
+
+    /* ----- LOGIN VIEW ---------------------------------------------------- */
+    .login-wrap {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 20px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--cream-soft);
+      border: 1px solid var(--rule-strong);
+      padding: 56px 48px 48px;
+      position: relative;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.7) inset,
+        0 30px 60px -30px rgba(44,43,41,0.18),
+        0 6px 18px -10px rgba(198,165,89,0.30);
+    }
+    /* Hairline gold corner brackets */
+    .login-card::before,
+    .login-card::after {
+      content: "";
+      position: absolute;
+      width: 18px; height: 18px;
+      border: 1px solid var(--gold);
+    }
+    .login-card::before { top: -1px; left: -1px;  border-right: 0; border-bottom: 0; }
+    .login-card::after  { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+    .login-mark {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .login-mark .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: linear-gradient(180deg, var(--gold-light), var(--gold-deep));
+    }
+    .login-card h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin: 8px 0 14px;
+      color: var(--ink);
+    }
+    .login-card h1 em { font-style: italic; color: var(--gold-deep); }
+    .login-card .lead {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      max-width: 36ch;
+      margin: 0 0 32px;
+    }
+
+    .field { position: relative; margin-bottom: 18px; }
+    .field input {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--rule-strong);
+      padding: 22px 0 10px;
+      font: inherit;
+      font-size: 0.98rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 240ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .field input::placeholder { color: transparent; }
+    .field label {
+      position: absolute;
+      left: 0; top: 22px;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      pointer-events: none;
+      transform-origin: left top;
+      transition: transform 320ms cubic-bezier(0.22,1,0.36,1),
+                  color 240ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .field input:focus {
+      border-bottom-color: var(--gold);
+    }
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label {
+      transform: translate(0, -18px) scale(0.82);
+      color: var(--gold-deep);
+    }
+
+    .btn-access {
+      margin-top: 20px;
+      width: 100%;
+      background: var(--ink);
+      color: var(--cream);
+      border: 1px solid var(--ink);
+      padding: 16px 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 220ms cubic-bezier(0.22,1,0.36,1),
+                  background 220ms cubic-bezier(0.22,1,0.36,1),
+                  color 220ms cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 220ms cubic-bezier(0.22,1,0.36,1);
+      will-change: transform;
+    }
+    .btn-access:hover {
+      background: linear-gradient(180deg, #34322f, #1f1d1b);
+      color: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px -14px rgba(44,43,41,0.45),
+                  0 0 0 1px rgba(230,185,121,0.4);
+    }
+    .btn-access:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .btn-access:active { transform: translateY(0); }
+    .btn-access[disabled] { opacity: 0.55; cursor: progress; }
+
+    .login-footnote {
+      margin-top: 22px;
+      font-size: 0.7rem;
+      color: var(--ink-mute);
+      letter-spacing: 0.04em;
+    }
+    .err {
+      color: var(--danger);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      margin-top: 14px;
+      min-height: 1em;
+    }
+
+    /* ----- LEDGER VIEW --------------------------------------------------- */
+    .ledger { position: relative; z-index: 1; }
+    .ledger-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 22px clamp(20px, 4vw, 56px);
+      border-bottom: 1px solid var(--rule);
+      background: rgba(251,246,232,0.7);
+      backdrop-filter: blur(6px);
+      position: sticky; top: 0; z-index: 5;
+    }
+    .ledger-mark {
+      display: flex; align-items: baseline; gap: 14px;
+    }
+    .ledger-mark .num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold-deep);
+    }
+    .ledger-mark h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.55rem;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .ledger-actions {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .pill {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 500;
+      padding: 8px 14px;
+      border: 1px solid var(--rule-strong);
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: transform 180ms cubic-bezier(0.22,1,0.36,1),
+                  background 180ms cubic-bezier(0.22,1,0.36,1),
+                  color 180ms cubic-bezier(0.22,1,0.36,1),
+                  border-color 180ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .pill:hover { color: var(--ink); border-color: var(--ink); }
+    .pill[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--gold-light);
+      border-color: var(--ink);
+    }
+    .count {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink-soft);
+      padding: 0 6px;
+    }
+    .count strong {
+      font-family: 'Montserrat', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    .btn-logout {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase;
+      font-weight: 500;
+      background: transparent;
+      border: 1px solid var(--rule-strong);
+      color: var(--ink-soft);
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+    .btn-logout:hover { color: var(--danger); border-color: var(--danger); }
+
+    .ledger-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px clamp(20px, 4vw, 56px) 80px;
+    }
+    .ledger-meta {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 18px; flex-wrap: wrap;
+      margin: 6px 0 22px;
+    }
+    .ledger-meta h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .ledger-meta h1 em { font-style: italic; color: var(--gold-deep); }
+    .ledger-meta p {
+      margin: 0; max-width: 52ch;
+      color: var(--ink-soft);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.04rem; line-height: 1.7;
+    }
+
+    /* Table — uses CSS grid for responsive cells with no scroll on desktop */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: var(--cream-soft);
+      border: 1px solid var(--rule);
+    }
+    .table thead th {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ink-mute);
+      text-align: left;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--rule-strong);
+      background: rgba(236,226,196,0.45);
+      vertical-align: middle;
+    }
+    .table tbody tr {
+      border-bottom: 1px solid var(--rule);
+      transition: background 200ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .table tbody tr:hover {
+      background: rgba(230,185,121,0.07);
+    }
+    .table tbody tr.is-open {
+      background: rgba(230,185,121,0.10);
+    }
+    .table td {
+      padding: 18px;
+      vertical-align: top;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+    .table td.idx {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      color: var(--gold-deep);
+      font-size: 0.95rem;
+      width: 56px;
+    }
+    .table td.date {
+      font-family: 'Montserrat', sans-serif;
+      font-feature-settings: "tnum";
+      color: var(--ink-soft);
+      width: 132px;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+    }
+    .table td.name { width: 180px; font-weight: 500; }
+    .table td.email { width: 220px; color: var(--ink-soft); word-break: break-word; }
+    .table td.email a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
+    .table td.email a:hover { border-bottom-color: var(--gold); }
+    .table td.msg {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.6;
+      cursor: pointer;
+    }
+    .table td.msg .preview {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .table td.flags { width: 150px; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 500;
+      padding: 4px 10px;
+      border: 1px solid var(--rule-strong);
+      background: var(--cream);
+      color: var(--ink-soft);
+    }
+    .badge .swatch {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ink-mute);
+    }
+    .badge.s-pending  .swatch { background: #c9a86a; }
+    .badge.s-replied  .swatch { background: #5b8c6c; }
+    .badge.s-archived .swatch { background: var(--ink-mute); }
+    .badge.s-spam     .swatch { background: var(--danger); }
+    .badge.s-replied  { color: var(--ink); border-color: rgba(91,140,108,0.4); }
+    .badge.s-spam     { color: var(--danger); border-color: rgba(184,90,74,0.4); }
+
+    .news {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .news .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .news.opted-in { color: var(--gold-deep); }
+
+    .row-detail td {
+      background: rgba(236,226,196,0.4);
+      border-top: 1px dashed var(--rule-strong);
+      padding: 22px 26px 26px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+    .row-detail .meta {
+      margin-top: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-style: normal;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-mute);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 24px;
+    }
+    .row-detail .meta b {
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.62rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .empty {
+      padding: 80px 20px;
+      text-align: center;
+      color: var(--ink-mute);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    /* Loader */
+    .loading {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--ink-mute);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 880px) {
+      .table thead { display: none; }
+      .table, .table tbody, .table tr, .table td { display: block; width: 100% !important; }
+      .table tbody tr { padding: 18px 16px; }
+      .table td { padding: 4px 0; border: 0; }
+      .table td.idx { display: inline-block; width: auto; margin-right: 8px; }
+      .table td.date { display: inline-block; width: auto; }
+      .table td.name { font-size: 1.05rem; margin-top: 6px; }
+      .table td.msg { margin: 6px 0; }
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN VIEW -->
+<main id="login-view" class="login-wrap hidden">
+  <section class="login-card" aria-labelledby="login-title">
+    <div class="login-mark">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="eyebrow">Tester &middot; <span class="gold-text">Atelier</span></span>
+    </div>
+
+    <h1 id="login-title">Atelier <em>Ledger</em></h1>
+    <p class="lead">A private view of every note that has reached the atelier. Sign in to continue.</p>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <input type="password" id="password" name="password" placeholder=" " autocomplete="current-password" required />
+        <label for="password">Password</label>
+      </div>
+      <button type="submit" class="btn-access" id="login-submit">Access Dashboard</button>
+      <p id="login-error" class="err" role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="login-footnote">By appointment of the studio.</p>
+  </section>
+</main>
+
+<!-- LEDGER VIEW -->
+<main id="ledger-view" class="ledger hidden">
+  <header class="ledger-bar">
+    <div class="ledger-mark">
+      <span class="num">N&deg; 02</span>
+      <h2>The Atelier Ledger</h2>
+    </div>
+    <div class="ledger-actions">
+      <button class="pill" data-filter="all" aria-pressed="true">All</button>
+      <button class="pill" data-filter="pending">Pending</button>
+      <button class="pill" data-filter="replied">Replied</button>
+      <button class="pill" data-filter="archived">Archived</button>
+      <button class="pill" data-filter="spam">Spam</button>
+      <span class="count" aria-live="polite"><strong id="row-count">0</strong> notes</span>
+      <button class="btn-logout" id="logout-btn" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <div class="ledger-body">
+    <div class="ledger-meta">
+      <div>
+        <p class="eyebrow" style="margin-bottom: 8px;">A private register</p>
+        <h1>Notes <em>received</em></h1>
+      </div>
+      <p>Every message left through the contact form, in the order they arrived. Click any note to read it in full.</p>
+    </div>
+
+    <div id="ledger-loading" class="loading">Reading the ledger&hellip;</div>
+    <div id="ledger-empty" class="empty hidden">The ledger is empty.</div>
+    <table id="submissions-table" class="table hidden">
+      <thead>
+        <tr>
+          <th class="idx">N&deg;</th>
+          <th class="date">Received</th>
+          <th class="name">Name</th>
+          <th class="email">Email</th>
+          <th class="msg">Message</th>
+          <th class="flags">News &middot; Status</th>
+        </tr>
+      </thead>
+      <tbody id="submissions-body"></tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+  const $ = (sel) => document.querySelector(sel);
+
+  const loginView = $('#login-view');
+  const ledgerView = $('#ledger-view');
+  const loginForm = $('#login-form');
+  const loginErr = $('#login-error');
+  const loginSubmit = $('#login-submit');
+  const passwordInput = $('#password');
+
+  function showLogin(message) {
+    ledgerView.classList.add('hidden');
+    loginView.classList.remove('hidden');
+    if (message) loginErr.textContent = message;
+    setTimeout(() => passwordInput.focus(), 50);
+  }
+  function showLedger() {
+    loginView.classList.add('hidden');
+    ledgerView.classList.remove('hidden');
+    loadSubmissions();
+  }
+
+  // ---- bootstrap ---------------------------------------------------------
+  async function init() {
+    try {
+      const r = await fetch('/api/admin/session', { credentials: 'same-origin' });
+      const j = await r.json();
+      if (!j.configured) {
+        showLogin('Admin auth is not configured on the server. Set DASHBOARD_PASSWORD and DASHBOARD_SESSION_SECRET in .env, then restart.');
+        loginSubmit.disabled = true;
+        return;
+      }
+      if (j.authenticated) showLedger();
+      else showLogin('');
+    } catch (e) {
+      showLogin('Unable to reach the server. Is `node server.js` running?');
+    }
+  }
+
+  // ---- login -------------------------------------------------------------
+  loginForm.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    loginErr.textContent = '';
+    const password = passwordInput.value;
+    if (!password) { loginErr.textContent = 'Enter a password.'; return; }
+
+    loginSubmit.disabled = true;
+    const original = loginSubmit.textContent;
+    loginSubmit.textContent = 'Opening…';
+
+    try {
+      const r = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ password }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || 'Sign-in failed.');
+      passwordInput.value = '';
+      showLedger();
+    } catch (e) {
+      loginErr.textContent = e.message || 'Sign-in failed.';
+    } finally {
+      loginSubmit.disabled = false;
+      loginSubmit.textContent = original;
+    }
+  });
+
+  // ---- logout ------------------------------------------------------------
+  $('#logout-btn').addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
+    showLogin('Signed out.');
+  });
+
+  // ---- submissions -------------------------------------------------------
+  let allRows = [];
+  let activeFilter = 'all';
+
+  async function loadSubmissions() {
+    const tableEl = $('#submissions-table');
+    const bodyEl = $('#submissions-body');
+    const loadingEl = $('#ledger-loading');
+    const emptyEl = $('#ledger-empty');
+
+    tableEl.classList.add('hidden');
+    emptyEl.classList.add('hidden');
+    loadingEl.classList.remove('hidden');
+    bodyEl.innerHTML = '';
+
+    try {
+      const r = await fetch('/api/admin/submissions', { credentials: 'same-origin' });
+      if (r.status === 401) { showLogin('Your session has expired. Please sign in again.'); return; }
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || 'Could not load submissions.');
+      allRows = Array.isArray(j.rows) ? j.rows : [];
+      render();
+    } catch (e) {
+      loadingEl.textContent = e.message || 'Could not load submissions.';
+    }
+  }
+
+  function render() {
+    const tableEl = $('#submissions-table');
+    const bodyEl = $('#submissions-body');
+    const loadingEl = $('#ledger-loading');
+    const emptyEl = $('#ledger-empty');
+
+    const filtered = activeFilter === 'all'
+      ? allRows
+      : allRows.filter((r) => r.reply_status === activeFilter);
+
+    $('#row-count').textContent = filtered.length;
+    loadingEl.classList.add('hidden');
+    bodyEl.innerHTML = '';
+
+    if (!filtered.length) {
+      tableEl.classList.add('hidden');
+      emptyEl.classList.remove('hidden');
+      emptyEl.textContent = activeFilter === 'all'
+        ? 'The ledger is empty.'
+        : 'No notes with this status.';
+      return;
+    }
+    emptyEl.classList.add('hidden');
+    tableEl.classList.remove('hidden');
+
+    filtered.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      tr.dataset.id = row.id;
+      tr.innerHTML = `
+        <td class="idx">${String(filtered.length - i).padStart(2, '0')}</td>
+        <td class="date">${fmtDate(row.created_at)}</td>
+        <td class="name">${escapeHtml(row.name || '—')}</td>
+        <td class="email"><a href="mailto:${escapeAttr(row.email)}">${escapeHtml(row.email)}</a></td>
+        <td class="msg"><span class="preview">${escapeHtml(row.message || '')}</span></td>
+        <td class="flags">
+          ${badge(row.reply_status)}
+          <div style="margin-top:6px"></div>
+          ${newsletterBadge(row)}
+        </td>`;
+      bodyEl.appendChild(tr);
+
+      const detail = document.createElement('tr');
+      detail.className = 'row-detail hidden';
+      detail.innerHTML = `<td colspan="6">
+        “${escapeHtml(row.message || '')}”
+        <div class="meta">
+          <div><b>Submission ID</b>${row.id}</div>
+          <div><b>Received</b>${fmtDateLong(row.created_at)}</div>
+          <div><b>Newsletter status</b>${escapeHtml(row.newsletter_status || '—')}</div>
+          <div><b>Follow-up step</b>${row.followup_step ?? 0}</div>
+          <div><b>Last follow-up</b>${row.last_followup_sent_at ? fmtDateLong(row.last_followup_sent_at) : '—'}</div>
+          <div><b>IP</b>${escapeHtml(row.ip || '—')}</div>
+          <div style="grid-column: 1 / -1;"><b>User agent</b>${escapeHtml(row.user_agent || '—')}</div>
+        </div>
+      </td>`;
+      bodyEl.appendChild(detail);
+
+      tr.querySelector('.msg').addEventListener('click', () => {
+        const open = !detail.classList.contains('hidden');
+        detail.classList.toggle('hidden', open);
+        tr.classList.toggle('is-open', !open);
+      });
+    });
+  }
+
+  // ---- filters -----------------------------------------------------------
+  document.querySelectorAll('.pill[data-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pill[data-filter]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  // ---- helpers -----------------------------------------------------------
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { month: 'short', day: '2-digit' })
+      + ' · ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+  }
+  function fmtDateLong(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleString(undefined, {
+      year: 'numeric', month: 'short', day: '2-digit',
+      hour: '2-digit', minute: '2-digit',
+    });
+  }
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+  function escapeAttr(s) { return escapeHtml(s).replace(/\s/g, ''); }
+  function badge(status) {
+    const safe = ['pending','replied','archived','spam'].includes(status) ? status : 'pending';
+    return `<span class="badge s-${safe}"><span class="swatch"></span>${safe}</span>`;
+  }
+  function newsletterBadge(row) {
+    if (!row.newsletter) return `<span class="news"><span class="dot"></span>no opt-in</span>`;
+    const cls = row.newsletter_status === 'subscribed' ? ' opted-in' : '';
+    return `<span class="news${cls}"><span class="dot"></span>${escapeHtml(row.newsletter_status || 'pending')}</span>`;
+  }
+
+  init();
+</script>
+</body>
+</html>
